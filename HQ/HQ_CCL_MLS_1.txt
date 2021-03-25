@@ -271,8 +271,8 @@ interface vlan 10
  standby 10 ipv6 2001:db8:0:10::1/64
  standby 10 priority 110
  standby 10 preempt
- standby 10 track 15 g1/0/23
- standby 10 track 15 g1/0/24
+ standby 10 track interface g1/0/23 15
+ standby 10 track interface g1/0/24 15
 !
 interface vlan 20
  ipv6 enable
@@ -280,8 +280,8 @@ interface vlan 20
  standby 20 ipv6 2001:db8:0:20::1/64
  standby 20 priority 90
  standby 20 preempt
- standby 20 track g1/0/23
- standby 20 track g1/0/24
+ standby 20 track interface g1/0/23
+ standby 20 track interface g1/0/24
 !
 interface vlan 90
  ipv6 enable
@@ -289,8 +289,8 @@ interface vlan 90
  standby 90 ipv6 2001:db8:0:90::1/64
  standby 90 priority 110
  standby 90 preempt
- standby 90 track 15 g1/0/23
- standby 90 track 15 g1/0/24
+ standby 90 track interface g1/0/23 15
+ standby 90 track interface g1/0/24 15
 !
 interface vlan 100
  ipv6 enable
@@ -298,8 +298,8 @@ interface vlan 100
  standby 100 ipv6 2001:db8:0:100::1/64
  standby 100 priority 90
  standby 100 preempt
- standby 100 track g1/0/23
- standby 100 track g1/0/24
+ standby 100 track interface g1/0/23
+ standby 100 track interface g1/0/24
 !
 interface vlan 200
  ipv6 enable
@@ -307,8 +307,8 @@ interface vlan 200
  standby 200 ipv6 2001:db8:0:200::1/64
  standby 200 priority 110
  standby 200 preempt
- standby 200 track 15 g1/0/23
- standby 200 track 15 g1/0/24
+ standby 200 track interface g1/0/23 15
+ standby 200 track interface g1/0/24 15
 !
 !
 interface port-channel 1
