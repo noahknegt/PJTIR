@@ -263,6 +263,8 @@ interface port-channel 2
  switchport trunk allowed vlan remove 998 
 !
 !
+snmp-server group group4 v3 priv
+snmp-server user user group4 2001:db8:0:100::/64 v3 auth sha cisco priv access aes256 
 !
 !
 line con 0
