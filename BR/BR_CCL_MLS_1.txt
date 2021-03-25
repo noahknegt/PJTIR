@@ -1,1 +1,7 @@
-asdsaas
+hostname BR_CCL_MLS_1
+!
+!
+!
+snmp-server group group4 v3 priv
+snmp-server user user group4 2001:db8:0:100::/64 v3 auth sha cisco priv access aes256
+!
