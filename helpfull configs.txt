@@ -1,0 +1,96 @@
+<============ STP ============>
+
+S4(config-if)#spanning-tree portfast
+S4(config)#spanning-tree portfast bpduguard default
+S4(config)#spanning-tree uplinkfast
+S4(config)#spanning-tree backbonefast
+S4(config-if)#spanning-tree guard root
+S4(config-if)#spanning-tree guard loop
+S1(config-if-range)# storm-control broadcast level 50
+S1(config-if)# storm-control action shutdown
+
+<==============================>
+
+<============ HSRP ============>
+
+SwitchA(config#)spanning-tree vlan 10 root primary
+SwitchA(config#)spanning-tree vlan 20 root secondary
+
+SwitchA(config#)interface vlan 10
+SwitchA(config-if#)ip address 10.1.10.2 255.255.255.0
+SwitchA(config-if#)standby 10 ip 10.1.10.1
+SwitchA(config-if#)standby 10 priority 110
+SwitchA(config-if#)standby 10 preempt
+
+SwitchA(config#)interface vlan 20
+SwitchA(config-if#)ip address 10.1.20.2 255.255.255.0
+SwitchA(config-if#)standby 20 ip 10.1.20.1
+SwitchA(config-if#)standby 20 priority 90
+SwitchA(config-if#)standby 20 preempt
+
+S1(config-if)# standby 10 track fa0/23  20 
+S1(config-if)# standby 10 track fa0/24 
+
+<==================================>
+
+<============ PORT-SEC ============>
+
+Switch(config-if)#switchport port-security
+
+!Define max number of MAC-adressen
+Switch(config-if)#switchport port-security maximum 1
+
+!Stick only the first mac-address in the table
+Switch(config-if)#switchport port-security mac-address sticky
+
+!Define what to do if the frame contains a different mac-address:
+Switch(config-if)#switchport port-security violation restrict
+
+Switch(config-if)#switchport port-security aging time 5 (in min)
+
+<==================================>
+
+<============ VLAN-SEC ============>
+
+S1(config)#vlan 800   	  // create a new VLAN to be used as the native VLAN for the trunk
+S1(config-vlan)# name NATIVE // name it, not required
+S1(config)#int fa0/1	  // trunk port to S2
+S1(config-if)#switchport trunk encap dot1q
+S1(config-if)#switchport mode trunk
+S1(config-if)#switchport trunk native vlan 800  // the native VLAN id of this port is now 800 
+S1(config-if)#switchport trunk allowed vlan remove 800 // prune it off the trunk, so a tag with this VLAN id will never pass the trunk. NB, the native VLAN tag gets stripped off  so the native VLAN id will never be sent (both sides known which is the native VLAN id).
+
+S1(config)#vlan 999   	  // create a new VLAN to be used as the blackhole vlan for unused ports
+S1(config-vlan)# name BLACKHOLE // name it, not required
+S1(config)#int fa0/0	  // this is the access port to the attacker
+S1(config-if)#switchport mode access
+S1(config-if)#switchport access vlan 999
+S1(config-if)#shutdown
+
+<==================================>
+
+<============== PAgP ==============>
+
+S1(config)# interface range fa0/1 - 2 
+S1(config-if-range)# switchport mode trunk 
+S1(config-if-range)# switchport trunk native vlan 999
+S1(config-if-range)# switchport trunk allowed vlan 10,20, 999
+S1(config-if-range)#channel-protocol pagp
+S1(config-if-range)#channel-group 1 mode on
+
+S1(config)# interface port-channel 1 
+S1(config-if)# switchport mode trunk
+S1(config-if)# switchport trunk native vlan 999
+S1(config-if)# switchport trunk allowed vlan 10,20, 999
+
+
+S1(config)#interface range fa0/1-2
+S1(config-if-range)#no switchport
+S1(config-if-range)#channel-group 1 mode desirable
+S1(config-if-range)#no shutdown
+S1(config-if-range)#exit
+
+S1(config)#interface port-channel 1
+S1(config-if)#ip address 10.0.0.1 255.255.255.0
+
+<==================================>

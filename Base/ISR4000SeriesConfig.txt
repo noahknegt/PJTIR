@@ -1,0 +1,174 @@
+Router#sho run
+Building configuration...
+
+
+Current configuration : 3626 bytes
+!
+! Last configuration change at 13:36:27 UTC Fri Feb 12 2021
+!
+version 16.9
+service timestamps debug datetime msec
+service timestamps log datetime msec
+platform qfp utilization monitor load 80
+no platform punt-keepalive disable-kernel-core
+!
+hostname Router
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+!
+no aaa new-model
+!
+ip admission watch-list expiry-time 0
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3455310306
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3455310306
+ revocation-check none
+ rsakeypair TP-self-signed-3455310306
+!
+!
+crypto pki certificate chain TP-self-signed-3455310306
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274
+  69666963 6174652D 33343535 33313033 3036301E 170D3231 30323132 31333336
+  32355A17 0D333030 31303130 30303030 305A3031 312F302D 06035504 03132649
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 34353533
+  31303330 36308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201
+  0A028201 0100AFA0 8EF8A4BE 97AB2D79 8E65E0CA 280FCE98 B777E496 32A212EA
+  8A23A358 1C357E34 40BD977F C7CA918B 8BDC355C 5594CF42 03935F7D A6D5CF1B
+  2DBE9599 C3A62D7D B0112613 0C641C9B DB0141A7 CA27BBA3 E3AC1D6B 775593B8
+  7733E6EB 5EC50D3B 3D5C4256 267636E8 4D7440A9 EF5173DA 741247B3 F17C4A14
+  402A12D4 E76C86B3 93DA75F7 DB1E9EED 70E34599 0708B358 C6A14BBC 32FB538C
+  9E868B49 4497279C F0591B01 443ACBFB 1787A049 FEE29F1C 7D828E5D 19FCFDF3
+  6F3068B2 A78BBF8E 305AB71B 07160E51 42BF0298 6C58CECC EB7A8801 181C7408
+  526D876F EDB0AF7B 406B2770 41778AC0 5F8CAD03 4176B476 6C0827A7 06F9722C
+  9C00B96B 93AD0203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF
+  301F0603 551D2304 18301680 14C0EF52 E3411BFD DE50D24B 6FE525EE D6AC705F
+  EC301D06 03551D0E 04160414 C0EF52E3 411BFDDE 50D24B6F E525EED6 AC705FEC
+  300D0609 2A864886 F70D0101 05050003 82010100 798C6679 79C8F202 96F759AF
+  204C8466 3C2D8DB9 ACB0D5C5 7DB4537A 41DF1EE8 2D3BFE73 62389218 73075C90
+  60C99DD0 FD44AE14 5D0DEDCB CC0A8FC5 F04CC066 E859630F 6BE67B54 5F8E94FE
+  FF0B93E0 79CD7EE9 6ADD6A65 F4F5A034 57C7F291 0574904D 1E57A58F 915CA40C
+  4742049E A244E260 2E3E4953 0244469A 6BCAE3DE 9CE83A72 84DE1855 4ACAA687
+  DA3FB545 8A034928 EFCEDA19 9F922964 1FC2B624 6FA4B626 E5D71D20 67196612
+  4F83DD4F A642F8AB 883EB3CA 331BB697 4AFA0B61 1E50E6ED 5ABCE27E C44EE44A
+  0A4FC825 5F5ECAC8 5A40BB11 1A60E71E C34BA779 BA7ED135 B54D2031 21226836
+  38462420 53AD7FC2 37EDDCF6 ACDD1B84 5C3A5887
+        quit
+!
+license udi pid ISR4331/K9 sn FDO224239HQ
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+!
+!
+redundancy
+ mode none
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0/0
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet0/0/1
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet0/0/2
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface Serial0/1/0
+!
+interface Serial0/1/1
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ no ip address
+ shutdown
+ negotiation auto
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+ip tftp source-interface GigabitEthernet0
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ transport input none
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ login
+!
+!
+!
+!
+!
+!
+end
