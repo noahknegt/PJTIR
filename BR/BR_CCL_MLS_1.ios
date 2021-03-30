@@ -233,6 +233,52 @@ interface vlan 200
 !
 !
 !
+ipv6 access-list IT-OUT
+permit ipv6 2001:db8:0:100::/64 any
+permit icmp 2001:db8:0:100::/64 any echo-request
+ipv6 access-list IT-IN
+permit icmp 2001:db8:0:100::/64 2001:db8::/48 echo-reply
+deny icmp 2001:db8:0:100::/64 any echo-reply
+ipv6 access-list HR-OUT
+permit ipv6 2001:db8:0:10::/64 2001:db8:0:10::/64
+permit ipv6 2001:db8:0:10::/64 2001:db8:0:90::/64
+permit tcp 2001:db8:0:10::/64 2001:db8:0:100::/64 established
+permit icmp 2001:db8:0:10::/64 2001:db8:0:10::/64 echo-request
+deny icmp 2001:db8:0:10::/64 2001:db8::/48 echo-request
+permit icmp 2001:db8:0:10::/64 any echo-request
+deny ipv6 2001:db8:0:10::/64 2001:db8::/48
+permit ipv6 2001:db8:0:10::/64 any
+ipv6 access-list HR-IN
+permit icmp 2001:db8:0:10::/64 2001:db8::/48 echo-reply
+deny icmp 2001:db8:0:10::/64 any echo-reply
+ipv6 access-list Sales-OUT
+permit ipv6 2001:db8:0:20::/64 2001:db8:0:20::/64
+permit ipv6 2001:db8:0:20::/64 2001:db8:0:90::/64
+permit tcp 2001:db8:0:20::/64 2001:db8:0:100::/64 established
+permit icmp 2001:db8:0:20::/64 2001:db8:0:20::/64 echo-request
+deny icmp 2001:db8:0:20::/64 2001:db8::/48 echo-request
+permit icmp 2001:db8:0:20::/64 any echo-request
+deny ipv6 2001:db8:0:20::/64 2001:db8::/48
+permit ipv6 2001:db8:0:20::/64 any
+ipv6 access-list Sales-IN
+permit icmp 2001:db8:0:20::/64 2001:db8::/48 echo-reply
+deny icmp 2001:db8:0:20::/64 any echo-reply
+ipv6 access-list Servers-OUT
+permit ipv6 2001:db8:0:90::/64 2001:db8::/48
+deny ipv6 2001:db8:0:90::/64 2001:db8::/48
+permit ipv6 2001:db8:0:90::/64 any
+ipv6 access-list Servers-IN
+permit icmp 2001:db8:0:90::/64 2001:db8::/48 echo-reply
+deny icmp 2001:db8:0:90::/64 any echo-reply
+ipv6 access-list Guests-OUT
+deny icmp 2001:db8:0:200::/64 2001:db8::/48 echo-request
+permit icmp 2001:db8:0:200::/64 any echo-request
+permit ipv6 2001:db8:0:200::/64 host 2001:db8:0:90::7 eq 53
+deny ipv6 2001:db8:0:200::/64 2001:db8::/48
+permit ipv6 2001:db8:0:200::/64 any
+ipv6 access-list Guests-IN
+deny ipv6 2001:db8:0:200::/64 2001:db8:0:200::/64
+deny icmp 2001:db8:0:200::/64 any echo-reply
 !
 !
 ip forward-protocol nd
