@@ -1,1 +1,341 @@
-asdasd
+hostname BR_AL_SW_1
+!
+!
+!
+username user priv 15 password cisco
+enable secret class
+!
+no ip domain-lookup
+ip domain-name hhs.nl
+!
+aaa new-model
+aaa authentication login MGT local
+aaa authentication enable default enable
+aaa authorization exec default local
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree uplinkfast
+!
+!
+vlan 10
+name HQ
+Vlan 20
+name Sales
+vlan 90
+name Servers
+vlan 100
+name IT
+vlan 200
+name Guests
+vlan 998
+name NATIVE
+vlan 999
+name VOID
+!
+!
+ipv4 access-list NoIPv4
+deny ip any any
+permit ipv6 any any
+!
+!
+!
+!
+interface f0/1
+switchport mode trunk
+switchport trunk native vlan 998
+switchport trunk allowed vlan remove 998
+channel-protocol pagp
+channel-group 1 mode auto
+no shutdown
+!
+interface f0/2
+switchport mode trunk
+switchport trunk native vlan 998
+switchport trunk allowed vlan remove 998
+channel-protocol pagp
+channel-group 1 mode auto
+no shutdown
+!
+interface f0/3
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
+spanning-tree portfast
+switchport mode access
+switchport access vlan 100
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+no shutdown
+!
+interface f0/4
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
+spanning-tree portfast
+switchport mode access
+switchport access vlan 100
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+no shutdown
+!
+interface f0/5
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
+spanning-tree portfast
+switchport mode access
+switchport access vlan 100
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+no shutdown
+!
+interface f0/6
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
+spanning-tree portfast
+switchport mode access
+switchport access vlan 10
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+no shutdown
+!
+interface f0/7
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
+spanning-tree portfast
+switchport mode access
+switchport access vlan 20
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+no shutdown
+!
+interface f0/8
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+shutdown
+!
+interface f0/9
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+shutdown
+!
+interface f0/10
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+shutdown
+!
+interface f0/11
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+shutdown
+!
+interface f0/12
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+shutdown
+!
+interface f0/13
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+shutdown
+!
+interface f0/14
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+shutdown
+!
+interface f0/15
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+shutdown
+!
+interface f0/16
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+shutdown
+!
+interface f0/17
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+shutdown
+!
+interface f0/18
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+shutdown
+!
+interface f0/19
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+shutdown
+!
+interface f0/20
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+shutdown
+!
+interface f0/21
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+shutdown
+!
+interface f0/22
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+shutdown
+!
+interface f0/23
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+shutdown
+!
+interface f0/24
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+shutdown
+!
+interface port-channel 1
+ switchport mode trunk
+ switchport trunk native vlan 998
+ switchport trunk allowed vlan remove 998 
+!
+!
+!
+!
+!
+line con 0
+  login authentication default
+  authorization exec default
+  exec-timeout 60
+  logging synchronous
+line aux 0
+ stopbits 1
+line vty 0 4
+  transport input ssh
+  login authentication MGT
+  authorization exec default
+  exec-timeout 60
+  logging synchronous
+line vty 5 15
+  transport input ssh
+  login authentication MGT
+  authorization exec default
+  exec-timeout 60
+  logging synchronous
+!
+!
+!
+!
+crypto key zeroize rsa
+crypto key generate rsa
