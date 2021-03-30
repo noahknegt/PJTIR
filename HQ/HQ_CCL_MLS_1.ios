@@ -293,6 +293,7 @@ permit ipv6 2001:db8:0:100::/64 any
 permit icmp 2001:db8:0:100::/64 any echo-request
 ipv6 access-list IT-IN
 permit icmp 2001:db8:0:100::/64 2001:db8::/48 echo-reply
+permit udp any any
 ipv6 access-list HR-OUT
 permit ipv6 2001:db8:0:10::/64 2001:db8:0:10::/64
 permit ipv6 2001:db8:0:10::/64 2001:db8:0:90::/64
@@ -304,6 +305,7 @@ deny ipv6 2001:db8:0:10::/64 2001:db8::/48
 permit ipv6 2001:db8:0:10::/64 any
 ipv6 access-list HR-IN
 permit icmp 2001:db8:0:10::/64 any echo-reply
+permit udp any any
 ipv6 access-list Sales-OUT
 permit ipv6 2001:db8:0:20::/64 2001:db8:0:20::/64
 permit ipv6 2001:db8:0:20::/64 2001:db8:0:90::/64
@@ -315,6 +317,7 @@ deny ipv6 2001:db8:0:20::/64 2001:db8::/48
 permit ipv6 2001:db8:0:20::/64 any
 ipv6 access-list Sales-IN
 permit icmp 2001:db8:0:20::/64 any echo-reply
+permit udp any any
 ipv6 access-list Servers-OUT
 permit ipv6 2001:db8:0:90::/64 2001:db8::/48
 deny ipv6 2001:db8:0:90::/64 2001:db8::/48
