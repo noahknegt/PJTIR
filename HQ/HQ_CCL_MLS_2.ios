@@ -222,6 +222,7 @@ interface Vlan1
 interface vlan 10
  ipv6 enable
  ipv6 address 2001:db8:0:10::3/64
+ ipv6 address FE80::10:3 link-local
  ipv6 traffic-filter HR-OUT out
  ipv6 traffic-filter HR-IN in
   standby version 2
@@ -234,6 +235,7 @@ interface vlan 10
 interface vlan 20
  ipv6 enable
  ipv6 address 2001:db8:0:20::3/64
+ ipv6 address FE80::20:3 link-local
  ipv6 traffic-filter Sales-OUT out
  ipv6 traffic-filter Sales-IN in
   standby version 2
@@ -246,6 +248,7 @@ interface vlan 20
 interface vlan 90
  ipv6 enable
  ipv6 address 2001:db8:0:90::3/64
+ ipv6 address FE80::90:3 link-local
  ipv6 traffic-filter Servers-OUT out
  ipv6 traffic-filter Servers-IN in
   standby version 2
@@ -258,6 +261,7 @@ interface vlan 90
 interface vlan 100
  ipv6 enable
  ipv6 address 2001:db8:0:100::3/64
+ ipv6 address FE80::100:3 link-local
  ipv6 traffic-filter IT-OUT out
  ipv6 traffic-filter IT-IN in
   standby version 2
@@ -270,6 +274,7 @@ interface vlan 100
 interface vlan 200
  ipv6 enable
  ipv6 address 2001:db8:0:200::3/64
+ ipv6 address FE80::200:3 link-local
  ipv6 traffic-filter Guests-OUT out
  ipv6 traffic-filter Guests-IN in
   standby version 2
@@ -294,7 +299,7 @@ permit ipv6 2001:db8:0:100::/64 any
 permit icmp 2001:db8:0:100::/64 any echo-request
 ipv6 access-list IT-IN
 permit icmp 2001:db8:0:100::/64 2001:db8::/48 echo-reply
-permit udp any any
+permit udp FE80::100:3 FF02::66
 ipv6 access-list HR-OUT
 permit ipv6 2001:db8:0:10::/64 2001:db8:0:10::/64
 permit ipv6 2001:db8:0:10::/64 2001:db8:0:90::/64
@@ -306,7 +311,7 @@ deny ipv6 2001:db8:0:10::/64 2001:db8::/48
 permit ipv6 2001:db8:0:10::/64 any
 ipv6 access-list HR-IN
 permit icmp 2001:db8:0:10::/64 any echo-reply
-permit udp any any
+permit udp FE80::10:3 FF02::66
 ipv6 access-list Sales-OUT
 permit ipv6 2001:db8:0:20::/64 2001:db8:0:20::/64
 permit ipv6 2001:db8:0:20::/64 2001:db8:0:90::/64
@@ -318,13 +323,24 @@ deny ipv6 2001:db8:0:20::/64 2001:db8::/48
 permit ipv6 2001:db8:0:20::/64 any
 ipv6 access-list Sales-IN
 permit icmp 2001:db8:0:20::/64 any echo-reply
-permit udp any any
+permit udp FE80::20:3 FF02::66
 ipv6 access-list Servers-OUT
 permit ipv6 2001:db8:0:90::/64 2001:db8::/48
 deny ipv6 2001:db8:0:90::/64 2001:db8::/48
 permit ipv6 2001:db8:0:90::/64 any
+ipv6 access-list Servers-IN
+permit icmp 2001:db8:0:90::/64 any echo-reply
+permit udp FE80::90:3 FF02::66
 ipv6 access-list Guests-OUT
+deny icmp 2001:db8:0:200::/64 2001:db8::/48 echo-request
+permit icmp 2001:db8:0:200::/64 any echo-request
+permit ipv6 2001:db8:0:200::/64 host 2001:db8:0:90::7 eq 53
+deny ipv6 2001:db8:0:200::/64 2001:db8::/48
+permit ipv6 2001:db8:0:200::/64 any
+ipv6 access-list Guests-IN
 deny ipv6 2001:db8:0:200::/64 2001:db8:0:200::/64
+deny icmp 2001:db8:0:200::/64 any echo-reply
+permit udp FE80::200:3 FF02::66
 !
 !
 ip forward-protocol nd
