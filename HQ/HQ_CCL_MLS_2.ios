@@ -222,7 +222,8 @@ interface Vlan1
 interface vlan 10
  ipv6 enable
  ipv6 address 2001:db8:0:10::3/64
- !ipv6 traffic-filter HR out
+ ipv6 traffic-filter HR-OUT out
+ ipv6 traffic-filter HR-IN in
   standby version 2
  standby 10 ipv6 2001:db8:0:10::1/64
  standby 10 priority 90
@@ -233,7 +234,8 @@ interface vlan 10
 interface vlan 20
  ipv6 enable
  ipv6 address 2001:db8:0:20::3/64
- !ipv6 traffic-filter Sales out
+ ipv6 traffic-filter Sales-OUT out
+ ipv6 traffic-filter Sales-IN in
   standby version 2
  standby 20 ipv6 2001:db8:0:20::1/64
  standby 20 priority 110
@@ -244,7 +246,8 @@ interface vlan 20
 interface vlan 90
  ipv6 enable
  ipv6 address 2001:db8:0:90::3/64
- !ipv6 traffic-filter Servers out
+ ipv6 traffic-filter Servers-OUT out
+ ipv6 traffic-filter Servers-IN in
   standby version 2
  standby 90 ipv6 2001:db8:0:90::1/64
  standby 90 priority 90
@@ -255,7 +258,8 @@ interface vlan 90
 interface vlan 100
  ipv6 enable
  ipv6 address 2001:db8:0:100::3/64
- !ipv6 traffic-filter IT out
+ ipv6 traffic-filter IT-OUT out
+ ipv6 traffic-filter IT-IN in
   standby version 2
  standby 100 ipv6 2001:db8:0:100::1/64
  standby 100 priority 110
@@ -266,7 +270,8 @@ interface vlan 100
 interface vlan 200
  ipv6 enable
  ipv6 address 2001:db8:0:200::3/64
- !ipv6 traffic-filter Guests out
+ ipv6 traffic-filter Guests-OUT out
+ ipv6 traffic-filter Guests-IN in
   standby version 2
  standby 200 ipv6 2001:db8:0:200::1/64
  standby 200 priority 90
@@ -286,29 +291,35 @@ interface port-channel 2
 !
 ipv6 access-list IT-OUT
 permit ipv6 2001:db8:0:100::/64 any
-ipv6 access-list IT-IN
-permit icmp 2001:db8:0:100::/64 any echo-reply
 permit icmp 2001:db8:0:100::/64 any echo-request
+ipv6 access-list IT-IN
+permit icmp 2001:db8:0:100::/64 2001:db8::/48 echo-reply
 ipv6 access-list HR-OUT
 permit ipv6 2001:db8:0:10::/64 2001:db8:0:10::/64
 permit ipv6 2001:db8:0:10::/64 2001:db8:0:90::/64
 permit tcp 2001:db8:0:10::/64 2001:db8:0:100::/64 established
-ipv6 access-list HR-IN
-permit icmp 2001:db8:0:10::/64 any echo-reply
 permit icmp 2001:db8:0:10::/64 2001:db8:0:10::/64 echo-request
 deny icmp 2001:db8:0:10::/64 2001:db8::/48 echo-request
 permit icmp 2001:db8:0:10::/64 any echo-request
+deny ipv6 2001:db8:0:10::/64 2001:db8::/48
+permit ipv6 2001:db8:0:10::/64 any
+ipv6 access-list HR-IN
+permit icmp 2001:db8:0:10::/64 any echo-reply
 ipv6 access-list Sales-OUT
 permit ipv6 2001:db8:0:20::/64 2001:db8:0:20::/64
 permit ipv6 2001:db8:0:20::/64 2001:db8:0:90::/64
 permit tcp 2001:db8:0:20::/64 2001:db8:0:100::/64 established
-ipv6 access-list Sales-IN
-permit icmp 2001:db8:0:20::/64 any echo-reply
 permit icmp 2001:db8:0:20::/64 2001:db8:0:20::/64 echo-request
 deny icmp 2001:db8:0:20::/64 2001:db8::/48 echo-request
 permit icmp 2001:db8:0:20::/64 any echo-request
+deny ipv6 2001:db8:0:20::/64 2001:db8::/48
+permit ipv6 2001:db8:0:20::/64 any
+ipv6 access-list Sales-IN
+permit icmp 2001:db8:0:20::/64 any echo-reply
 ipv6 access-list Servers-OUT
 permit ipv6 2001:db8:0:90::/64 2001:db8::/48
+deny ipv6 2001:db8:0:90::/64 2001:db8::/48
+permit ipv6 2001:db8:0:90::/64 any
 ipv6 access-list Guests-OUT
 deny ipv6 2001:db8:0:200::/64 2001:db8:0:200::/64
 !
