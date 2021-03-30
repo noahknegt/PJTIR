@@ -95,7 +95,7 @@ interface GigabitEthernet1/0/2
 !
 interface GigabitEthernet1/0/3
  switchport mode trunk
- shutdown
+ no shutdown
 !
 interface GigabitEthernet1/0/4
  switchport mode access
