@@ -35,6 +35,10 @@ vlan 999
 name VOID
 !
 !
+ipv4 access-list NoIPv4
+deny ip any any
+!
+!
 !
 !
 interface f0/1
@@ -70,6 +74,8 @@ channel-group 2 mode auto
 no shutdown
 !
 interface f0/5
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 spanning-tree portfast
 switchport mode access
 switchport access vlan 100
@@ -80,6 +86,8 @@ switchport port-security violation restrict
 no shutdown
 !
 interface f0/6
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 spanning-tree portfast
 switchport mode access
 switchport access vlan 10
@@ -90,6 +98,8 @@ switchport port-security violation restrict
 no shutdown
 !
 interface f0/7
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 spanning-tree portfast
 switchport mode access
 switchport access vlan 20
@@ -100,6 +110,8 @@ switchport port-security violation restrict
 no shutdown
 !
 interface f0/8
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 switchport mode access
 switchport access vlan 999
 switchport port-security
@@ -109,6 +121,8 @@ switchport port-security violation restrict
 shutdown
 !
 interface f0/9
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 switchport mode access
 switchport access vlan 999
 switchport port-security
@@ -118,6 +132,8 @@ switchport port-security violation restrict
 shutdown
 !
 interface f0/10
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 switchport mode access
 switchport access vlan 999
 switchport port-security
@@ -127,6 +143,8 @@ switchport port-security violation restrict
 shutdown
 !
 interface f0/11
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 switchport mode access
 switchport access vlan 999
 switchport port-security
@@ -136,6 +154,8 @@ switchport port-security violation restrict
 shutdown
 !
 interface f0/12
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 switchport mode access
 switchport access vlan 999
 switchport port-security
@@ -145,6 +165,8 @@ switchport port-security violation restrict
 shutdown
 !
 interface f0/13
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 switchport mode access
 switchport access vlan 999
 switchport port-security
@@ -154,6 +176,8 @@ switchport port-security violation restrict
 shutdown
 !
 interface f0/14
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 switchport mode access
 switchport access vlan 999
 switchport port-security
@@ -163,6 +187,8 @@ switchport port-security violation restrict
 shutdown
 !
 interface f0/15
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 switchport mode access
 switchport access vlan 999
 switchport port-security
@@ -172,6 +198,8 @@ switchport port-security violation restrict
 shutdown
 !
 interface f0/16
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 switchport mode access
 switchport access vlan 999
 switchport port-security
@@ -181,6 +209,8 @@ switchport port-security violation restrict
 shutdown
 !
 interface f0/17
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 switchport mode access
 switchport access vlan 999
 switchport port-security
@@ -190,6 +220,8 @@ switchport port-security violation restrict
 shutdown
 !
 interface f0/18
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 switchport mode access
 switchport access vlan 999
 switchport port-security
@@ -199,6 +231,8 @@ switchport port-security violation restrict
 shutdown
 !
 interface f0/19
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 switchport mode access
 switchport access vlan 999
 switchport port-security
@@ -208,6 +242,8 @@ switchport port-security violation restrict
 shutdown
 !
 interface f0/20
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 switchport mode access
 switchport access vlan 999
 switchport port-security
@@ -217,6 +253,8 @@ switchport port-security violation restrict
 shutdown
 !
 interface f0/21
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 switchport mode access
 switchport access vlan 999
 switchport port-security
@@ -226,6 +264,8 @@ switchport port-security violation restrict
 shutdown
 !
 interface f0/22
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 switchport mode access
 switchport access vlan 999
 switchport port-security
@@ -235,6 +275,8 @@ switchport port-security violation restrict
 shutdown
 !
 interface f0/23
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 switchport mode access
 switchport access vlan 999
 switchport port-security
@@ -244,6 +286,8 @@ switchport port-security violation restrict
 shutdown
 !
 interface f0/24
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 switchport mode access
 switchport access vlan 999
 switchport port-security
