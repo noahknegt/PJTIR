@@ -222,6 +222,7 @@ interface Vlan1
 interface vlan 10
  ipv6 enable
  ipv6 address 2001:db8:0:10::3/64
+ standby version 2
  standby 10 ipv6 2001:db8:0:10::1/64
  standby 10 priority 90
  standby 10 preempt
@@ -229,6 +230,7 @@ interface vlan 10
 interface vlan 20
  ipv6 enable
  ipv6 address 2001:db8:0:20::3/64
+ standby version 2
  standby 20 ipv6 2001:db8:0:20::1/64
  standby 20 priority 110
  standby 20 preempt
@@ -238,6 +240,7 @@ interface vlan 20
 interface vlan 90
  ipv6 enable
  ipv6 address 2001:db8:0:90::3/64
+ standby version 2
  standby 90 ipv6 2001:db8:0:90::1/64
  standby 90 priority 90
  standby 90 preempt
@@ -245,6 +248,7 @@ interface vlan 90
 interface vlan 100
  ipv6 enable
  ipv6 address 2001:db8:0:100::3/64
+ standby version 2
  standby 100 ipv6 2001:db8:0:100::1/64
  standby 100 priority 110
  standby 100 preempt
@@ -254,6 +258,7 @@ interface vlan 100
 interface vlan 200
  ipv6 enable
  ipv6 address 2001:db8:0:200::3/64
+ standby version 2
  standby 200 ipv6 2001:db8:0:200::1/64
  standby 200 priority 90
  standby 200 preempt
@@ -272,8 +277,6 @@ ip http secure-server
 !
 !
 !
-control-plane
- service-policy input system-cpp-policy
 !
 !
 line con 0
