@@ -184,22 +184,33 @@ interface GigabitEthernet1/0/21
  shutdown
 !
 interface GigabitEthernet1/0/22
- spanning-tree portfast
  switchport mode access
- switchport access vlan 90
- no shutdown
+ switchport access vlan 999
+ shutdown
 !
 interface GigabitEthernet1/0/23
 !
 interface GigabitEthernet1/0/24
 !
 interface GigabitEthernet1/1/1
+ switchport mode access
+ switchport access vlan 999
+ shutdown
 !
 interface GigabitEthernet1/1/2
+ switchport mode access
+ switchport access vlan 999
+ shutdown
 !
 interface GigabitEthernet1/1/3
+ switchport mode access
+ switchport access vlan 999
+ shutdown
 !
 interface GigabitEthernet1/1/4
+ switchport mode access
+ switchport access vlan 999
+ shutdown
 !
 !
 !
