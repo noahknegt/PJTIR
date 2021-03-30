@@ -90,8 +90,7 @@ interface GigabitEthernet1/0/1
  no shutdown
 !
 interface GigabitEthernet1/0/2
- switchport mode access
- switchport access vlan 999
+ switchport mode trunk
  shutdown
 !
 interface GigabitEthernet1/0/3
