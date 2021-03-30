@@ -3,9 +3,6 @@ ipv6 unicast-routing
 ipv6 router eigrp 1
  eigrp router-id 1.1.1.1
  no shutdown
- passive interface default 
- no passive interface g0/0/0
- no passive interface g0/0/1
 exit
 interface g0/0/0
  ipv6 address 2001:db8::1/126

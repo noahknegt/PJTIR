@@ -119,6 +119,10 @@ policy-map system-cpp-policy
 !
 !
 !
+ipv6 router eigrp 1
+ eigrp router-id 5.5.5.5
+ no shutdown
+!
 !
 !
 !
@@ -134,12 +138,14 @@ interface GigabitEthernet1/0/1
  no switchport
  channel-protocol pagp
  channel-group 1 mode auto
+ ipv6 eigrp 1
  no shutdown
 !
 interface GigabitEthernet1/0/2
  no switchport
  channel-protocol pagp
  channel-group 1 mode auto
+ ipv6 eigrp 1
  no shutdown
 !
 interface GigabitEthernet1/0/3
@@ -148,6 +154,7 @@ interface GigabitEthernet1/0/3
  switchport trunk allowed vlan remove 998
  channel-protocol pagp
  channel-group 2 mode auto
+ ipv6 eigrp 1
  no shutdown
 !
 interface GigabitEthernet1/0/4
@@ -156,6 +163,7 @@ interface GigabitEthernet1/0/4
  switchport trunk allowed vlan remove 998
  channel-protocol pagp
  channel-group 2 mode auto
+ ipv6 eigrp 1
  no shutdown
 !
 interface GigabitEthernet1/0/5
@@ -250,8 +258,14 @@ interface GigabitEthernet1/0/22
  no shutdown
 !
 interface GigabitEthernet1/0/23
+ ipv6 address 2001:db8::4/126
+ ipv6 eigrp 1
+ no shutdown
 !
 interface GigabitEthernet1/0/24
+ ipv6 address 2001:db8::12/126
+ ipv6 eigrp 1
+ no shutdown
 !
 interface GigabitEthernet1/1/1
 !
