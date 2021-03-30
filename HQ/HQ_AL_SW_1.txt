@@ -37,6 +37,7 @@ name VOID
 !
 ipv4 access-list NoIPv4
 deny ip any any
+permit ipv6 any any
 !
 !
 !
