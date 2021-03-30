@@ -1,0 +1,51 @@
+hostname HQ_WE_RO_2
+ipv6 unicast-routing
+ipv6 router eigrp 1
+eigrp router-id 2.2.2.2
+interface g0/0/0
+ipv6 address 2001:db8::9/126
+ipv6 eigrp 1
+no shutdown
+interface g0/0/1
+ipv6 address 2001:db8::13/126
+ipv6 eigrp 1
+no shutdown
+interface s0/1/0
+ipv6 address 2001:db8::34/126
+ipv6 eigrp 1
+!
+!
+!
+! https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6/configuration/15-2mt/ipv6-15-2mt-book/ip6-dmvpn.html
+! Create Transform set
+crypto ipsec transform-set DMVPN_Transform_Set ah-sha512-hmac
+mode tunnel
+exit
+! Create Ipsec Profile
+crypto identity HQ_WE_RO_2
+exit
+crypto ipsec profile DMVPN_Crypto_Profile
+set transform-set DMVPN_Transform_Set
+set identity HQ_WE_RO_2
+! Configure DMVPN HUB
+interface Tunnel0
+ipv6 address 2001:db8::1:2/112
+ipv6 address fe80:db8::1:2 link-local
+ipv6 mtu 1400
+! NHRP auth stringl moet overal hetzelfde zijn
+ipv6 nhrp authentication zwaardsweatshoplogistics
+ipv6 nhrp map 2001:db8::1:1/112 2001:db8::30
+ipv6 nhrp map multicast 2001:db8::1:1
+ipv6 nhrp map multicast dynamic
+ipv6 nhrp network-id 17
+tunnel source S0/1/0
+tunnel mode gre multipoint ipv6
+tunnel protection ipsec profile DMVPN_Crypto_Profile
+! set bandwith? 
+! idk mby change
+bandwidth 900000
+ipv6 nhrp holdtime 3600
+!NHRP redirects and shortcuts?
+ipv6 nhrp redirect
+ipv6 nhrp redirect timeout 17
+ipv6 nhrp shortcut
