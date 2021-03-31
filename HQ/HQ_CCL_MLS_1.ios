@@ -242,7 +242,6 @@ interface Vlan1
 interface vlan 10
  ipv6 enable
  ipv6 address 2001:db8:0:10::2/64
- ipv6 address FE80:db8::10:2 link-local
  ipv6 traffic-filter HR-OUT out
  ipv6 traffic-filter HR-IN in
  standby version 2
@@ -255,7 +254,6 @@ interface vlan 10
 interface vlan 20
  ipv6 enable
  ipv6 address 2001:db8:0:20::2/64
- ipv6 address FE80:db8::20:2 link-local
  ipv6 traffic-filter Sales-OUT out
  ipv6 traffic-filter Sales-IN in
   standby version 2
@@ -266,7 +264,6 @@ interface vlan 20
 interface vlan 90
  ipv6 enable
  ipv6 address 2001:db8:0:90::2/64
- ipv6 address FE80:db8::90:2 link-local
  ipv6 traffic-filter Servers-OUT out
  ipv6 traffic-filter Servers-IN in
   standby version 2
@@ -279,7 +276,6 @@ interface vlan 90
 interface vlan 100
  ipv6 enable
  ipv6 address 2001:db8:0:100::2/64
- ipv6 address FE80:db8::100:2 link-local
  ipv6 traffic-filter IT-OUT out
  ipv6 traffic-filter IT-IN in
   standby version 2
@@ -290,7 +286,6 @@ interface vlan 100
 interface vlan 200
  ipv6 enable
  ipv6 address 2001:db8:0:200::2/64
- ipv6 address FE80:db8::200:2 link-local
  ipv6 traffic-filter Guests-OUT out
  ipv6 traffic-filter Guests-IN in
   standby version 2
@@ -316,7 +311,7 @@ permit ipv6 2001:db8:0:100::/64 any
 permit icmp 2001:db8:0:100::/64 any echo-request
 ipv6 access-list IT-IN
 permit icmp 2001:db8:0:100::/64 2001:db8::/48 echo-reply
-permit udp host FE80:db8::100:2 eq 2029 host FF02::66 eq 2029
+permit udp any host FF02::66 eq 2029
 deny icmp 2001:db8:0:100::/64 any echo-reply
 ipv6 access-list HR-OUT
 permit ipv6 2001:db8:0:10::/64 2001:db8:0:10::/64
@@ -329,7 +324,7 @@ deny ipv6 2001:db8:0:10::/64 2001:db8::/48
 permit ipv6 2001:db8:0:10::/64 any
 ipv6 access-list HR-IN
 permit icmp 2001:db8:0:10::/64 2001:db8::/48 echo-reply
-permit udp host FE80:db8::10:2 eq 2029 host FF02::66 eq 2029
+permit udp any host FF02::66 eq 2029
 deny icmp 2001:db8:0:10::/64 any echo-reply
 ipv6 access-list Sales-OUT
 permit ipv6 2001:db8:0:20::/64 2001:db8:0:20::/64
@@ -342,7 +337,7 @@ deny ipv6 2001:db8:0:20::/64 2001:db8::/48
 permit ipv6 2001:db8:0:20::/64 any
 ipv6 access-list Sales-IN
 permit icmp 2001:db8:0:20::/64 2001:db8::/48 echo-reply
-permit udp host FE80:db8::20:2 eq 2029 host FF02::66 eq 2029
+permit udp any host FF02::66 eq 2029
 deny icmp 2001:db8:0:20::/64 any echo-reply
 ipv6 access-list Servers-OUT
 permit ipv6 2001:db8:0:90::/64 2001:db8::/48
@@ -350,7 +345,7 @@ deny ipv6 2001:db8:0:90::/64 2001:db8::/48
 permit ipv6 2001:db8:0:90::/64 any
 ipv6 access-list Servers-IN
 permit icmp 2001:db8:0:90::/64 2001:db8::/48 echo-reply
-permit udp host FE80:db8::90:2 eq 2029 host FF02::66 eq 2029
+permit udp any host FF02::66 eq 2029
 deny icmp 2001:db8:0:90::/64 any echo-reply
 ipv6 access-list Guests-OUT
 deny icmp 2001:db8:0:200::/64 2001:db8::/48 echo-request
@@ -360,7 +355,7 @@ deny ipv6 2001:db8:0:200::/64 2001:db8::/48
 permit ipv6 2001:db8:0:200::/64 any
 ipv6 access-list Guests-IN
 deny ipv6 2001:db8:0:200::/64 2001:db8:0:200::/64
-permit udp host FE80:db8::200:2 eq 2029 host FF02::66 eq 2029
+permit udp any host FF02::66 eq 2029
 deny icmp 2001:db8:0:200::/64 any echo-reply
 !
 !
