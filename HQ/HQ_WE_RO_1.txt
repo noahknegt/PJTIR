@@ -1,15 +1,22 @@
 hostname HQ_WE_RO_1
+!
 ipv6 unicast-routing
+!
 ipv6 router eigrp 1
-eigrp router-id 1.1.1.1
+ eigrp router-id 1.1.1.1
+ no shutdown
+!
 interface g0/0/0
-ipv6 address 2001:db8::1/126
-ipv6 eigrp 1
-no shutdown
+ ipv6 address 2001:db8::1/126
+ ipv6 eigrp 1
+ no shutdown
+!
 interface g0/0/1
-ipv6 address 2001:db8::5/126
-ipv6 eigrp 1
-no shutdown
+ ipv6 address 2001:db8::5/126
+ ipv6 eigrp 1
+ no shutdown
+!
 interface s0/1/0
-ipv6 address 2001:db8::30/126
-ipv6 eigrp 1
+ ipv6 address 2001:db8::30/126
+ no shutdown
+!
