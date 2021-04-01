@@ -9,6 +9,7 @@ no shutdown
 interface s0/1/0
 ipv6 address 2001:db8::38/126
 ipv6 eigrp 1
+no shutdown
 !
 ! DMVPN Spoke
 !
@@ -33,8 +34,15 @@ no ipv6 split-horizon eigrp 1
 no ipv6 next-hop-self eigrp 1
 ! NHRP auth stringl moet overal hetzelfde zijn
 ipv6 nhrp authentication zwaardsweatshoplogistics
-ipv6 nhrp map multicast dynamic
 ipv6 nhrp network-id 17
+!
+ipv6 nhrp map 2001:db8::1:1/126 2001:db8::30
+ipv6 nhrp map 2001:db8::1:2/126 2001:db8::34
+ipv6 nhrp map multicast 2001:db8::30
+ipv6 nhrp map multicast 2001:db8::34
+ipv6 nhrp nhs 2001:db8::1:1
+ipv6 nhrp nhs 2001:db8::1:2
+!
 tunnel source S0/1/0
 tunnel mode gre multipoint ipv6
 tunnel protection ipsec profile DMVPN_Crypto_Profile
