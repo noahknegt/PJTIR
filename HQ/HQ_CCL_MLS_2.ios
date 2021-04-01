@@ -339,7 +339,8 @@ permit icmp 2001:db8:0:20::/64 2001:db8::/48 echo-reply
 permit udp any host FF02::66 eq 2029
 deny icmp 2001:db8:0:20::/64 any echo-reply
 ipv6 access-list Servers-OUT
-permit ipv6 2001:db8:0:90::/64 2001:db8::/48
+permit udp 2001:db8:0:90::/64 eq 53 2001:db8::/48
+permit ipv6 2001:db8:0:90::/64 eq 22 2001:db8::/48
 deny ipv6 2001:db8:0:90::/64 2001:db8::/48
 permit ipv6 2001:db8:0:90::/64 any
 ipv6 access-list Servers-IN

@@ -248,7 +248,7 @@ ipv6 access-list IT-OUT
 permit ipv6 2001:db8:0:100::/64 any
 permit icmp 2001:db8:0:100::/64 any echo-request
 ipv6 access-list IT-IN
-permit icmp 2001:db8:0:100::/64 2001:db8::/48 echo-reply
+permit icmp 2001:db8:0:100::/64 2001:db8::/48 echo-reply 
 deny icmp 2001:db8:0:100::/64 any echo-reply
 ipv6 access-list HR-OUT
 permit ipv6 2001:db8:0:10::/64 2001:db8:0:10::/64
@@ -275,7 +275,8 @@ ipv6 access-list Sales-IN
 permit icmp 2001:db8:0:20::/64 2001:db8::/48 echo-reply
 deny icmp 2001:db8:0:20::/64 any echo-reply
 ipv6 access-list Servers-OUT
-permit ipv6 2001:db8:0:90::/64 2001:db8::/48
+permit udp 2001:db8:0:90::/64 eq 53 2001:db8::/48
+permit ipv6 2001:db8:0:90::/64 eq 22 2001:db8::/48
 deny ipv6 2001:db8:0:90::/64 2001:db8::/48
 permit ipv6 2001:db8:0:90::/64 any
 ipv6 access-list Servers-IN
@@ -290,6 +291,7 @@ permit ipv6 2001:db8:0:200::/64 any
 ipv6 access-list Guests-IN
 deny ipv6 2001:db8:0:200::/64 2001:db8:0:200::/64
 deny icmp 2001:db8:0:200::/64 any echo-reply
+!
 !
 !
 ip forward-protocol nd
