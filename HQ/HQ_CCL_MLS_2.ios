@@ -308,6 +308,7 @@ permit ipv6 2001:db8:0:90::/64 2001:db8:0:10::/64
 permit ipv6 2001:db8:0:100::/64 2001:db8:0:10::/64
 permit tcp 2001:db8:0:10::/64 2001:db8:0:100::/64 established
 permit tcp any 2001:db8:0:10::/64 established
+deny tcp 2001:db8:0:10::/64 2001:db8::/48
 permit tcp 2001:db8:0:10::/64 any
 permit icmp 2001:db8:0:10::/64 2001:db8::/48 echo-reply
 permit icmp any 2001:db8:0:10::/64 echo-reply
@@ -324,6 +325,7 @@ permit ipv6 2001:db8:0:90::/64 2001:db8:0:20::/64
 permit ipv6 2001:db8:0:100::/64 2001:db8:0:20::/64
 permit tcp 2001:db8:0:20::/64 2001:db8:0:100::/64 established
 permit tcp any 2001:db8:0:20::/64 established
+deny tcp 2001:db8:0:20::/64 2001:db8::/48
 permit tcp 2001:db8:0:20::/64 any
 permit icmp 2001:db8:0:20::/64 2001:db8::/48 echo-reply
 permit icmp any 2001:db8:0:20::/64 echo-reply
