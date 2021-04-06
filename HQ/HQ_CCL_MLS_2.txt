@@ -147,7 +147,7 @@ interface GigabitEthernet1/0/3
  switchport trunk native vlan 998
  switchport trunk allowed vlan remove 998
  channel-protocol pagp
- channel-group 2 mode auto
+ channel-group 2 mode desirable
  no shutdown
 !
 interface GigabitEthernet1/0/4
@@ -155,7 +155,7 @@ interface GigabitEthernet1/0/4
  switchport trunk native vlan 998
  switchport trunk allowed vlan remove 998
  channel-protocol pagp
- channel-group 2 mode auto
+ channel-group 2 mode desirable
  no shutdown
 !
 interface GigabitEthernet1/0/5

@@ -1,1 +1,21 @@
-asdsaas
+!
+interface GigabitEthernet1/0/1
+ switchport mode trunk
+ switchport trunk native vlan 998
+ switchport trunk allowed vlan remove 998
+ channel-protocol pagp
+ channel-group 1 mode desirable
+ no shutdown
+!
+interface GigabitEthernet1/0/2
+ switchport mode trunk
+ switchport trunk native vlan 998
+ switchport trunk allowed vlan remove 998
+ channel-protocol pagp
+ channel-group 1 mode desirable
+ no shutdown
+!
+interface port-channel 1
+ switchport mode trunk
+ switchport trunk native vlan 998
+ switchport trunk allowed vlan remove 998 

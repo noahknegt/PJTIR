@@ -1,1 +1,21 @@
-asdasd
+!
+interface f0/1
+ switchport mode trunk
+ switchport trunk native vlan 998
+ switchport trunk allowed vlan remove 998
+ channel-protocol pagp
+ channel-group 1 mode auto
+ no shutdown
+!
+interface f0/2
+ switchport mode trunk
+ switchport trunk native vlan 998
+ switchport trunk allowed vlan remove 998
+ channel-protocol pagp
+ channel-group 1 mode auto
+ no shutdown
+!
+interface port-channel 1
+ switchport mode trunk
+ switchport trunk native vlan 998
+ switchport trunk allowed vlan remove 998 
