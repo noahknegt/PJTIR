@@ -22,7 +22,7 @@ no shutdown
 !
 ! https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6/configuration/15-2mt/ipv6-15-2mt-book/ip6-dmvpn.html
 ! Create Transform set
-crypto ipsec transform-set DMVPN_Transform_Set esp-256-aes esp-sha512-hmac
+crypto ipsec transform-set DMVPN_Transform_Set esp-aes 256 esp-sha512-hmac
 mode tunnel
 exit
 ! Create Ipsec Profile
@@ -58,3 +58,6 @@ ipv6 nhrp redirect
 ipv6 nhrp redirect timeout 17
 ipv6 nhrp shortcut
 exit
+! Static Routes
+ipv6 route 2001:db8::/48 Tunnel0 
+ipv6 route ::/0 Serial0/1/0 200

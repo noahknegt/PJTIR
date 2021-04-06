@@ -49,6 +49,9 @@ BR_WE_RO_1 <=> ISP
 	S0/1/0 <=> sdasdasdasd (2001:db8::30/126)
 	2001:db8::32 <=> 2001:db8::31
 
+ISP <=> Grote Boze Internet (Loopback)
+	17::1/64
+
 BR_CCL_MLS_1 (2001:db8:0:100:5/64) <=> BR_AL_SW_1 (2001:db8:0:100:8/64)
 	g1/0/1 <=> f0/1
 	g1/0/2 <=> f0/2

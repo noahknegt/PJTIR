@@ -19,3 +19,12 @@ ipv6 enable
 ipv6 address 2001:db8::31/126
 no shutdown
 exit
+!
+! Loopback
+interface Loopback 0
+ipv6 enable
+ipv6 address 17::1/64
+no shutdown
+!
+! Static routes for ISP
+
