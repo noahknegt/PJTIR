@@ -2,19 +2,20 @@ hostname ISP
 ipv6 unicast-routing
 !
 !naar HQ 1
-interface s0/1/0
+interface s0/3/0
 ipv6 enable
 ipv6 address 2001:db8::29/126
 no shutdown
 !
 !naar HQ 2
-interface s0/1/1
+interface s0/3/1
 ipv6 enable
-ipv6 address 2001:db8::32/126
+ipv6 address 2001:db8::2D/126
 no shutdown
 !
 !naar Branch 1
-interface s0/2/1
+interface s0/2/0
 ipv6 enable
-ipv6 address 2001:db8::36/126
+ipv6 address 2001:db8::31/126
 no shutdown
+exit

@@ -7,11 +7,11 @@ ipv6 address 2001:db8::9/126
 ipv6 eigrp 1
 no shutdown
 interface g0/0/1
-ipv6 address 2001:db8::13/126
+ipv6 address 2001:db8::D/126
 ipv6 eigrp 1
 no shutdown
 interface s0/1/0
-ipv6 address 2001:db8::33/126
+ipv6 address 2001:db8::2E/126
 ipv6 eigrp 1
 no shutdown
 !
@@ -38,9 +38,9 @@ no ipv6 split-horizon eigrp 1
 no ipv6 next-hop-self eigrp 1
 ! NHRP auth stringl moet overal hetzelfde zijn
 ipv6 nhrp authentication zwaardsweatshoplogistics
-ipv6 nhrp map 2001:db8::1:1/126 2001:db8::30
+ipv6 nhrp map 2001:db8::1:1/126 2001:db8::2A
 ipv6 nhrp map multicast dynamic
-ipv6 nhrp map multicast 2001:db8::30
+ipv6 nhrp map multicast 2001:db8::2A
 ipv6 nhrp nhs 2001:db8::1:1
 ipv6 nhrp network-id 17
 tunnel source S0/1/0
@@ -54,3 +54,4 @@ ipv6 nhrp holdtime 3600
 ipv6 nhrp redirect
 ipv6 nhrp redirect timeout 17
 ipv6 nhrp shortcut
+exit

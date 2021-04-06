@@ -14,7 +14,7 @@ ipv6 eigrp 1
 no shutdown
 interface s0/1/0
 ipv6 enable
-ipv6 address 2001:db8::30/126
+ipv6 address 2001:db8::2A/126
 ipv6 eigrp 1
 no shutdown
 !
@@ -54,3 +54,4 @@ ipv6 nhrp holdtime 3600
 ipv6 nhrp redirect
 ipv6 nhrp redirect timeout 17
 ipv6 nhrp shortcut
+exit
