@@ -3,11 +3,13 @@ ipv6 unicast-routing
 ipv6 router eigrp 1
 eigrp router-id 3.3.3.3
 interface g0/0/0
+ipv6 enable
 ipv6 address 2001:db8::41/126
 ipv6 eigrp 1
 no shutdown
 interface s0/1/0
-ipv6 address 2001:db8::38/126
+ipv6 enable
+ipv6 address 2001:db8::37/126
 ipv6 eigrp 1
 no shutdown
 !

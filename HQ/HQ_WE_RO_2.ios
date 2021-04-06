@@ -11,7 +11,7 @@ ipv6 address 2001:db8::13/126
 ipv6 eigrp 1
 no shutdown
 interface s0/1/0
-ipv6 address 2001:db8::34/126
+ipv6 address 2001:db8::33/126
 ipv6 eigrp 1
 no shutdown
 !
