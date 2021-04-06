@@ -2,11 +2,13 @@ hostname BR_WE_RO_1
 ipv6 unicast-routing
 ipv6 router eigrp 1
 eigrp router-id 3.3.3.3
+! Naar MLS
 interface g0/0/0
 ipv6 enable
 ipv6 address 2001:db8::41/126
 ipv6 eigrp 1
 no shutdown
+! Naar ISP
 interface s0/1/0
 ipv6 enable
 ipv6 address 2001:db8::32/126
@@ -17,7 +19,7 @@ no shutdown
 !
 ! https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6/configuration/15-2mt/ipv6-15-2mt-book/ip6-dmvpn.html
 ! Create Transform set
-crypto ipsec transform-set DMVPN_Transform_Set ah-sha512-hmac
+crypto ipsec transform-set DMVPN_Transform_Set esp-256-aes esp-sha512-hmac
 mode tunnel
 exit
 ! Create Ipsec Profile

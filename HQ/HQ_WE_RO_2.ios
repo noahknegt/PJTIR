@@ -2,14 +2,17 @@ hostname HQ_WE_RO_2
 ipv6 unicast-routing
 ipv6 router eigrp 1
 eigrp router-id 2.2.2.2
+! Naar MLS 1
 interface g0/0/0
 ipv6 address 2001:db8::9/126
 ipv6 eigrp 1
 no shutdown
+! Naar MLS 2
 interface g0/0/1
 ipv6 address 2001:db8::D/126
 ipv6 eigrp 1
 no shutdown
+! Naar ISP
 interface s0/1/0
 ipv6 address 2001:db8::2E/126
 ipv6 eigrp 1
@@ -19,7 +22,7 @@ no shutdown
 !
 ! https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6/configuration/15-2mt/ipv6-15-2mt-book/ip6-dmvpn.html
 ! Create Transform set
-crypto ipsec transform-set DMVPN_Transform_Set ah-sha512-hmac
+crypto ipsec transform-set DMVPN_Transform_Set esp-256-aes esp-sha512-hmac
 mode tunnel
 exit
 ! Create Ipsec Profile
