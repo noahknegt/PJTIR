@@ -4,11 +4,6 @@ ipv6 router eigrp 1
 eigrp router-id 1.1.1.1
 !
 !
-flow monitor FLOW-MON-1
-description Used for monitoring IPv6 traffic
-record netflow ipv6 original-input
-!
-!
 flow exporter FLOW-EXP-1
 destination 2001:db8:0:/64
 export-protocol netflow-v9
@@ -37,9 +32,15 @@ no shutdown
 interface s0/1/0
 ipv6 address 2001:db8::30/126
 ipv6 eigrp 1
+no shutdown
+exit
 !
 !
-snmp-server group group4 v3 priv
-snmp-server user user group4 2001:db8:0:100::/64 v3 auth sha cisco priv access aes256 
+snmp-server group groep4 v3 auth
+snmp-server user Ditmoet groep4 v3 auth sha cisco
 !
 !
+
+
+
+fTQERl0WrVXpEFme
