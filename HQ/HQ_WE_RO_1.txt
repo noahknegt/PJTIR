@@ -37,7 +37,7 @@ exit
 !
 !
 snmp-server group groep4 v3 auth
-snmp-server user Ditmoet groep4 v3 auth sha cisco
+snmp-server user Ditmoet groep4 v3 auth sha cisco priv aes 256 cisco
 !
 !
 
