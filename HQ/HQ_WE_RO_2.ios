@@ -1,5 +1,6 @@
 hostname HQ_WE_RO_2
 ipv6 unicast-routing
+logging console 5
 !EIGRP
 ipv6 router eigrp 1
 eigrp router-id 2.2.2.2
@@ -72,7 +73,7 @@ ipv6 nhrp redirect timeout 17
 ipv6 nhrp shortcut
 exit
 ! Static Routes
-ipv6 route 2001:db8::/48 Tunnel0 
+ipv6 route 2001:db8:01::/56 Tunnel0 
 ipv6 route ::/0 Serial0/1/0 200
 !
 !SSH
@@ -80,6 +81,7 @@ username user priv 15 password cisco
 enable secret class
 !
 aaa new-model
+aaa authorization console
 aaa authentication login MGT local
 aaa authentication enable default enable
 aaa authorization exec default local
@@ -97,3 +99,7 @@ login authentication MGT
 authorization exec default
 exec-timeout 60
 logging synchronous
+exit
+!
+end
+!
