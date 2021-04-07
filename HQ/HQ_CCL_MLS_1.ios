@@ -306,12 +306,11 @@ permit udp any host FF02::66 eq 2029
 permit ipv6 2001:db8:0:1::/64 2001:db8:0:1::/64
 permit ipv6 2001:db8:0:1::/64 2001:db8:0:101::/64
 permit ipv6 2001:db8:0:1::/64 2001:db8:0:9::/64
-permit ipv6 2001:db8:0:1::/64 2001:db8:0:1::/64
 permit ipv6 2001:db8:0:9::/64 2001:db8:0:1::/64
 permit ipv6 2001:db8:0:10::/64 2001:db8:0:1::/64
 permit tcp 2001:db8:0:1::/64 2001:db8:0:10::/64 established
-permit ipv6 2001:db8:0:10::/64 2001:db8:0:1::/64
-permit tcp 2001:db8:0:1::/64 2001:db8:0:10::/64 established
+permit ipv6 2001:db8:0:110::/64 2001:db8:0:1::/64
+permit tcp 2001:db8:0:1::/64 2001:db8:0:110::/64 established
 permit tcp any 2001:db8:0:1::/64 established
 deny tcp 2001:db8:0:1::/64 2001:db8::/48
 permit tcp 2001:db8:0:1::/64 any
@@ -327,12 +326,11 @@ permit udp any host FF02::66 eq 2029
 permit ipv6 2001:db8:0:2::/64 2001:db8:0:2::/64
 permit ipv6 2001:db8:0:2::/64 2001:db8:0:102::/64
 permit ipv6 2001:db8:0:2::/64 2001:db8:0:9::/64
-permit ipv6 2001:db8:0:1::/64 2001:db8:0:2::/64
 permit ipv6 2001:db8:0:9::/64 2001:db8:0:2::/64
 permit ipv6 2001:db8:0:10::/64 2001:db8:0:2::/64
 permit tcp 2001:db8:0:2::/64 2001:db8:0:10::/64 established
-permit ipv6 2001:db8:0:10::/64 2001:db8:0:2::/64
-permit tcp 2001:db8:0:2::/64 2001:db8:0:10::/64 established
+permit ipv6 2001:db8:0:110::/64 2001:db8:0:2::/64
+permit tcp 2001:db8:0:2::/64 2001:db8:0:110::/64 established
 permit tcp any 2001:db8:0:2::/64 established
 deny tcp 2001:db8:0:2::/64 2001:db8::/48
 permit tcp 2001:db8:0:2::/64 any
