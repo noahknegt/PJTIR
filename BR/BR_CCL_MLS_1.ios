@@ -33,16 +33,16 @@ ipv6 unicast-routing
 !
 !
 !
-!
-vlan 10
+! All VLAN IDs are their number + 1 because Default is already 1
+vlan 2
 name HQ
-Vlan 20
+Vlan 3
 name Sales
-vlan 90
+vlan 10
 name Servers
-vlan 100
+vlan 11
 name IT
-vlan 200
+vlan 256
 name Guests
 vlan 998
 name NATIVE
@@ -53,15 +53,13 @@ name VOID
 !
 !
 !
+spanning-tree vlan 2 root primary
+spanning-tree vlan 3 root primary
 spanning-tree vlan 10 root primary
-spanning-tree vlan 20 root secondary
-spanning-tree vlan 90 root primary
-spanning-tree vlan 100 root secondary
-spanning-tree vlan 200 root primary
-spanning-tree vlan 998 root secondary
+spanning-tree vlan 11 root primary
+spanning-tree vlan 256 root primary
+spanning-tree vlan 998 root primary
 spanning-tree vlan 999 root primary
-diagnostic bootup level minimal
-spanning-tree extend system-id
 !
 !
 !

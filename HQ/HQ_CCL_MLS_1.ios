@@ -34,16 +34,16 @@ ipv6 unicast-routing
 !
 !
 !
-!
-vlan 10
+! All VLAN IDs are their number + 1 because Default is already 1
+vlan 2
 name HQ
-Vlan 20
+Vlan 3
 name Sales
-vlan 90
+vlan 10
 name Servers
-vlan 100
+vlan 11
 name IT
-vlan 200
+vlan 256
 name Guests
 vlan 998
 name NATIVE
@@ -54,11 +54,11 @@ name VOID
 !
 !
 !
+spanning-tree vlan 2 root primary
+spanning-tree vlan 3 root secondary
 spanning-tree vlan 10 root primary
-spanning-tree vlan 20 root secondary
-spanning-tree vlan 90 root primary
-spanning-tree vlan 100 root secondary
-spanning-tree vlan 200 root primary
+spanning-tree vlan 11 root secondary
+spanning-tree vlan 256 root primary
 spanning-tree vlan 998 root secondary
 spanning-tree vlan 999 root primary
 !
@@ -199,7 +199,7 @@ interface GigabitEthernet1/0/21
 interface GigabitEthernet1/0/22
  spanning-tree portfast
  switchport mode access
- switchport access vlan 90
+ switchport access vlan 10
  no shutdown
 !
 interface GigabitEthernet1/0/23
@@ -239,56 +239,56 @@ interface Vlan1
  no ip address
  shutdown
 !
-interface vlan 10
+interface vlan 2
  ipv6 enable
  ipv6 address 2001:db8:0:1::2/64
  ipv6 traffic-filter HR-IN in
  standby version 2
- standby 10 ipv6 2001:db8:0:1::1/64
+ standby 2 ipv6 2001:db8:0:1::1/64
+ standby 2 priority 110
+ standby 2 preempt
+ standby 2 track 1 decrement 15
+ standby 2 track 2 decrement 15
+!
+interface vlan 3
+ ipv6 enable
+ ipv6 address 2001:db8:0:2::2/64
+ ipv6 traffic-filter Sales-IN in
+  standby version 2
+ standby 3 ipv6 2001:db8:0:2::1/64
+ standby 3 priority 90
+ standby 3 preempt
+!
+interface vlan 10
+ ipv6 enable
+ ipv6 address 2001:db8:0:9::2/64
+ ipv6 traffic-filter Servers-IN in
+  standby version 2
+ standby 10 ipv6 2001:db8:0:9::1/64
  standby 10 priority 110
  standby 10 preempt
  standby 10 track 1 decrement 15
  standby 10 track 2 decrement 15
 !
-interface vlan 20
- ipv6 enable
- ipv6 address 2001:db8:0:2::2/64
- ipv6 traffic-filter Sales-IN in
-  standby version 2
- standby 20 ipv6 2001:db8:0:2::1/64
- standby 20 priority 90
- standby 20 preempt
-!
-interface vlan 90
- ipv6 enable
- ipv6 address 2001:db8:0:9::2/64
- ipv6 traffic-filter Servers-IN in
-  standby version 2
- standby 90 ipv6 2001:db8:0:9::1/64
- standby 90 priority 110
- standby 90 preempt
- standby 90 track 1 decrement 15
- standby 90 track 2 decrement 15
-!
-interface vlan 100
+interface vlan 11
  ipv6 enable
  ipv6 address 2001:db8:0:10::2/64
  ipv6 traffic-filter IT-IN in
   standby version 2
- standby 100 ipv6 2001:db8:0:10::1/64
- standby 100 priority 90
- standby 100 preempt
+ standby 11 ipv6 2001:db8:0:10::1/64
+ standby 11 priority 90
+ standby 11 preempt
 !
-interface vlan 200
+interface vlan 256
  ipv6 enable
  ipv6 address 2001:db8:0:FF::2/64
  ipv6 traffic-filter Guests-IN in
   standby version 2
- standby 200 ipv6 2001:db8:0:FF::1/64
- standby 200 priority 110
- standby 200 preempt
- standby 200 track 1 decrement 15
- standby 200 track 2 decrement 15
+ standby 256 ipv6 2001:db8:0:FF::1/64
+ standby 256 priority 110
+ standby 256 preempt
+ standby 256 track 1 decrement 15
+ standby 256 track 2 decrement 15
 !
 !
 interface port-channel 1
