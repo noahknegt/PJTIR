@@ -303,70 +303,78 @@ interface port-channel 2
 !
 ipv6 access-list HR-IN
 permit udp any host FF02::66 eq 2029
-permit ipv6 2001:db8:0:1::/56 2001:db8:0:1::/56
-permit ipv6 2001:db8:0:100::/64 2001:db8:0:9::/56
-permit ipv6 2001:db8:0:9::/56 2001:db8:0:100::/64
-permit ipv6 2001:db8:0:10::/56 2001:db8:0:100::/64
-permit tcp 2001:db8:0:100::/64 2001:db8:0:10::/56 established
-permit tcp any 2001:db8:0:100::/64 established
-deny tcp 2001:db8:0:100::/64 2001:db8::/48
-permit tcp 2001:db8:0:100::/64 any
-permit icmp 2001:db8:0:100::/64 2001:db8::/48 echo-reply
-permit icmp any 2001:db8:0:100::/64 echo-reply
-deny icmp 2001:db8:0:100::/64 2001:db8::/48 echo-request
-permit icmp 2001:db8:0:100::/64 any echo-request
-deny icmp 2001:db8:0:100::/64 any echo-reply
-deny ipv6 any 2001:db8:0:100::/64
+permit ipv6 2001:db8:0:1::/64 2001:db8:0:1::/64
+permit ipv6 2001:db8:0:1::/64 2001:db8:0:1::/64
+permit ipv6 2001:db8:0:1::/64 2001:db8:0:9::/64
+permit ipv6 2001:db8:0:1::/64 2001:db8:0:1::/64
+permit ipv6 2001:db8:0:9::/64 2001:db8:0:1::/64
+permit ipv6 2001:db8:0:10::/64 2001:db8:0:1::/64
+permit tcp 2001:db8:0:1::/64 2001:db8:0:10::/64 established
+permit ipv6 2001:db8:0:10::/64 2001:db8:0:1::/64
+permit tcp 2001:db8:0:1::/64 2001:db8:0:10::/64 established
+permit tcp any 2001:db8:0:1::/64 established
+deny tcp 2001:db8:0:1::/64 2001:db8::/48
+permit tcp 2001:db8:0:1::/64 any
+permit icmp 2001:db8:0:1::/64 2001:db8::/48 echo-reply
+permit icmp any 2001:db8:0:1::/64 echo-reply
+deny icmp 2001:db8:0:1::/64 2001:db8::/48 echo-request
+permit icmp 2001:db8:0:1::/64 any echo-request
+deny icmp 2001:db8:0:1::/64 any echo-reply
+deny ipv6 any 2001:db8:0:1::/64
 !
 ipv6 access-list Sales-IN
 permit udp any host FF02::66 eq 2029
-permit ipv6 2001:db8:0:2::/56 2001:db8:0:2::/56
-permit ipv6 2001:db8:0:200::/64 2001:db8:0:9::/56
-permit ipv6 2001:db8:0:9::/56 2001:db8:0:200::/64
-permit ipv6 2001:db8:0:10::/56 2001:db8:0:200::/64
-permit tcp 2001:db8:0:200::/64 2001:db8:0:10::/56 established
-permit tcp any 2001:db8:0:200::/64 established
-deny tcp 2001:db8:0:200::/64 2001:db8::/48
-permit tcp 2001:db8:0:200::/64 any
-permit icmp 2001:db8:0:200::/64 2001:db8::/48 echo-reply
-permit icmp any 2001:db8:0:200::/64 echo-reply
-deny icmp 2001:db8:0:200::/64 2001:db8::/48 echo-request
-permit icmp 2001:db8:0:200::/64 any echo-request
-deny icmp 2001:db8:0:200::/64 any echo-reply
-deny ipv6 any 2001:db8:0:200::/64
+permit ipv6 2001:db8:0:2::/64 2001:db8:0:2::/64
+permit ipv6 2001:db8:0:2::/64 2001:db8:0:1::/64
+permit ipv6 2001:db8:0:2::/64 2001:db8:0:9::/64
+permit ipv6 2001:db8:0:1::/64 2001:db8:0:2::/64
+permit ipv6 2001:db8:0:9::/64 2001:db8:0:2::/64
+permit ipv6 2001:db8:0:10::/64 2001:db8:0:2::/64
+permit tcp 2001:db8:0:2::/64 2001:db8:0:10::/64 established
+permit ipv6 2001:db8:0:10::/64 2001:db8:0:2::/64
+permit tcp 2001:db8:0:2::/64 2001:db8:0:10::/64 established
+permit tcp any 2001:db8:0:2::/64 established
+deny tcp 2001:db8:0:2::/64 2001:db8::/48
+permit tcp 2001:db8:0:2::/64 any
+permit icmp 2001:db8:0:2::/64 2001:db8::/48 echo-reply
+permit icmp any 2001:db8:0:2::/64 echo-reply
+deny icmp 2001:db8:0:2::/64 2001:db8::/48 echo-request
+permit icmp 2001:db8:0:2::/64 any echo-request
+deny icmp 2001:db8:0:2::/64 any echo-reply
+deny ipv6 any 2001:db8:0:2::/64
 !
 ipv6 access-list Servers-IN
 permit udp any host FF02::66 eq 2029
-permit ipv6 2001:db8::/48 2001:db8:0:9::/56
-permit ipv6 2001:db8:0:900::/64 2001:db8::/48
-permit udp 2001:db8:0:900::/64 any eq 53
-permit icmp any 2001:db8:0:900::/64 echo-reply
-permit icmp 2001:db8:0:900::/64 any echo-request
-deny icmp 2001:db8:0:900::/64 any echo-reply
-deny ipv6 any 2001:db8:0:900::/64
+permit ipv6 2001:db8::/48 2001:db8:0:9::/64
+permit ipv6 2001:db8:0:9::/64 2001:db8::/48
+permit udp 2001:db8:0:9::/64 any eq 53
+permit icmp any 2001:db8:0:9::/64 echo-reply
+permit icmp 2001:db8:0:9::/64 any echo-request
+deny icmp 2001:db8:0:9::/64 any echo-reply
+deny ipv6 any 2001:db8:0:9::/64
 !
 ipv6 access-list IT-IN
 permit udp any host FF02::66 eq 2029
-permit ipv6 2001:db8:0:10::/56 2001:db8:0:10::/56
-permit ipv6 2001:db8:0:1000::/64 2001:db8::/48
-permit icmp 2001:db8::/48 2001:db8:0:1000::/64 echo-reply
-permit tcp 2001:db8::/48 2001:db8:0:1000::/64 established
-permit tcp any 2001:db8:0:1000::/64 established
-permit tcp 2001:db8:0:1000::/64 any
-permit icmp any 2001:db8:0:1000::/64 echo-reply
-permit icmp 2001:db8:0:1000::/64 any echo-request
-deny icmp 2001:db8:0:1000::/64 any echo-reply
-deny ipv6 any 2001:db8:0:1000::/64
+permit ipv6 2001:db8:0:10::/64 2001:db8:0:10::/64
+permit ipv6 2001:db8:0:10::/64 2001:db8::/48
+permit icmp 2001:db8::/48 2001:db8:0:10::/64 echo-reply
+permit tcp 2001:db8::/48 2001:db8:0:10::/64 established
+permit tcp any 2001:db8:0:10::/64 established
+permit tcp 2001:db8:0:10::/64 any
+permit icmp any 2001:db8:0:10::/64 echo-reply
+permit icmp 2001:db8:0:10::/64 any echo-request
+deny icmp 2001:db8:0:10::/64 any echo-reply
+deny ipv6 any 2001:db8:0:10::/64
 !
 ipv6 access-list Guests-IN
 permit udp any host FF02::66 eq 2029
-deny ipv6 2001:db8:0:FF00::/64 2001:db8:0:FF00::/64
-permit udp 2001:db8:0:FF00::/64 2001:db8:0:9::/56 eq 53
-deny ipv6 2001:db8:0:FF00::/64 2001:db8::/48
-permit ipv6 2001:db8:0:FF00::/64 any
-permit tcp any 2001:db8:0:FF00::/64 established
-permit icmp any 2001:db8:0:FF00::/64 echo-reply
-deny ipv6 any 2001:db8:0:FF00::/64
+deny ipv6 2001:db8:0:FF::/64 2001:db8:0:FF::/64
+permit udp 2001:db8:0:FF::/64 2001:db8:0:9::/64 eq 53
+deny ipv6 2001:db8:0:FF::/64 2001:db8::/48
+permit ipv6 2001:db8:0:FF::/64 any
+permit tcp any 2001:db8:0:FF::/64 established
+permit icmp any 2001:db8:0:FF::/64 echo-reply
+deny ipv6 any 2001:db8:0:FF::/64
 !
 !
 !

@@ -16,18 +16,17 @@ aaa authorization exec default local
 !
 !
 spanning-tree mode rapid-pvst
-spanning-tree uplinkfast
 !
-!
-vlan 10
+! All VLAN IDs are their number + 1 because Default is already 1
+vlan 2
 name HQ
-Vlan 20
+Vlan 3
 name Sales
-vlan 90
+vlan 10
 name Servers
-vlan 100
+vlan 11
 name IT
-vlan 200
+vlan 256
 name Guests
 vlan 998
 name NATIVE
