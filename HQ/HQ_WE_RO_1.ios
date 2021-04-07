@@ -1,7 +1,12 @@
 hostname HQ_WE_RO_1
 ipv6 unicast-routing
+!EIGRP
 ipv6 router eigrp 1
 eigrp router-id 1.1.1.1
+!OSPFv3
+ipv6 router ospf 1
+router-id 2.2.2.2
+exit
 ! Naar MLS 1
 interface g0/0/0
 ipv6 enable
@@ -19,7 +24,14 @@ interface s0/1/0
 ipv6 enable
 ipv6 address 2001:db8::2A/126
 ipv6 eigrp 1
+ipv6 ospf 1 area 0
+ipv6 ospf dead-interval 40
+ipv6 ospf hello-interval 10
+ipv6 ospf network point-to-point
+ipv6 ospf priority 1
+ipv6 ospf neighbor 2001:db8::29
 no shutdown
+
 !
 ! DMVPN Hub 1
 !
@@ -39,6 +51,7 @@ interface Tunnel0
 ipv6 address 2001:db8::1:1/112
 ipv6 address fe80:db8::1:1 link-local
 ipv6 mtu 1400
+ipv6 eigrp 1
 ! fix EIGRP over DMVPN
 no ipv6 split-horizon eigrp 1
 no ipv6 next-hop-self eigrp 1
