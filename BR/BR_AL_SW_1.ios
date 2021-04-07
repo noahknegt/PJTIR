@@ -1,4 +1,4 @@
-hostname HQ_AL_SW_1
+hostname BR_AL_SW_1
 !
 !
 !
@@ -71,7 +71,7 @@ no shutdown
 interface f0/5
 spanning-tree portfast
 switchport mode access
-switchport access vlan 11
+switchport access vlan 100
 switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
@@ -81,7 +81,7 @@ no shutdown
 interface f0/6
 spanning-tree portfast
 switchport mode access
-switchport access vlan 2
+switchport access vlan 10
 switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
@@ -91,7 +91,7 @@ no shutdown
 interface f0/7
 spanning-tree portfast
 switchport mode access
-switchport access vlan 3
+switchport access vlan 20
 switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
