@@ -32,49 +32,57 @@ ipv6 ospf network point-to-point
 ipv6 ospf priority 1
 ipv6 ospf neighbor 2001:db8::29
 no shutdown
-
 !
-! DMVPN Hub 1
+! VPN
 !
-! https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6/configuration/15-2mt/ipv6-15-2mt-book/ip6-dmvpn.html
-! Create Transform set
-crypto ipsec transform-set DMVPN_Transform_Set esp-aes 256 esp-sha512-hmac
+! ISAKMP Policy
+crypto isakmp policy 17
+authentication pre-share
+hash sha
+group 2
+encryption aes 256
+exit
+! ISAKMP key
+crypto isakmp key 0 cisco address ipv6 2001:db8::32/126
+crypto keyring keyring1
+pre-shared-key address ipv6 2001:db8::32/126 key 0 cisco
+exit
+! TransformSet
+crypto ipsec transform-set VPN_Transform_Set esp-aes 256 esp-sha512-hmac
 mode tunnel
 exit
-! Create Ipsec Profile
+! Crypto identity
 crypto identity HQ_WE_RO_1
 exit
-crypto ipsec profile DMVPN_Crypto_Profile
-set transform-set DMVPN_Transform_Set
+! IPSEC profile
+crypto ipsec profile VPN_Crypto_Profile
+set transform-set VPN_Transform_Set
 set identity HQ_WE_RO_1
-! Configure DMVPN HUB
+exit
+! ISAKMP profile
+crypto isakmp profile VPN_ISAKMP_Profile
+self-identity address ipv6
+match identity address ipv6 2001:db8::32/126
+exit
+! configure Tunnel
 interface Tunnel0
+ipv6 enable
 tunnel key 17
 ipv6 address 2001:db8::1:1/112
 ipv6 address fe80:db8::1:1 link-local
 ipv6 mtu 1400
 ipv6 eigrp 1
-! fix EIGRP over DMVPN
-no ipv6 split-horizon eigrp 1
-no ipv6 next-hop-self eigrp 1
-! NHRP auth stringl moet overal hetzelfde zijn
-ipv6 nhrp authentication zwaardsweatshoplogistics
-ipv6 nhrp map multicast dynamic
-ipv6 nhrp network-id 17
-tunnel source S0/1/0
-tunnel mode gre multipoint ipv6
-tunnel protection ipsec profile DMVPN_Crypto_Profile
-! set bandwith? 
-! idk mby change
-bandwidth 1000000
-ipv6 nhrp holdtime 3600
-!NHRP redirects and shortcuts?
-ipv6 nhrp redirect
-ipv6 nhrp redirect timeout 17
-ipv6 nhrp shortcut
+!
+tunnel source 2001:db8::2A
+tunnel destination 2001:db8::32
+tunnel mode gre ipv6
+tunnel protection ipsec profile VPN_Crypto_Profile
 exit
+!
+!
+!
 ! Static Routes
-ipv6 route 2001:db8:01::/56 Tunnel0 
+ipv6 route 2001:db8:100::/56 Tunnel0 
 ipv6 route ::/0 Serial0/1/0 200
 !
 !SSH

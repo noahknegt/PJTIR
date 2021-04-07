@@ -27,52 +27,76 @@ ipv6 ospf priority 1
 ipv6 ospf neighbor 2001:db8::31
 no shutdown
 !
-! DMVPN Spoke
+! VPN
 !
-! https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6/configuration/15-2mt/ipv6-15-2mt-book/ip6-dmvpn.html
-! Create Transform set
-crypto ipsec transform-set DMVPN_Transform_Set esp-aes 256 esp-sha512-hmac
+! ISAKMP Policy
+crypto isakmp policy 17
+authentication pre-share
+hash sha
+group 2
+encryption aes 256
+exit
+! ISAKMP key
+crypto isakmp key 0 cisco address ipv6 2001:db8::2A/126
+crypto isakmp key 0 cisco address ipv6 2001:db8::2E/126
+crypto keyring keyring1
+pre-shared-key address ipv6 2001:db8::2A/126 key 0 cisco
+exit
+crypto keyring keyring2
+pre-shared-key address ipv6 2001:db8::2E/126 key 0 cisco
+exit
+! TransformSet
+crypto ipsec transform-set VPN_Transform_Set esp-aes 256 esp-sha512-hmac
 mode tunnel
 exit
-! Create Ipsec Profile
-crypto identity HQ_WE_RO_1
+! Crypto identity
+crypto identity BR_WE_RO_1
 exit
-crypto ipsec profile DMVPN_Crypto_Profile
-set transform-set DMVPN_Transform_Set
-set identity HQ_WE_RO_1
-! Configure DMVPN HUB
+! IPSEC profile
+crypto ipsec profile VPN_Crypto_Profile
+set transform-set VPN_Transform_Set
+set identity BR_WE_RO_1
+exit
+! ISAKMP profile
+crypto isakmp profile VPN_ISAKMP_Profile1
+self-identity address ipv6
+match identity address ipv6 2001:db8::2A/126
+exit
+crypto isakmp profile VPN_ISAKMP_Profile2
+self-identity address ipv6
+match identity address ipv6 2001:db8::2E/126
+exit
+! configure Tunnel0
 interface Tunnel0
+ipv6 enable
 tunnel key 17
-ipv6 address 2001:db8::1:3/112
+ipv6 address 2001:db8::1:/112
 ipv6 address fe80:db8::1:3 link-local
 ipv6 mtu 1400
 ipv6 eigrp 1
-! fix EIGRP over DMVPN
-no ipv6 split-horizon eigrp 1
-no ipv6 next-hop-self eigrp 1
-! NHRP auth stringl moet overal hetzelfde zijn
-ipv6 nhrp authentication zwaardsweatshoplogistics
-ipv6 nhrp network-id 17
 !
-ipv6 nhrp map 2001:db8::1:1/126 2001:db8::2A
-ipv6 nhrp map 2001:db8::1:2/126 2001:db8::2E
-ipv6 nhrp map multicast 2001:db8::2A
-ipv6 nhrp map multicast 2001:db8::2E
-ipv6 nhrp nhs 2001:db8::1:1
-ipv6 nhrp nhs 2001:db8::1:2
-!
-tunnel source S0/1/0
-tunnel mode gre multipoint ipv6
-tunnel protection ipsec profile DMVPN_Crypto_Profile
-! set bandwith? 
-! idk mby change
-bandwidth 1000000
-ipv6 nhrp holdtime 3600
-!NHRP redirects and shortcuts?
-ipv6 nhrp redirect
-ipv6 nhrp redirect timeout 17
-ipv6 nhrp shortcut
+tunnel source 2001:db8::32
+tunnel destination 2001:db8::2A
+tunnel mode gre ipv6
+tunnel protection ipsec profile VPN_Crypto_Profile
 exit
+! configure Tunnel1
+interface Tunnel1
+ipv6 enable
+tunnel key 18
+ipv6 address 2001:db8::1:4/112
+ipv6 address fe80:db8::1:4 link-local
+ipv6 mtu 1400
+ipv6 eigrp 1
+!
+tunnel source 2001:db8::32
+tunnel destination 2001:db8::2E
+tunnel mode gre ipv6
+tunnel protection ipsec profile VPN_Crypto_Profile
+exit
+!
+!
+!
 ! Static Routes
 ipv6 route 2001:db8::/56 Tunnel0 
 ipv6 route ::/0 Serial0/1/0 200
