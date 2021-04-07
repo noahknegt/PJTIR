@@ -304,7 +304,7 @@ interface port-channel 2
 ipv6 access-list HR-IN
 permit udp any host FF02::66 eq 2029
 permit ipv6 2001:db8:0:1::/64 2001:db8:0:1::/64
-permit ipv6 2001:db8:0:1::/64 2001:db8:0:1::/64
+permit ipv6 2001:db8:0:1::/64 2001:db8:0:101::/64
 permit ipv6 2001:db8:0:1::/64 2001:db8:0:9::/64
 permit ipv6 2001:db8:0:1::/64 2001:db8:0:1::/64
 permit ipv6 2001:db8:0:9::/64 2001:db8:0:1::/64
@@ -325,7 +325,7 @@ deny ipv6 any 2001:db8:0:1::/64
 ipv6 access-list Sales-IN
 permit udp any host FF02::66 eq 2029
 permit ipv6 2001:db8:0:2::/64 2001:db8:0:2::/64
-permit ipv6 2001:db8:0:2::/64 2001:db8:0:1::/64
+permit ipv6 2001:db8:0:2::/64 2001:db8:0:102::/64
 permit ipv6 2001:db8:0:2::/64 2001:db8:0:9::/64
 permit ipv6 2001:db8:0:1::/64 2001:db8:0:2::/64
 permit ipv6 2001:db8:0:9::/64 2001:db8:0:2::/64
