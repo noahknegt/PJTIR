@@ -338,7 +338,7 @@ ipv6 access-list Servers-IN
 permit udp any host FF02::66 eq 2029
 permit ipv6 2001:db8::/48 2001:db8:0:90::/64
 permit ipv6 2001:db8:0:90::/64 2001:db8::/48
-! Fix upstream somehow
+permit udp 2001:db8:0:90::/64 any eq 53
 permit icmp any 2001:db8:0:90::/64 echo-reply
 permit icmp 2001:db8:0:90::/64 any echo-request
 deny icmp 2001:db8:0:90::/64 any echo-reply
