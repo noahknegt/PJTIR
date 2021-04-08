@@ -46,7 +46,7 @@ ipv6 ospf network point-to-point
 ipv6 ospf priority 3
 ipv6 ospf neighbor 2001:db8::32
 !
-! Loopback
+! Loopback (grote boze internet)
 interface Loopback 0
 ipv6 enable
 ipv6 address 17::1/64
@@ -61,7 +61,7 @@ exit
 !Static Routes
 ipv6 route 2001:db8::/56 2001:db8::2A
 ipv6 route 2001:db8::/56 2001:db8::2E
-ipv6 route 2001:db8:100::/56 2001:db8::32
+ipv6 route 2001:db8:0:100::/56 2001:db8::32
 !
 !SSH
 username user priv 15 password cisco

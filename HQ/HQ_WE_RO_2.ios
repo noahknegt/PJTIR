@@ -37,6 +37,17 @@ no shutdown
 crypto ipsec transform-set DMVPN_Transform_Set esp-aes 256 esp-sha512-hmac
 mode tunnel
 exit
+! ISAKMP policy
+crypto isakmp policy 1
+encryption aes 256
+hash sha512
+authentication pre-share
+group 24
+lifetime 3600
+exit
+! ISAKMP Key
+crypto isakmp identity address
+crypto isakmp key 0 zwaardssweatshoplogistics address ipv6 2001:db8:0:100::/56
 ! Create Ipsec Profile
 crypto identity HQ_WE_RO_2
 exit
@@ -45,16 +56,17 @@ set transform-set DMVPN_Transform_Set
 set identity HQ_WE_RO_2
 ! Configure DMVPN HUB
 interface Tunnel0
+ipv6 enable
 tunnel key 17
 ipv6 address 2001:db8::1:2/112
 ipv6 address fe80:db8::1:2 link-local
-ipv6 mtu 1400
+ipv6 mtu 1500
 ipv6 eigrp 1
 ! fix EIGRP over DMVPN
 no ipv6 split-horizon eigrp 1
 no ipv6 next-hop-self eigrp 1
 ! NHRP auth stringl moet overal hetzelfde zijn
-ipv6 nhrp authentication zwaardsweatshoplogistics
+ipv6 nhrp authentication zwaard
 ipv6 nhrp map 2001:db8::1:1/126 2001:db8::2A
 ipv6 nhrp map multicast dynamic
 ipv6 nhrp map multicast 2001:db8::2A
@@ -73,7 +85,7 @@ ipv6 nhrp redirect timeout 17
 ipv6 nhrp shortcut
 exit
 ! Static Routes
-ipv6 route 2001:db8:01::/56 Tunnel0 
+ipv6 route 2001:db8:0:100::/56 Tunnel0 
 ipv6 route ::/0 Serial0/1/0 200
 !
 !SSH
