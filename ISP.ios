@@ -59,9 +59,9 @@ ipv6 ospf priority 1
 !
 exit
 !Static Routes
-ipv6 route 2001:db8::/56 2001:db8::2A
-ipv6 route 2001:db8::/56 2001:db8::2E
-ipv6 route 2001:db8:100::/56 2001:db8::32
+ipv6 route 2001:db8::/56 2001:db8::2A 180
+ipv6 route 2001:db8::/56 2001:db8::2E 190
+ipv6 route 2001:db8:0:100::/56 2001:db8::32
 !
 !SSH
 username user priv 15 password cisco

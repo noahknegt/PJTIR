@@ -33,53 +33,58 @@ no shutdown
 ! VPN
 !
 ! ISAKMP Policy
-crypto isakmp policy 17
+crypto isakmp policy 1
 authentication pre-share
-hash sha
-group 2
+hash sha512
 encryption aes 256
+group 24
 exit
 ! ISAKMP key
-crypto isakmp key 0 cisco address ipv6 2001:db8::32/126
-crypto keyring keyring2
-pre-shared-key address ipv6 2001:db8::32/126 key 0 cisco
-exit
+crypto isakmp key 0 zwaard address ipv6 2001:db8::32/128
 ! TransformSet
 crypto ipsec transform-set VPN_Transform_Set esp-aes 256 esp-sha512-hmac
 mode tunnel
 exit
-! Crypto identity
-crypto identity HQ_WE_RO_2
+crypto ipsec security-association lifetime days 1
+! VPN accesslist
+ipv6 access-list VPN_ACL 
+permit any any
+exit
+! Crypto map
+crypto map ipv6 VPN_Map 11 ipsec-isakmp
+match address VPN_ACL
+set peer 2001:db8::32
+set pfs group24
+set transform-set VPN_Transform_Set
+set security-association lifetime days 1
 exit
 ! IPSEC profile
 crypto ipsec profile VPN_Crypto_Profile
 set transform-set VPN_Transform_Set
-set identity HQ_WE_RO_2
 exit
 ! ISAKMP profile
 crypto isakmp profile VPN_ISAKMP_Profile
 self-identity address ipv6
-match identity address ipv6 2001:db8::32/126
+match identity address ipv6 2001:db8::32/128
 exit
 ! configure Tunnel
-interface Tunnel1
+interface Tunnel11
 ipv6 enable
-tunnel key 18
-ipv6 address 2001:db8::1:2/112
-ipv6 address fe80:db8::1:2 link-local
-ipv6 mtu 1400
-ipv6 eigrp 1
-!
+ipv6 address 2001:db8::2:1/112
+crypto map VPN_Map
 tunnel source 2001:db8::2E
 tunnel destination 2001:db8::32
-tunnel mode gre ipv6
+tunnel mode ipsec ipv6
 tunnel protection ipsec profile VPN_Crypto_Profile
+tunnel key 11
+ipv6 mtu 1400
+ipv6 eigrp 1
 exit
 !
 !
 !
 ! Static Routes
-ipv6 route 2001:db8:100::/56 Tunnel1
+ipv6 route 2001:db8:0:100::/56 Tunnel11
 ipv6 route ::/0 Serial0/1/0 200
 !
 !SSH
@@ -105,6 +110,13 @@ login authentication MGT
 authorization exec default
 exec-timeout 60
 logging synchronous
+exit
+! Testing Loopback
+interface loopback 0
+ipv6 enable
+ipv6 address 2001:db8::17/126
+ipv6 eigrp 1
+no shutdown
 exit
 !
 end
