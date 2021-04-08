@@ -20,6 +20,7 @@ aaa new-model
 aaa authentication login MGT local
 aaa authentication enable default enable
 aaa authorization exec default local
+aaa authorization console
 !
 !
 !
@@ -69,12 +70,6 @@ ipv6 router eigrp 1
  passive-interface default
  no passive-interface g1/0/23
  no passive-interface g1/0/24
- no passive-interface vlan 2
- no passive-interface vlan 3
- no passive-interface vlan 10
- no passive-interface vlan 11
- no passive-interface vlan 256
- no shutdown
 !
 !
 !
@@ -242,31 +237,26 @@ interface vlan 2
  ipv6 enable
  ipv6 address 2001:db8:0:101::5/64
  ipv6 traffic-filter HR-IN in
- ipv6 eigrp 1
 !
 interface vlan 3
  ipv6 enable
  ipv6 address 2001:db8:0:102::5/64
  ipv6 traffic-filter Sales-IN in
- ipv6 eigrp 1
 !
 interface vlan 10
  ipv6 enable
  ipv6 address 2001:db8:0:109::5/64
  ipv6 traffic-filter Servers-IN in
- ipv6 eigrp 1
 !
 interface vlan 11
  ipv6 enable
  ipv6 address 2001:db8:0:110::5/64
  ipv6 traffic-filter IT-IN in
- ipv6 eigrp 1
 !
 interface vlan 256
  ipv6 enable
  ipv6 address 2001:db8:0:1ff::5/64
  ipv6 traffic-filter Guests-IN in
- ipv6 eigrp 1
 !
 !
 !

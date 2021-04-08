@@ -21,6 +21,7 @@ aaa new-model
 aaa authentication login MGT local
 aaa authentication enable default enable
 aaa authorization exec default local
+aaa authorization console
 !
 !
 !
@@ -75,17 +76,10 @@ spanning-tree extend system-id
 !
 !
 ipv6 router eigrp 1
- eigrp router-id 7.7.7.7
- passive-interface default
- no passive-interface g1/0/23
- no passive-interface g1/0/24
- no passive-interface vlan 2
- no passive-interface vlan 3
- no passive-interface vlan 10
- no passive-interface vlan 11
- no passive-interface vlan 256
- no shutdown
-!
+router-id 8.8.8.8
+passive-interface default
+no passive-interface g1/0/23
+no passive-interface g1/0/24
 !
 !
 !
@@ -222,14 +216,14 @@ no switchport
 ipv6 enable
 ipv6 address 2001:db8::E/126
 ipv6 eigrp 1
-shutdown
+no shutdown
 !
 interface GigabitEthernet1/0/24
 no switchport
 ipv6 enable
 ipv6 address 2001:db8::6/126
 ipv6 eigrp 1
-shutdown
+no shutdown
 !
 interface GigabitEthernet1/1/1
  switchport mode access
@@ -270,9 +264,8 @@ interface vlan 2
  ipv6 traffic-filter HR-IN in
  standby version 2
  standby 2 ipv6 2001:db8:0:1::1/64
- standby 2 priority 110
+ standby 2 priority 90
  standby 2 preempt
- ipv6 eigrp 1
 !
 interface vlan 3
  ipv6 enable
@@ -280,11 +273,10 @@ interface vlan 3
  ipv6 traffic-filter Sales-IN in
   standby version 2
  standby 3 ipv6 2001:db8:0:2::1/64
- standby 3 priority 90
+ standby 3 priority 110
  standby 3 preempt
  standby 3 track 1 decrement 15
  standby 3 track 2 decrement 15
- ipv6 eigrp 1
 !
 interface vlan 10
  ipv6 enable
@@ -292,9 +284,8 @@ interface vlan 10
  ipv6 traffic-filter Servers-IN in
   standby version 2
  standby 10 ipv6 2001:db8:0:9::1/64
- standby 10 priority 110
+ standby 10 priority 90
  standby 10 preempt
- ipv6 eigrp 1
 !
 interface vlan 11
  ipv6 enable
@@ -302,11 +293,10 @@ interface vlan 11
  ipv6 traffic-filter IT-IN in
   standby version 2
  standby 11 ipv6 2001:db8:0:10::1/64
- standby 11 priority 90
+ standby 11 priority 110
  standby 11 preempt
  standby 11 track 1 decrement 15
  standby 11 track 2 decrement 15
- ipv6 eigrp 1
 !
 interface vlan 256
  ipv6 enable
@@ -314,14 +304,16 @@ interface vlan 256
  ipv6 traffic-filter Guests-IN in
   standby version 2
  standby 256 ipv6 2001:db8:0:FF::1/64
- standby 256 priority 110
+ standby 256 priority 90
  standby 256 preempt
- ipv6 eigrp 1
+!
+!
+!
 !
 !
 interface port-channel 1
  no switchport
- ipv6 address 2001:db8::22/64
+ ipv6 address 2001:db8::22/126
 !
 interface port-channel 2
  switchport mode trunk

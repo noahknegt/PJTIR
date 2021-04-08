@@ -21,6 +21,7 @@ aaa new-model
 aaa authentication login MGT local
 aaa authentication enable default enable
 aaa authorization exec default local
+aaa authorization console
 !
 !
 !
@@ -71,16 +72,10 @@ spanning-tree extend system-id
 !
 !
 ipv6 router eigrp 1
- eigrp router-id 6.6.6.6
- passive-interface default
- no passive-interface g1/0/23
- no passive-interface g1/0/24
- no passive-interface vlan 2
- no passive-interface vlan 3
- no passive-interface vlan 10
- no passive-interface vlan 11
- no passive-interface vlan 256
- no shutdown
+router-id 4.4.4.4
+passive-interface default
+no passive-interface g1/0/23
+no passive-interface g1/0/24
 !
 !
 !
@@ -218,14 +213,14 @@ no switchport
 ipv6 enable
 ipv6 address 2001:db8::2/126
 ipv6 eigrp 1
-shutdown
+no shutdown
 !
 interface GigabitEthernet1/0/24
 no switchport
 ipv6 enable
 ipv6 address 2001:db8::A/126
 ipv6 eigrp 1
-shutdown
+no shutdown
 !
 interface GigabitEthernet1/1/1
  switchport mode access
@@ -270,7 +265,6 @@ interface vlan 2
  standby 2 preempt
  standby 2 track 1 decrement 15
  standby 2 track 2 decrement 15
- ipv6 eigrp 1
 !
 interface vlan 3
  ipv6 enable
@@ -280,7 +274,6 @@ interface vlan 3
  standby 3 ipv6 2001:db8:0:2::1/64
  standby 3 priority 90
  standby 3 preempt
- ipv6 eigrp 1
 !
 interface vlan 10
  ipv6 enable
@@ -292,7 +285,6 @@ interface vlan 10
  standby 10 preempt
  standby 10 track 1 decrement 15
  standby 10 track 2 decrement 15
- ipv6 eigrp 1
 !
 interface vlan 11
  ipv6 enable
@@ -302,7 +294,6 @@ interface vlan 11
  standby 11 ipv6 2001:db8:0:10::1/64
  standby 11 priority 90
  standby 11 preempt
- ipv6 eigrp 1
 !
 interface vlan 256
  ipv6 enable
@@ -314,12 +305,11 @@ interface vlan 256
  standby 256 preempt
  standby 256 track 1 decrement 15
  standby 256 track 2 decrement 15
- ipv6 eigrp 1
 !
 !
 interface port-channel 1
  no switchport
- ipv6 address 2001:db8::21/64
+ ipv6 address 2001:db8::21/126
 !
 interface port-channel 2
  switchport mode trunk
