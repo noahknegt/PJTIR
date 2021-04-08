@@ -64,6 +64,17 @@ spanning-tree vlan 999 root primary
 !
 !
 !
+ipv6 router eigrp 1
+ eigrp router-id 8.8.8.8
+ passive-interface default
+ no passive-interface g1/0/23
+ no passive-interface g1/0/24
+ no passive-interface vlan 2
+ no passive-interface vlan 3
+ no passive-interface vlan 10
+ no passive-interface vlan 11
+ no passive-interface vlan 256
+ no shutdown
 !
 !
 !
@@ -187,8 +198,14 @@ interface GigabitEthernet1/0/22
  shutdown
 !
 interface GigabitEthernet1/0/23
+ no switchport
+ ipv6 eigrp 1
+ shutdown
 !
 interface GigabitEthernet1/0/24
+ no switchport
+ ipv6 eigrp 1
+ shutdown
 !
 interface GigabitEthernet1/1/1
  switchport mode access
@@ -220,30 +237,35 @@ interface Vlan1
  no ip address
  shutdown
 !
-interface vlan 10
+interface vlan 2
  ipv6 enable
  ipv6 address 2001:db8:0:101::5/64
  ipv6 traffic-filter HR-IN in
+ ipv6 eigrp 1
 !
-interface vlan 20
+interface vlan 3
  ipv6 enable
  ipv6 address 2001:db8:0:102::5/64
  ipv6 traffic-filter Sales-IN in
+ ipv6 eigrp 1
 !
-interface vlan 90
+interface vlan 10
  ipv6 enable
  ipv6 address 2001:db8:0:109::5/64
  ipv6 traffic-filter Servers-IN in
+ ipv6 eigrp 1
 !
-interface vlan 100
+interface vlan 11
  ipv6 enable
  ipv6 address 2001:db8:0:110::5/64
  ipv6 traffic-filter IT-IN in
+ ipv6 eigrp 1
 !
-interface vlan 200
+interface vlan 256
  ipv6 enable
  ipv6 address 2001:db8:0:1ff::5/64
  ipv6 traffic-filter Guests-IN in
+ ipv6 eigrp 1
 !
 !
 !
