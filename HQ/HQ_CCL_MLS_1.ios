@@ -215,11 +215,15 @@ interface GigabitEthernet1/0/22
 !
 interface GigabitEthernet1/0/23
 no switchport
+ipv6 enable
+ipv6 address 2001:db8::2/126
 ipv6 eigrp 1
 shutdown
 !
 interface GigabitEthernet1/0/24
 no switchport
+ipv6 enable
+ipv6 address 2001:db8::A/126
 ipv6 eigrp 1
 shutdown
 !
