@@ -2,22 +2,49 @@ hostname HQ_WE_RO_2
 ipv6 unicast-routing
 ipv6 router eigrp 1
 eigrp router-id 2.2.2.2
+!
+!
+flow monitor FLOW-MON-1
+description Used for monitoring IPv6 traffic
+record netflow ipv6 original-input
+!
+!
+flow exporter FLOW-EXP-1
+destination 2001:db8:0:/64
+export-protocol netflow-v9
+!
+!
+flow monitor FLOW-MON-1
+exporter FLOW-EXP-1
+!
+!
 interface g0/0/0
 ipv6 address 2001:db8::9/126
 ipv6 eigrp 1
+ipv6 flow monitor FLOW-MON-1 input
+ipv6 flow monitor FLOW-MON-1 output
 no shutdown
+!
+!
 interface g0/0/1
-ipv6 address 2001:db8::13/126
+ipv6 address 2001:db8::D/126
 ipv6 eigrp 1
+ipv6 flow monitor FLOW-MON-1 input
+ipv6 flow monitor FLOW-MON-1 output
 no shutdown
+!
+!
 interface s0/1/0
 ipv6 address 2001:db8::34/126
 ipv6 eigrp 1
 ipv6 traffic-filter Wall in
-
-
+!
+!
 ipv6 access-list Wall
 permit ipv6 2001:db8::/48 2001:db8::/48
 permit icmp any 2001:db8::/48 echo-reply
 permit tcp any 2001:db8::/48 established
 deny ipv6 any any
+!
+snmp-server group group4 v3 priv
+snmp-server user user group4 2001:db8:0:100::/64 v3 auth sha cisco priv access aes256 
