@@ -401,6 +401,10 @@ storm-control unicast level 50
 storm-control action shutdown
 shutdown
 !
+int vlan 11
+ipv6 enable
+ipv6 address 2001:db8:0:110::8
+!
 interface port-channel 1
  switchport mode trunk
  switchport trunk native vlan 998
