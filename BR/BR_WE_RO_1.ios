@@ -29,6 +29,19 @@ exporter FLOW-EXP-1
 snmp-server group groep4 v3 priv
 snmp-server user Ditmoet groep4 v3 auth sha cisco priv aes 256 cisco
 !
+! QoS
+ipv6 access-list IT_VLAN_ACL
+permit ipv6 2001:db8:0:10::/64 any
+permit ipv6 2001:db8:0:110::/64 any
+exit
+class-map IT_CLASS
+match access-group name IT_VLAN_ACL
+exit
+policy-map IT_POLICY
+class IT_CLASS
+set precedence 5
+exit
+!
 !Naar MLS
 interface g0/0/0
 ipv6 enable
@@ -36,6 +49,8 @@ ipv6 address 2001:db8::41/126
 ipv6 eigrp 1
 ipv6 flow monitor FLOW-MON-1 input
 ipv6 flow monitor FLOW-MON-1 output
+service-policy input IT_POLICY
+service-policy output IT_POLICY
 no shutdown
 !
 !Naar ISP
@@ -143,6 +158,8 @@ ipv6 mtu 1400
 ipv6 eigrp 1
 ipv6 flow monitor FLOW-MON-1 input
 ipv6 flow monitor FLOW-MON-1 output
+service-policy input IT_POLICY
+service-policy output IT_POLICY
 exit
 !
 !configure Tunnel11
@@ -158,6 +175,10 @@ tunnel protection ipsec profile VPN_Crypto_Profile2
 tunnel key 11
 ipv6 mtu 1400
 ipv6 eigrp 1
+ipv6 flow monitor FLOW-MON-1 input
+ipv6 flow monitor FLOW-MON-1 output
+service-policy input IT_POLICY
+service-policy output IT_POLICY
 exit
 !
 !Static Routes
