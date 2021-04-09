@@ -16,6 +16,7 @@ enable secret class
 !
 ip domain-lookup
 ip domain-name hhs.nl
+ip name-server 2001:db8:0:9::7
 !
 aaa new-model
 aaa authentication login MGT local
@@ -90,12 +91,7 @@ interface GigabitEthernet0/0
  vrf forwarding Mgmt-vrf
  no ip address
  shutdown
- speed 1000
  negotiation auto
- storm-control broadcast level 50
- storm-control multicast level 50
- storm-control unicast level 50
- storm-control action shutdown
 !
 interface GigabitEthernet1/0/1
  no switchport
@@ -528,7 +524,7 @@ wsma agent notify
 !
 !
 crypto key zeroize rsa
+yes
 crypto key generate rsa
-ssh key rsa 2048 force
-no feature telnet
+4096
 end

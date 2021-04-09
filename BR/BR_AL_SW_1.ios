@@ -7,6 +7,7 @@ enable secret class
 !
 ip domain-lookup
 ip domain-name hhs.nl
+ip name-server 2001:db8:0:9::7
 !
 aaa new-model
 aaa authentication login MGT local
@@ -16,9 +17,8 @@ aaa authorization console
 !
 sdm prefer dual-ipv4-and-ipv6 default
 !
-ipv4 access-list NoIPv4
+ip access-list extended NoIPv4
 deny ip any any
-permit ipv6 any any
 !
 spanning-tree mode rapid-pvst
 spanning-tree portfast bpduguard default
@@ -48,12 +48,7 @@ switchport trunk native vlan 998
 switchport trunk allowed vlan remove 998
 channel-protocol pagp
 channel-group 1 mode auto
-ipv4 access-group NoIPv4 ingress
-ipv4 access-group NoIPv4 egress
-storm-control broadcast level 50
-storm-control multicast level 50
-storm-control unicast level 50
-storm-control action shutdown
+ip access-group NoIPv4 in
 no shutdown
 !
 interface f0/2
@@ -62,12 +57,7 @@ switchport trunk native vlan 998
 switchport trunk allowed vlan remove 998
 channel-protocol pagp
 channel-group 1 mode auto
-ipv4 access-group NoIPv4 ingress
-ipv4 access-group NoIPv4 egress
-storm-control broadcast level 50
-storm-control multicast level 50
-storm-control unicast level 50
-storm-control action shutdown
+ip access-group NoIPv4 in
 no shutdown
 !
 interface f0/3
@@ -76,12 +66,7 @@ switchport trunk native vlan 998
 switchport trunk allowed vlan remove 998
 channel-protocol pagp
 channel-group 2 mode auto
-ipv4 access-group NoIPv4 ingress
-ipv4 access-group NoIPv4 egress
-storm-control broadcast level 50
-storm-control multicast level 50
-storm-control unicast level 50
-storm-control action shutdown
+ip access-group NoIPv4 in
 no shutdown
 !
 interface f0/4
@@ -90,12 +75,7 @@ switchport trunk native vlan 998
 switchport trunk allowed vlan remove 998
 channel-protocol pagp
 channel-group 2 mode auto
-ipv4 access-group NoIPv4 ingress
-ipv4 access-group NoIPv4 egress
-storm-control broadcast level 50
-storm-control multicast level 50
-storm-control unicast level 50
-storm-control action shutdown
+ip access-group NoIPv4 in
 no shutdown
 !
 interface f0/5
@@ -106,8 +86,7 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
-ipv4 access-group NoIPv4 ingress
-ipv4 access-group NoIPv4 egress
+ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
@@ -122,8 +101,7 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
-ipv4 access-group NoIPv4 ingress
-ipv4 access-group NoIPv4 egress
+ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
@@ -138,8 +116,7 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
-ipv4 access-group NoIPv4 ingress
-ipv4 access-group NoIPv4 egress
+ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
@@ -153,8 +130,7 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
-ipv4 access-group NoIPv4 ingress
-ipv4 access-group NoIPv4 egress
+ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
@@ -168,8 +144,7 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
-ipv4 access-group NoIPv4 ingress
-ipv4 access-group NoIPv4 egress
+ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
@@ -183,8 +158,7 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
-ipv4 access-group NoIPv4 ingress
-ipv4 access-group NoIPv4 egress
+ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
@@ -198,8 +172,7 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
-ipv4 access-group NoIPv4 ingress
-ipv4 access-group NoIPv4 egress
+ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
@@ -213,8 +186,7 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
-ipv4 access-group NoIPv4 ingress
-ipv4 access-group NoIPv4 egress
+ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
@@ -228,8 +200,7 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
-ipv4 access-group NoIPv4 ingress
-ipv4 access-group NoIPv4 egress
+ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
@@ -243,8 +214,7 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
-ipv4 access-group NoIPv4 ingress
-ipv4 access-group NoIPv4 egress
+ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
@@ -258,8 +228,7 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
-ipv4 access-group NoIPv4 ingress
-ipv4 access-group NoIPv4 egress
+ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
@@ -273,8 +242,7 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
-ipv4 access-group NoIPv4 ingress
-ipv4 access-group NoIPv4 egress
+ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
@@ -288,8 +256,7 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
-ipv4 access-group NoIPv4 ingress
-ipv4 access-group NoIPv4 egress
+ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
@@ -303,8 +270,7 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
-ipv4 access-group NoIPv4 ingress
-ipv4 access-group NoIPv4 egress
+ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
@@ -318,8 +284,7 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
-ipv4 access-group NoIPv4 ingress
-ipv4 access-group NoIPv4 egress
+ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
@@ -333,8 +298,7 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
-ipv4 access-group NoIPv4 ingress
-ipv4 access-group NoIPv4 egress
+ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
@@ -348,8 +312,7 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
-ipv4 access-group NoIPv4 ingress
-ipv4 access-group NoIPv4 egress
+ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
@@ -363,8 +326,7 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
-ipv4 access-group NoIPv4 ingress
-ipv4 access-group NoIPv4 egress
+ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
@@ -378,8 +340,7 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
-ipv4 access-group NoIPv4 ingress
-ipv4 access-group NoIPv4 egress
+ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
@@ -393,8 +354,7 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
-ipv4 access-group NoIPv4 ingress
-ipv4 access-group NoIPv4 egress
+ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
@@ -403,7 +363,7 @@ shutdown
 !
 int vlan 11
 ipv6 enable
-ipv6 address 2001:db8:0:110::8
+ipv6 address 2001:db8:0:110::8/64
 !
 interface port-channel 1
  switchport mode trunk
@@ -444,6 +404,6 @@ line vty 5 15
 !
 !
 crypto key zeroize rsa
+yes
 crypto key generate rsa
-ssh key rsa 2048 force
-no feature telnet
+4096
