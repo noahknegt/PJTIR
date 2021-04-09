@@ -71,6 +71,15 @@ ipv6 ospf priority 1
 ipv6 ospf neighbor 2001:db8::31
 no shutdown
 !
+!Testing loopback
+interface loopback 0
+ipv6 enable
+ipv6 address 2001:db8:0:100::1/56
+ipv6 eigrp 1
+no shutdown
+exit
+!
+!
 !ACL Firewall
 ipv6 access-list Wall
 permit ipv6 2001:db8::/48 2001:db8::/48
@@ -186,8 +195,8 @@ service-policy output IT_POLICY
 exit
 !
 !Static Routes
-ipv6 route 2001:db8::/56 Tunnel10 180
-ipv6 route 2001:db8::/56 Tunnel11 190
+ipv6 route 2001:db8::/56 Tunnel10 180 name VPN0
+ipv6 route 2001:db8::/56 Tunnel11 190 name VPN1
 ipv6 route ::/0 Serial0/1/0 200
 !
 !SSH
@@ -221,15 +230,7 @@ exit
 crypto key zeroize rsa
 yes
 crypto key generate rsa
-2048
+4096
 !ssh key rsa 2048 force
-!Testing loopback
-interface loopback 0
-ipv6 enable
-ipv6 address 2001:db8:0:100::1/56
-ipv6 eigrp 1
-no shutdown
-exit
-!
 end
 !
