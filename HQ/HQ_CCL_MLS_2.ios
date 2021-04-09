@@ -26,6 +26,19 @@ aaa authorization console
 !
 !
 !
+! QoS
+ipv6 access-list IT_VLAN_ACL
+permit ipv6 2001:db8:0:10::/64 any
+permit ipv6 2001:db8:0:110::/64 any
+exit
+class-map IT_CLASS
+match access-group name IT_VLAN_ACL
+exit
+policy-map IT_POLICY
+class IT_CLASS
+set precedence 5
+exit
+!
 !
 spanning-tree mode rapid-pvst
 spanning-tree portfast bpduguard default
@@ -351,6 +364,8 @@ interface vlan 2
  standby 2 ipv6 2001:db8:0:1::1/64
  standby 2 priority 90
  standby 2 preempt
+ service-policy input IT_POLICY
+service-policy output IT_POLICY
 !
 interface vlan 3
  ipv6 enable
@@ -362,6 +377,8 @@ interface vlan 3
  standby 3 preempt
  standby 3 track 1 decrement 15
  standby 3 track 2 decrement 15
+ service-policy input IT_POLICY
+service-policy output IT_POLICY
 !
 interface vlan 10
  ipv6 enable
@@ -371,6 +388,8 @@ interface vlan 10
  standby 10 ipv6 2001:db8:0:9::1/64
  standby 10 priority 90
  standby 10 preempt
+ service-policy input IT_POLICY
+service-policy output IT_POLICY
 !
 interface vlan 11
  ipv6 enable
@@ -382,6 +401,8 @@ interface vlan 11
  standby 11 preempt
  standby 11 track 1 decrement 15
  standby 11 track 2 decrement 15
+ service-policy input IT_POLICY
+service-policy output IT_POLICY
 !
 interface vlan 256
  ipv6 enable
@@ -391,6 +412,8 @@ interface vlan 256
  standby 256 ipv6 2001:db8:0:FF::1/64
  standby 256 priority 90
  standby 256 preempt
+ service-policy input IT_POLICY
+service-policy output IT_POLICY
 !
 !
 !

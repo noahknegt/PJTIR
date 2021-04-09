@@ -81,7 +81,7 @@ no shutdown
 interface f0/5
 spanning-tree portfast
 switchport mode access
-switchport access vlan 100
+switchport access vlan 11
 switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
@@ -96,7 +96,7 @@ no shutdown
 interface f0/6
 spanning-tree portfast
 switchport mode access
-switchport access vlan 10
+switchport access vlan 2
 switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
@@ -111,7 +111,7 @@ no shutdown
 interface f0/7
 spanning-tree portfast
 switchport mode access
-switchport access vlan 20
+switchport access vlan 3
 switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
@@ -122,6 +122,7 @@ storm-control multicast level 50
 storm-control unicast level 50
 storm-control action shutdown
 no shutdown
+!
 !
 interface f0/8
 switchport mode access
