@@ -1,46 +1,174 @@
 hostname HQ_WE_RO_1
 ipv6 unicast-routing
+!
+!EIGRP
 ipv6 router eigrp 1
 eigrp router-id 1.1.1.1
+exit
 !
+!OSPFv3
+ipv6 router ospf 1
+router-id 2.2.2.2
+exit
 !
+!DNS
+ip name-server 2001:db8:0:9::7
+!
+!NetFlow
 flow exporter FLOW-EXP-1
 destination 2001:db8:0:/64
+! mby broken? should be netflow host
 export-protocol netflow-v9
-!
 !
 flow monitor FLOW-MON-1
 exporter FLOW-EXP-1
 !
+!SNMP
+snmp-server group groep4 v3 priv
+snmp-server user Ditmoet groep4 v3 auth sha cisco priv aes 256 cisco
 !
+!Naar MLS 1
 interface g0/0/0
+ipv6 enable
 ipv6 address 2001:db8::1/126
 ipv6 eigrp 1
 ipv6 flow monitor FLOW-MON-1 input
 ipv6 flow monitor FLOW-MON-1 output
 no shutdown
 !
-!
+!Naar MLS 2
 interface g0/0/1
-ipv6 address 2001:db8::E/126
+ipv6 enable
+ipv6 address 2001:db8::5/126
 ipv6 eigrp 1
 ipv6 flow monitor FLOW-MON-1 input
 ipv6 flow monitor FLOW-MON-1 output
 no shutdown
 !
-!
+!Naar ISP
 interface s0/1/0
-ipv6 address 2001:db8::30/126
-ipv6 eigrp 1
+ipv6 enable
+ipv6 address 2001:db8::2A/126
 ipv6 traffic-filter Wall in
+ipv6 eigrp 1
+ipv6 ospf 1 area 0
+ipv6 ospf dead-interval 40
+ipv6 ospf hello-interval 10
+ipv6 ospf network point-to-point
+ipv6 ospf priority 1
+ipv6 ospf neighbor 2001:db8::29
+no shutdown
 !
-!
+!ACL Firewall
 ipv6 access-list Wall
 permit ipv6 2001:db8::/48 2001:db8::/48
 permit icmp any 2001:db8::/48 echo-reply
 permit tcp any 2001:db8::/48 established
 deny ipv6 any any
 !
-snmp-server group groep4 v3 auth
-snmp-server user Ditmoet groep4 v3 auth sha cisco priv aes 256 cisco
-
+!######!
+!
+! VPN
+!
+!######!
+!
+!ISAKMP Policy
+crypto isakmp policy 1
+authentication pre-share
+hash sha512
+encryption aes 256
+group 24
+exit
+!
+!ISAKMP key
+crypto isakmp key 0 zwaard address ipv6 2001:db8::32/128
+!
+!TransformSet
+crypto ipsec transform-set VPN_Transform_Set esp-aes 256 esp-sha512-hmac
+mode tunnel
+exit
+crypto ipsec security-association lifetime days 1
+!
+!VPN accesslist
+ipv6 access-list VPN_ACL 
+permit any any
+exit
+!
+!Crypto map
+crypto map ipv6 VPN_Map 10 ipsec-isakmp
+match address VPN_ACL
+set peer 2001:db8::32
+set pfs group24
+set transform-set VPN_Transform_Set
+set security-association lifetime days 1
+exit
+!
+!IPSEC profile
+crypto ipsec profile VPN_Crypto_Profile
+set transform-set VPN_Transform_Set
+exit
+!
+!ISAKMP profile
+crypto isakmp profile VPN_ISAKMP_Profile
+self-identity address ipv6
+match identity address ipv6 2001:db8::32/128
+exit
+!
+!configure Tunnel 10
+interface Tunnel10
+ipv6 enable
+ipv6 address 2001:db8::1:1/112
+ipv6 address fe80::1:1/112
+crypto map VPN_Map
+tunnel source 2001:db8::2A
+tunnel destination 2001:db8::32
+tunnel mode ipsec ipv6
+tunnel protection ipsec profile VPN_Crypto_Profile
+tunnel key 10
+ipv6 mtu 1400
+ipv6 eigrp 1
+ipv6 flow monitor FLOW-MON-1 input
+ipv6 flow monitor FLOW-MON-1 output
+exit
+!
+! Static Routes
+ipv6 route 2001:db8:0:100::/56 Tunnel10 10
+ipv6 route ::/0 Serial0/1/0 200
+!
+!SSH
+username user priv 15 password cisco
+enable secret class
+!
+!AAA
+aaa new-model
+aaa authorization console
+aaa authentication login MGT local
+aaa authentication enable default enable
+aaa authorization exec default local
+!
+!com
+line con 0
+login authentication default
+authorization exec default
+exec-timeout 60
+logging synchronous
+line aux 0
+stopbits 1
+line vty 0 4
+transport input ssh
+login authentication MGT
+authorization exec default
+exec-timeout 60
+logging synchronous
+exit
+!
+!Testing loopback
+interface loopback 0
+ipv6 enable
+ipv6 address 2001:db8::16/126
+ipv6 eigrp 1
+no shutdown
+exit
+!
+end
+!

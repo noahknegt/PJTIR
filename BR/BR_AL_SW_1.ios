@@ -5,7 +5,7 @@ hostname BR_AL_SW_1
 username user priv 15 password cisco
 enable secret class
 !
-no ip domain-lookup
+ip domain-lookup
 ip domain-name hhs.nl
 !
 aaa new-model
