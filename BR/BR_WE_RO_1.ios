@@ -89,6 +89,7 @@ exit
 interface Tunnel10
 ipv6 enable
 ipv6 address 2001:db8::1:2/112
+ipv6 address fe80::1:2/112
 crypto map VPN_Map0
 tunnel source 2001:db8::32
 tunnel destination 2001:db8::2A
@@ -102,6 +103,7 @@ exit
 interface Tunnel11
 ipv6 enable
 ipv6 address 2001:db8::2:2/112
+ipv6 address fe80::2:2/112
 crypto map VPN_Map1
 tunnel source 2001:db8::32
 tunnel destination 2001:db8::2E
