@@ -14,7 +14,11 @@ aaa authentication enable default enable
 aaa authorization exec default local
 aaa authorization console
 !
+sdm prefer dual-ipv4-and-ipv6 default
 !
+ipv4 access-list NoIPv4
+deny ip any any
+permit ipv6 any any
 !
 spanning-tree mode rapid-pvst
 !
@@ -43,6 +47,8 @@ switchport trunk native vlan 998
 switchport trunk allowed vlan remove 998
 channel-protocol pagp
 channel-group 1 mode auto
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 no shutdown
 !
 interface f0/2
@@ -51,6 +57,8 @@ switchport trunk native vlan 998
 switchport trunk allowed vlan remove 998
 channel-protocol pagp
 channel-group 1 mode auto
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 no shutdown
 !
 interface f0/3
@@ -59,6 +67,8 @@ switchport trunk native vlan 998
 switchport trunk allowed vlan remove 998
 channel-protocol pagp
 channel-group 2 mode auto
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 no shutdown
 !
 interface f0/4
@@ -67,6 +77,8 @@ switchport trunk native vlan 998
 switchport trunk allowed vlan remove 998
 channel-protocol pagp
 channel-group 2 mode auto
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 no shutdown
 !
 interface f0/5
@@ -77,6 +89,8 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 no shutdown
 !
 interface f0/6
@@ -87,6 +101,8 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 no shutdown
 !
 interface f0/7
@@ -97,6 +113,8 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 no shutdown
 !
 interface f0/8
@@ -106,6 +124,8 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 shutdown
 !
 interface f0/9
@@ -115,6 +135,8 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 shutdown
 !
 interface f0/10
@@ -124,6 +146,8 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 shutdown
 !
 interface f0/11
@@ -133,6 +157,8 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 shutdown
 !
 interface f0/12
@@ -142,6 +168,8 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 shutdown
 !
 interface f0/13
@@ -151,6 +179,8 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 shutdown
 !
 interface f0/14
@@ -160,6 +190,8 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 shutdown
 !
 interface f0/15
@@ -169,6 +201,8 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 shutdown
 !
 interface f0/16
@@ -178,6 +212,8 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 shutdown
 !
 interface f0/17
@@ -187,6 +223,8 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 shutdown
 !
 interface f0/18
@@ -196,6 +234,8 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 shutdown
 !
 interface f0/19
@@ -205,6 +245,8 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 shutdown
 !
 interface f0/20
@@ -214,6 +256,8 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 shutdown
 !
 interface f0/21
@@ -223,6 +267,8 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 shutdown
 !
 interface f0/22
@@ -232,6 +278,8 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 shutdown
 !
 interface f0/23
@@ -241,6 +289,8 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 shutdown
 !
 interface f0/24
@@ -250,6 +300,8 @@ switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
 switchport port-security violation restrict
+ipv4 access-group NoIPv4 ingress
+ipv4 access-group NoIPv4 egress
 shutdown
 !
 interface port-channel 1
