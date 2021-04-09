@@ -1,0 +1,385 @@
+hostname BR_CCL_MLS_1
+!
+!
+vrf definition Mgmt-vrf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+!
+username user priv 15 password cisco
+enable secret class
+!
+no ip domain-lookup
+ip domain-name hhs.nl
+!
+aaa new-model
+aaa authentication login MGT local
+aaa authentication enable default enable
+aaa authorization exec default local
+aaa authorization console
+!
+!
+!
+!
+spanning-tree mode rapid-pvst
+!
+!
+!
+ip routing
+ipv6 unicast-routing
+!
+!
+!
+! All VLAN IDs are their number + 1 because Default is already 1
+vlan 2
+name HQ
+Vlan 3
+name Sales
+vlan 10
+name Servers
+vlan 11
+name IT
+vlan 256
+name Guests
+vlan 998
+name NATIVE
+vlan 999
+name VOID
+!
+!
+!
+!
+!
+spanning-tree vlan 2 root primary
+spanning-tree vlan 3 root primary
+spanning-tree vlan 10 root primary
+spanning-tree vlan 11 root primary
+spanning-tree vlan 256 root primary
+spanning-tree vlan 998 root primary
+spanning-tree vlan 999 root primary
+!
+!
+!
+!
+ipv6 router eigrp 1
+ eigrp router-id 8.8.8.8
+ passive-interface default
+ no passive-interface g1/0/23
+ no passive-interface g1/0/24
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ vrf forwarding Mgmt-vrf
+ no ip address
+ shutdown
+ speed 1000
+ negotiation auto
+!
+interface GigabitEthernet1/0/1
+ no switchport
+ shutdown
+!
+interface GigabitEthernet1/0/2
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet1/0/3
+ switchport mode trunk
+ no shutdown
+!
+interface GigabitEthernet1/0/4
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet1/0/5
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet1/0/6
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet1/0/7
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet1/0/8
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet1/0/9
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet1/0/10
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet1/0/11
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet1/0/12
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet1/0/13
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet1/0/14
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet1/0/15
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet1/0/16
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet1/0/17
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet1/0/18
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet1/0/19
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet1/0/20
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet1/0/21
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet1/0/22
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet1/0/23
+ no switchport
+ shutdown
+!
+interface GigabitEthernet1/0/24
+ no switchport
+ ipv6 enable
+ ipv6 address 2001:db8::42/126
+ ipv6 eigrp 1
+ shutdown
+!
+interface GigabitEthernet1/1/1
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet1/1/2
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet1/1/3
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet1/1/4
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+!
+!
+!
+!
+!
+!
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface vlan 2
+ ipv6 enable
+ ipv6 address 2001:db8:0:101::5/64
+ ipv6 traffic-filter HR-IN in
+!
+interface vlan 3
+ ipv6 enable
+ ipv6 address 2001:db8:0:102::5/64
+ ipv6 traffic-filter Sales-IN in
+!
+interface vlan 10
+ ipv6 enable
+ ipv6 address 2001:db8:0:109::5/64
+ ipv6 traffic-filter Servers-IN in
+!
+interface vlan 11
+ ipv6 enable
+ ipv6 address 2001:db8:0:110::5/64
+ ipv6 traffic-filter IT-IN in
+!
+interface vlan 256
+ ipv6 enable
+ ipv6 address 2001:db8:0:1ff::5/64
+ ipv6 traffic-filter Guests-IN in
+!
+!
+!
+ipv6 access-list HR-IN
+permit udp any host FF02::66 eq 2029
+permit ipv6 2001:db8:0:101::/64 2001:db8:0:101::/64
+permit ipv6 2001:db8:0:101::/64 2001:db8:0:1::/64
+permit ipv6 2001:db8:0:101::/64 2001:db8:0:9::/64
+permit ipv6 2001:db8:0:1::/64 2001:db8:0:101::/64
+permit ipv6 2001:db8:0:9::/64 2001:db8:0:101::/64
+permit ipv6 2001:db8:0:10::/64 2001:db8:0:101::/64
+permit tcp 2001:db8:0:101::/64 2001:db8:0:10::/64 established
+permit ipv6 2001:db8:0:0110::/64 2001:db8:0:101::/64
+permit tcp 2001:db8:0:101::/64 2001:db8:0:0110::/64 established
+permit tcp any 2001:db8:0:101::/64 established
+deny tcp 2001:db8:0:101::/64 2001:db8::/48
+permit tcp 2001:db8:0:101::/64 any
+permit icmp 2001:db8:0:101::/64 2001:db8::/48 echo-reply
+permit icmp any 2001:db8:0:101::/64 echo-reply
+deny icmp 2001:db8:0:101::/64 2001:db8::/48 echo-request
+permit icmp 2001:db8:0:101::/64 any echo-request
+deny icmp 2001:db8:0:101::/64 any echo-reply
+deny ipv6 any 2001:db8:0:101::/64
+!
+ipv6 access-list Sales-IN
+permit udp any host FF02::66 eq 2029
+permit ipv6 2001:db8:0:102::/64 2001:db8:0:102::/64
+permit ipv6 2001:db8:0:102::/64 2001:db8:0:1::/64
+permit ipv6 2001:db8:0:102::/64 2001:db8:0:9::/64
+permit ipv6 2001:db8:0:1::/64 2001:db8:0:102::/64
+permit ipv6 2001:db8:0:9::/64 2001:db8:0:102::/64
+permit ipv6 2001:db8:0:10::/64 2001:db8:0:102::/64
+permit tcp 2001:db8:0:102::/64 2001:db8:0:10::/64 established
+permit ipv6 2001:db8:0:0110::/64 2001:db8:0:102::/64
+permit tcp 2001:db8:0:102::/64 2001:db8:0:0110::/64 established
+permit tcp any 2001:db8:0:102::/64 established
+deny tcp 2001:db8:0:102::/64 2001:db8::/48
+permit tcp 2001:db8:0:102::/64 any
+permit icmp 2001:db8:0:102::/64 2001:db8::/48 echo-reply
+permit icmp any 2001:db8:0:102::/64 echo-reply
+deny icmp 2001:db8:0:102::/64 2001:db8::/48 echo-request
+permit icmp 2001:db8:0:102::/64 any echo-request
+deny icmp 2001:db8:0:102::/64 any echo-reply
+deny ipv6 any 2001:db8:0:102::/64
+!
+ipv6 access-list Servers-IN
+permit udp any host FF02::66 eq 2029
+permit ipv6 2001:db8::/48 2001:db8:0:0109::/64
+permit ipv6 2001:db8:0:0109::/64 2001:db8::/48
+permit udp 2001:db8:0:0109::/64 any eq 53
+permit icmp any 2001:db8:0:0109::/64 echo-reply
+permit icmp 2001:db8:0:0109::/64 any echo-request
+deny icmp 2001:db8:0:0109::/64 any echo-reply
+deny ipv6 any 2001:db8:0:0109::/64
+!
+ipv6 access-list IT-IN
+permit udp any host FF02::66 eq 2029
+permit ipv6 2001:db8:0:0110::/64 2001:db8:0:0110::/64
+permit ipv6 2001:db8:0:0110::/64 2001:db8::/48
+permit icmp 2001:db8::/48 2001:db8:0:0110::/64 echo-reply
+permit tcp 2001:db8::/48 2001:db8:0:0110::/64 established
+permit tcp any 2001:db8:0:0110::/64 established
+permit tcp 2001:db8:0:0110::/64 any
+permit icmp any 2001:db8:0:0110::/64 echo-reply
+permit icmp 2001:db8:0:0110::/64 any echo-request
+deny icmp 2001:db8:0:0110::/64 any echo-reply
+deny ipv6 any 2001:db8:0:0110::/64
+!
+ipv6 access-list Guests-IN
+permit udp any host FF02::66 eq 2029
+deny ipv6 2001:db8:0:01FF::/64 2001:db8:0:01FF::/64
+permit udp 2001:db8:0:01FF::/64 2001:db8:0:9::/64 eq 53
+deny ipv6 2001:db8:0:01FF::/64 2001:db8::/48
+permit ipv6 2001:db8:0:01FF::/64 any
+permit tcp any 2001:db8:0:01FF::/64 established
+permit icmp any 2001:db8:0:01FF::/64 echo-reply
+deny ipv6 any 2001:db8:0:01FF::/64
+!
+!
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+!
+!
+!
+!
+!
+!
+line con 0
+  login authentication default
+  authorization exec default
+  exec-timeout 60
+  logging synchronous
+line aux 0
+ stopbits 1
+line vty 0 4
+  transport input ssh
+  login authentication MGT
+  authorization exec default
+  exec-timeout 60
+  logging synchronous
+line vty 5 15
+  transport input ssh
+  login authentication MGT
+  authorization exec default
+  exec-timeout 60
+  logging synchronous
+!
+!
+mac address-table notification mac-move
+wsma agent exec
+!
+wsma agent config
+!
+wsma agent filesys
+!
+wsma agent notify
+!
+!
+crypto key zeroize rsa
+crypto key generate rsa
+
+end
