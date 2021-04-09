@@ -74,7 +74,7 @@ no shutdown
 !Testing loopback
 interface loopback 0
 ipv6 enable
-ipv6 address 2001:db8:0:100::1/56
+ipv6 address 2001:db8:0:100::1/126
 ipv6 eigrp 1
 no shutdown
 exit
