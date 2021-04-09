@@ -1,7 +1,9 @@
 hostname BR_WE_RO_1
 ipv6 unicast-routing
+clock calendar-valid
+ip domain-name ZwaardsSweatshopLogistics.nl
 !
-no feature telnet
+!no feature telnet
 !
 !EIGRP
 ipv6 router eigrp 1
@@ -18,11 +20,13 @@ ip name-server 2001:db8:0:9::7
 !
 !NetFlow
 flow exporter FLOW-EXP-1
-destination 2001:db8:0:/64
-! mby broken? should be netflow host
+destination 2001:db8::
+! mby broken, should be netflow host
 export-protocol netflow-v9
 !
 flow monitor FLOW-MON-1
+record netflow ipv6 original-input
+record netflow ipv6 original-output
 exporter FLOW-EXP-1
 !
 !SNMP
@@ -114,14 +118,14 @@ crypto map ipv6 VPN_Map0 10 ipsec-isakmp
 match address VPN_ACL0
 set peer 2001:db8::2A
 set pfs group24
-set transform-set VPN_Transform_Set
+set transform-set VPN_Transform_Set0
 set security-association lifetime days 1
 exit
 crypto map ipv6 VPN_Map1 11 ipsec-isakmp
 match address VPN_ACL1
 set peer 2001:db8::2E
 set pfs group24
-set transform-set VPN_Transform_Set
+set transform-set VPN_Transform_Set1
 set security-association lifetime days 1
 exit
 !
@@ -147,7 +151,7 @@ exit
 interface Tunnel10
 ipv6 enable
 ipv6 address 2001:db8::1:2/112
-ipv6 address fe80::1:2/112
+ipv6 address fe80::1:2/112 link-local
 crypto map VPN_Map0
 tunnel source 2001:db8::32
 tunnel destination 2001:db8::2A
@@ -166,7 +170,7 @@ exit
 interface Tunnel11
 ipv6 enable
 ipv6 address 2001:db8::2:2/112
-ipv6 address fe80::2:2/112
+ipv6 address fe80::2:2/112 link-local
 crypto map VPN_Map1
 tunnel source 2001:db8::32
 tunnel destination 2001:db8::2E
@@ -199,7 +203,7 @@ aaa authorization exec default local
 !
 !com
 line con 0
-login authentication default
+!login authentication default
 authorization exec default
 exec-timeout 60
 logging synchronous
@@ -215,9 +219,10 @@ exit
 !
 !RSA 
 crypto key zeroize rsa
+yes
 crypto key generate rsa
-ssh key rsa 2048 force
-!
+2048
+!ssh key rsa 2048 force
 !Testing loopback
 interface loopback 0
 ipv6 enable

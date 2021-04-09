@@ -1,6 +1,9 @@
 hostname ISP
 ipv6 unicast-routing
 logging console 5
+ipv6 cef
+clock calendar-valid
+ip domain-name ISP.nl
 !OSPF
 ipv6 router ospf 1
 router-id 1.1.1.1
