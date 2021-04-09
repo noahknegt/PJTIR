@@ -25,7 +25,7 @@ destination 2001:db8::
 export-protocol netflow-v9
 !
 flow monitor FLOW-MON-1
-record netflow ipv6 original-input
+!record netflow ipv6 original-input
 record netflow ipv6 original-output
 exporter FLOW-EXP-1
 !

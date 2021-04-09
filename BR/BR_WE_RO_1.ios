@@ -25,7 +25,7 @@ destination 2001:db8::
 export-protocol netflow-v9
 !
 flow monitor FLOW-MON-1
-record netflow ipv6 original-input
+!record netflow ipv6 original-input
 record netflow ipv6 original-output
 exporter FLOW-EXP-1
 !
@@ -49,7 +49,7 @@ exit
 !Naar MLS
 interface g0/0/0
 ipv6 enable
-ipv6 address 2001:db8::41/126
+ipv6 address 2001:db8:0:100::41/126
 ipv6 eigrp 1
 ipv6 flow monitor FLOW-MON-1 input
 ipv6 flow monitor FLOW-MON-1 output
