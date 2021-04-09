@@ -13,3 +13,11 @@ no shutdown
 interface s0/1/0
 ipv6 address 2001:db8::30/126
 ipv6 eigrp 1
+ipv6 traffic-filter Wall in
+
+
+ipv6 access-list Wall
+permit ipv6 2001:db8::/48 2001:db8::/48
+permit icmp any 2001:db8::/48 echo-reply
+permit tcp any 2001:db8::/48 established
+deny ipv6 any any
