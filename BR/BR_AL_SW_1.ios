@@ -21,6 +21,7 @@ deny ip any any
 permit ipv6 any any
 !
 spanning-tree mode rapid-pvst
+spanning-tree portfast bpduguard default
 !
 ! All VLAN IDs are their number + 1 because Default is already 1
 vlan 2
@@ -49,6 +50,10 @@ channel-protocol pagp
 channel-group 1 mode auto
 ipv4 access-group NoIPv4 ingress
 ipv4 access-group NoIPv4 egress
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
 no shutdown
 !
 interface f0/2
@@ -59,6 +64,10 @@ channel-protocol pagp
 channel-group 1 mode auto
 ipv4 access-group NoIPv4 ingress
 ipv4 access-group NoIPv4 egress
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
 no shutdown
 !
 interface f0/3
@@ -69,6 +78,10 @@ channel-protocol pagp
 channel-group 2 mode auto
 ipv4 access-group NoIPv4 ingress
 ipv4 access-group NoIPv4 egress
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
 no shutdown
 !
 interface f0/4
@@ -79,6 +92,10 @@ channel-protocol pagp
 channel-group 2 mode auto
 ipv4 access-group NoIPv4 ingress
 ipv4 access-group NoIPv4 egress
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
 no shutdown
 !
 interface f0/5
@@ -91,6 +108,10 @@ switchport port-security mac-address sticky
 switchport port-security violation restrict
 ipv4 access-group NoIPv4 ingress
 ipv4 access-group NoIPv4 egress
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
 no shutdown
 !
 interface f0/6
@@ -103,6 +124,10 @@ switchport port-security mac-address sticky
 switchport port-security violation restrict
 ipv4 access-group NoIPv4 ingress
 ipv4 access-group NoIPv4 egress
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
 no shutdown
 !
 interface f0/7
@@ -115,6 +140,10 @@ switchport port-security mac-address sticky
 switchport port-security violation restrict
 ipv4 access-group NoIPv4 ingress
 ipv4 access-group NoIPv4 egress
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
 no shutdown
 !
 interface f0/8
@@ -126,6 +155,10 @@ switchport port-security mac-address sticky
 switchport port-security violation restrict
 ipv4 access-group NoIPv4 ingress
 ipv4 access-group NoIPv4 egress
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
 shutdown
 !
 interface f0/9
@@ -137,6 +170,10 @@ switchport port-security mac-address sticky
 switchport port-security violation restrict
 ipv4 access-group NoIPv4 ingress
 ipv4 access-group NoIPv4 egress
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
 shutdown
 !
 interface f0/10
@@ -148,6 +185,10 @@ switchport port-security mac-address sticky
 switchport port-security violation restrict
 ipv4 access-group NoIPv4 ingress
 ipv4 access-group NoIPv4 egress
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
 shutdown
 !
 interface f0/11
@@ -159,6 +200,10 @@ switchport port-security mac-address sticky
 switchport port-security violation restrict
 ipv4 access-group NoIPv4 ingress
 ipv4 access-group NoIPv4 egress
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
 shutdown
 !
 interface f0/12
@@ -170,6 +215,10 @@ switchport port-security mac-address sticky
 switchport port-security violation restrict
 ipv4 access-group NoIPv4 ingress
 ipv4 access-group NoIPv4 egress
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
 shutdown
 !
 interface f0/13
@@ -181,6 +230,10 @@ switchport port-security mac-address sticky
 switchport port-security violation restrict
 ipv4 access-group NoIPv4 ingress
 ipv4 access-group NoIPv4 egress
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
 shutdown
 !
 interface f0/14
@@ -192,6 +245,10 @@ switchport port-security mac-address sticky
 switchport port-security violation restrict
 ipv4 access-group NoIPv4 ingress
 ipv4 access-group NoIPv4 egress
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
 shutdown
 !
 interface f0/15
@@ -203,6 +260,10 @@ switchport port-security mac-address sticky
 switchport port-security violation restrict
 ipv4 access-group NoIPv4 ingress
 ipv4 access-group NoIPv4 egress
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
 shutdown
 !
 interface f0/16
@@ -214,6 +275,10 @@ switchport port-security mac-address sticky
 switchport port-security violation restrict
 ipv4 access-group NoIPv4 ingress
 ipv4 access-group NoIPv4 egress
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
 shutdown
 !
 interface f0/17
@@ -225,6 +290,10 @@ switchport port-security mac-address sticky
 switchport port-security violation restrict
 ipv4 access-group NoIPv4 ingress
 ipv4 access-group NoIPv4 egress
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
 shutdown
 !
 interface f0/18
@@ -236,6 +305,10 @@ switchport port-security mac-address sticky
 switchport port-security violation restrict
 ipv4 access-group NoIPv4 ingress
 ipv4 access-group NoIPv4 egress
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
 shutdown
 !
 interface f0/19
@@ -247,6 +320,10 @@ switchport port-security mac-address sticky
 switchport port-security violation restrict
 ipv4 access-group NoIPv4 ingress
 ipv4 access-group NoIPv4 egress
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
 shutdown
 !
 interface f0/20
@@ -258,6 +335,10 @@ switchport port-security mac-address sticky
 switchport port-security violation restrict
 ipv4 access-group NoIPv4 ingress
 ipv4 access-group NoIPv4 egress
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
 shutdown
 !
 interface f0/21
@@ -269,6 +350,10 @@ switchport port-security mac-address sticky
 switchport port-security violation restrict
 ipv4 access-group NoIPv4 ingress
 ipv4 access-group NoIPv4 egress
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
 shutdown
 !
 interface f0/22
@@ -280,6 +365,10 @@ switchport port-security mac-address sticky
 switchport port-security violation restrict
 ipv4 access-group NoIPv4 ingress
 ipv4 access-group NoIPv4 egress
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
 shutdown
 !
 interface f0/23
@@ -291,6 +380,10 @@ switchport port-security mac-address sticky
 switchport port-security violation restrict
 ipv4 access-group NoIPv4 ingress
 ipv4 access-group NoIPv4 egress
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
 shutdown
 !
 interface f0/24
@@ -302,6 +395,10 @@ switchport port-security mac-address sticky
 switchport port-security violation restrict
 ipv4 access-group NoIPv4 ingress
 ipv4 access-group NoIPv4 egress
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
 shutdown
 !
 interface port-channel 1
@@ -344,3 +441,5 @@ line vty 5 15
 !
 crypto key zeroize rsa
 crypto key generate rsa
+ssh key rsa 2048 force
+no feature telnet

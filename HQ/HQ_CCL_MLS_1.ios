@@ -27,6 +27,7 @@ aaa authorization console
 !
 !
 spanning-tree mode rapid-pvst
+spanning-tree portfast bpduguard default
 !
 !
 !
@@ -88,6 +89,10 @@ interface GigabitEthernet0/0
  shutdown
  speed 1000
  negotiation auto
+ storm-control broadcast level 50
+ storm-control multicast level 50
+ storm-control unicast level 50
+ storm-control action shutdown
 !
 interface GigabitEthernet1/0/1
  no switchport
@@ -120,92 +125,164 @@ interface GigabitEthernet1/0/4
 interface GigabitEthernet1/0/5
  switchport mode access
  switchport access vlan 999
+ storm-control broadcast level 50
+ storm-control multicast level 50
+ storm-control unicast level 50
+ storm-control action shutdown
  shutdown
 !
 interface GigabitEthernet1/0/6
  switchport mode access
  switchport access vlan 999
+ storm-control broadcast level 50
+ storm-control multicast level 50
+ storm-control unicast level 50
+ storm-control action shutdown
  shutdown
 !
 interface GigabitEthernet1/0/7
  switchport mode access
  switchport access vlan 999
+ storm-control broadcast level 50
+ storm-control multicast level 50
+ storm-control unicast level 50
+ storm-control action shutdown
  shutdown
 !
 interface GigabitEthernet1/0/8
  switchport mode access
  switchport access vlan 999
+ storm-control broadcast level 50
+ storm-control multicast level 50
+ storm-control unicast level 50
+ storm-control action shutdown
  shutdown
 !
 interface GigabitEthernet1/0/9
  switchport mode access
  switchport access vlan 999
+ storm-control broadcast level 50
+ storm-control multicast level 50
+ storm-control unicast level 50
+ storm-control action shutdown
  shutdown
 !
 interface GigabitEthernet1/0/10
  switchport mode access
  switchport access vlan 999
+ storm-control broadcast level 50
+ storm-control multicast level 50
+ storm-control unicast level 50
+ storm-control action shutdown
  shutdown
 !
 interface GigabitEthernet1/0/11
  switchport mode access
  switchport access vlan 999
+ storm-control broadcast level 50
+ storm-control multicast level 50
+ storm-control unicast level 50
+ storm-control action shutdown
  shutdown
 !
 interface GigabitEthernet1/0/12
  switchport mode access
  switchport access vlan 999
+ storm-control broadcast level 50
+ storm-control multicast level 50
+ storm-control unicast level 50
+ storm-control action shutdown
  shutdown
 !
 interface GigabitEthernet1/0/13
  switchport mode access
  switchport access vlan 999
+ storm-control broadcast level 50
+ storm-control multicast level 50
+ storm-control unicast level 50
+ storm-control action shutdown
  shutdown
 !
 interface GigabitEthernet1/0/14
  switchport mode access
  switchport access vlan 999
+ storm-control broadcast level 50
+ storm-control multicast level 50
+ storm-control unicast level 50
+ storm-control action shutdown
  shutdown
 !
 interface GigabitEthernet1/0/15
  switchport mode access
  switchport access vlan 999
+ storm-control broadcast level 50
+ storm-control multicast level 50
+ storm-control unicast level 50
+ storm-control action shutdown
  shutdown
 !
 interface GigabitEthernet1/0/16
  switchport mode access
  switchport access vlan 999
+ storm-control broadcast level 50
+ storm-control multicast level 50
+ storm-control unicast level 50
+ storm-control action shutdown
  shutdown
 !
 interface GigabitEthernet1/0/17
  switchport mode access
  switchport access vlan 999
+ storm-control broadcast level 50
+ storm-control multicast level 50
+ storm-control unicast level 50
+ storm-control action shutdown
  shutdown
 !
 interface GigabitEthernet1/0/18
  switchport mode access
  switchport access vlan 999
+ storm-control broadcast level 50
+ storm-control multicast level 50
+ storm-control unicast level 50
+ storm-control action shutdown
  shutdown
 !
 interface GigabitEthernet1/0/19
  switchport mode access
  switchport access vlan 999
+ storm-control broadcast level 50
+ storm-control multicast level 50
+ storm-control unicast level 50
+ storm-control action shutdown
  shutdown
 !
 interface GigabitEthernet1/0/20
  switchport mode access
  switchport access vlan 999
+ storm-control broadcast level 50
+ storm-control multicast level 50
+ storm-control unicast level 50
+ storm-control action shutdown
  shutdown
 !
 interface GigabitEthernet1/0/21
  switchport mode access
  switchport access vlan 999
+ storm-control broadcast level 50
+ storm-control multicast level 50
+ storm-control unicast level 50
+ storm-control action shutdown
  shutdown
 !
 interface GigabitEthernet1/0/22
  spanning-tree portfast
  switchport mode access
  switchport access vlan 10
+ storm-control broadcast level 50
+ storm-control multicast level 50
+ storm-control unicast level 50
+ storm-control action shutdown
  no shutdown
 !
 interface GigabitEthernet1/0/23
@@ -225,21 +302,37 @@ no shutdown
 interface GigabitEthernet1/1/1
  switchport mode access
  switchport access vlan 999
+ storm-control broadcast level 50
+ storm-control multicast level 50
+ storm-control unicast level 50
+ storm-control action shutdown
  shutdown
 !
 interface GigabitEthernet1/1/2
  switchport mode access
  switchport access vlan 999
+ storm-control broadcast level 50
+ storm-control multicast level 50
+ storm-control unicast level 50
+ storm-control action shutdown
  shutdown
 !
 interface GigabitEthernet1/1/3
  switchport mode access
  switchport access vlan 999
+ storm-control broadcast level 50
+ storm-control multicast level 50
+ storm-control unicast level 50
+ storm-control action shutdown
  shutdown
 !
 interface GigabitEthernet1/1/4
  switchport mode access
  switchport access vlan 999
+ storm-control broadcast level 50
+ storm-control multicast level 50
+ storm-control unicast level 50
+ storm-control action shutdown
  shutdown
 !
 !
@@ -438,5 +531,7 @@ wsma agent notify
 !
 crypto key zeroize rsa
 crypto key generate rsa
-
+ssh key rsa 2048 force
+no feature telnet
+!
 end

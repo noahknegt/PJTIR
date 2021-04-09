@@ -1,6 +1,8 @@
 hostname BR_WE_RO_1
 ipv6 unicast-routing
 !
+no feature telnet
+!
 !EIGRP
 ipv6 router eigrp 1
 eigrp router-id 3.3.3.3
@@ -189,6 +191,11 @@ authorization exec default
 exec-timeout 60
 logging synchronous
 exit
+!
+!RSA 
+crypto key zeroize rsa
+crypto key generate rsa
+ssh key rsa 2048 force
 !
 !Testing loopback
 interface loopback 0
