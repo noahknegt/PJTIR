@@ -37,7 +37,7 @@ ipv6 unicast-routing
 !
 ! All VLAN IDs are their number + 1 because Default is already 1
 vlan 2
-name HQ
+name HR
 Vlan 3
 name Sales
 vlan 10
