@@ -77,7 +77,7 @@ aaa authentication enable default enable
 aaa authorization exec default local
 !
 line con 0
-login authentication default
+!login authentication default
 authorization exec default
 exec-timeout 60
 logging synchronous

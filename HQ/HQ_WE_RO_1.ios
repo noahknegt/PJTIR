@@ -173,6 +173,7 @@ aaa authorization exec default local
 !
 !com
 line con 0
+!
 !login authentication default
 authorization exec default
 exec-timeout 60
