@@ -5,15 +5,14 @@ ip domain-name ZwaardsSweatshopLogistics.nl
 !
 !no feature telnet
 !
-!EIGRP
-ipv6 router eigrp 1
-eigrp router-id 1.1.1.1
-exit
 !
-!OSPFv3
+! OSPFv3
 ipv6 router ospf 1
-router-id 2.2.2.2
-exit
+router-id 1.1.1.1
+default-information originate always
+passive-interface default
+no passive-interface g0/0/0
+no passive-interface g0/0/1
 !
 !DNS
 ip name-server 2001:db8:0:9::7
@@ -50,22 +49,22 @@ exit
 interface g0/0/0
 ipv6 enable
 ipv6 address 2001:db8::1/126
-ipv6 eigrp 1
 ipv6 flow monitor FLOW-MON-1 input
 ipv6 flow monitor FLOW-MON-1 output
 service-policy input IT_POLICY
 service-policy output IT_POLICY
+ipv6 ospf 1 area 1
 no shutdown
 !
 !Naar MLS 2
 interface g0/0/1
 ipv6 enable
 ipv6 address 2001:db8::5/126
-ipv6 eigrp 1
 ipv6 flow monitor FLOW-MON-1 input
 ipv6 flow monitor FLOW-MON-1 output
 service-policy input IT_POLICY
 service-policy output IT_POLICY
+ipv6 ospf 1 area 1
 no shutdown
 !
 !Naar ISP
@@ -73,22 +72,8 @@ interface s0/1/0
 ipv6 enable
 ipv6 address 2001:db8::2A/126
 ipv6 traffic-filter Wall in
-ipv6 eigrp 1
-ipv6 ospf 1 area 0
-ipv6 ospf dead-interval 40
-ipv6 ospf hello-interval 10
-ipv6 ospf network point-to-point
-ipv6 ospf priority 1
-ipv6 ospf neighbor 2001:db8::29
 no shutdown
 !
-!Testing loopback
-interface loopback 0
-ipv6 enable
-ipv6 address 2001:db8::16/126
-ipv6 eigrp 1
-no shutdown
-exit
 !
 !
 !ACL Firewall
@@ -127,6 +112,7 @@ tunnel source Serial0/1/0
 Tunnel mode ipsec ipv6
 tunnel destination 2001:db8::32
 tunnel protection ipsec profile VPNprofile
+ipv6 ospf 1 area 0
 exit
 !
 ! Static Routes
@@ -139,7 +125,7 @@ enable secret class
 !
 !AAA
 aaa new-model
-aaa authorization console
+aaa authorization exec default local
 aaa authentication login MGT local
 aaa authentication enable default enable
 !

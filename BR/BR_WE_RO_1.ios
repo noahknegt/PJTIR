@@ -5,15 +5,13 @@ ip domain-name ZwaardsSweatshopLogistics.nl
 !
 !no feature telnet
 !
-!EIGRP
-ipv6 router eigrp 1
-eigrp router-id 3.3.3.3
-exit
 !
-!OSPFv3
+! OSPFv3
 ipv6 router ospf 1
-router-id 4.4.4.4
-exit
+router-id 3.3.3.3
+default-information originate always
+passive-interface default
+no passive-interface g0/0/0
 !
 !DNS
 ip name-server 2001:db8:0:9::7
@@ -50,7 +48,7 @@ exit
 interface g0/0/0
 ipv6 enable
 ipv6 address 2001:db8:0:100::41/126
-ipv6 eigrp 1
+ipv6 ospf 1 area 2
 ipv6 flow monitor FLOW-MON-1 input
 ipv6 flow monitor FLOW-MON-1 output
 service-policy input IT_POLICY
@@ -62,22 +60,8 @@ interface s0/1/0
 ipv6 enable
 ipv6 address 2001:db8::32/126
 ipv6 traffic-filter Wall in
-ipv6 eigrp 1
-ipv6 ospf 1 area 0
-ipv6 ospf dead-interval 40
-ipv6 ospf hello-interval 10
-ipv6 ospf network point-to-point
-ipv6 ospf priority 1
-ipv6 ospf neighbor 2001:db8::31
 no shutdown
 !
-!Testing loopback
-interface loopback 0
-ipv6 enable
-ipv6 address 2001:db8:0:100::1/126
-ipv6 eigrp 1
-no shutdown
-exit
 !
 !
 !ACL Firewall
@@ -129,7 +113,7 @@ enable secret class
 !
 !AAA
 aaa new-model
-aaa authorization console
+aaa authorization exec default local
 aaa authentication login MGT local
 aaa authentication enable default enable
 !

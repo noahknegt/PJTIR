@@ -6,14 +6,13 @@ username user priv 15 password cisco
 enable secret class
 !
 ip domain-lookup
-ip domain-name hhs.nl
+ip domain-name ZwaardsSweatshopLogistics.nl
 ip name-server 2001:db8:0:9::7
 !
 aaa new-model
 aaa authentication login MGT local
 aaa authentication enable default enable
 aaa authorization exec default local
-aaa authorization console
 !
 sdm prefer dual-ipv4-and-ipv6 default
 !

@@ -15,14 +15,13 @@ username user priv 15 password cisco
 enable secret class
 !
 ip domain-lookup
-ip domain-name hhs.nl
+ip domain-name ZwaardsSweatshopLogistics.nl
 ip name-server 2001:db8:0:9::7
 !
 aaa new-model
 aaa authentication login MGT local
 aaa authentication enable default enable
 aaa authorization exec default local
-aaa authorization console
 !
 !
 !
@@ -90,11 +89,18 @@ spanning-tree extend system-id
 !
 !
 !
-ipv6 router eigrp 1
-router-id 8.8.8.8
+! OSPFv3
+ipv6 router ospf 1
+router-id 5.5.5.5
+default-information originate always
 passive-interface default
 no passive-interface g1/0/23
 no passive-interface g1/0/24
+no passive-interface vlan 2
+no passive-interface vlan 3
+no passive-interface vlan 10
+no passive-interface vlan 11
+no passive-interface vlan 256
 !
 !
 !
@@ -297,14 +303,14 @@ interface GigabitEthernet1/0/23
 no switchport
 ipv6 enable
 ipv6 address 2001:db8::E/126
-ipv6 eigrp 1
+ipv6 ospf 1 area 1
 no shutdown
 !
 interface GigabitEthernet1/0/24
 no switchport
 ipv6 enable
 ipv6 address 2001:db8::6/126
-ipv6 eigrp 1
+ipv6 ospf 1 area 1
 no shutdown
 !
 interface GigabitEthernet1/1/1
@@ -366,6 +372,7 @@ interface vlan 2
  standby 2 preempt
  service-policy input IT_POLICY
 service-policy output IT_POLICY
+ipv6 ospf 1 area 1
 !
 interface vlan 3
  ipv6 enable
@@ -379,6 +386,7 @@ interface vlan 3
  standby 3 track 2 decrement 15
  service-policy input IT_POLICY
 service-policy output IT_POLICY
+ipv6 ospf 1 area 1
 !
 interface vlan 10
  ipv6 enable
@@ -390,6 +398,7 @@ interface vlan 10
  standby 10 preempt
  service-policy input IT_POLICY
 service-policy output IT_POLICY
+ipv6 ospf 1 area 1
 !
 interface vlan 11
  ipv6 enable
@@ -403,6 +412,7 @@ interface vlan 11
  standby 11 track 2 decrement 15
  service-policy input IT_POLICY
 service-policy output IT_POLICY
+ipv6 ospf 1 area 1
 !
 interface vlan 256
  ipv6 enable
@@ -414,6 +424,7 @@ interface vlan 256
  standby 256 preempt
  service-policy input IT_POLICY
 service-policy output IT_POLICY
+ipv6 ospf 1 area 1
 !
 !
 !
