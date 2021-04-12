@@ -300,16 +300,24 @@ interface GigabitEthernet1/0/22
 !
 interface GigabitEthernet1/0/23
 no switchport
-ipv6 enable
 ipv6 address 2001:db8::2/126
+ipv6 address FE80:db8::2 link-local
 ipv6 ospf 1 area 1
+ipv6 mtu 1400
+ipv6 ospf dead-interval 40
+ipv6 ospf hello-interval 10
+ipv6 ospf neighbor FE80:db8::1
 no shutdown
 !
 interface GigabitEthernet1/0/24
 no switchport
-ipv6 enable
 ipv6 address 2001:db8::A/126
+ipv6 address FE80:db8::A link-local
 ipv6 ospf 1 area 1
+ipv6 mtu 1400
+ipv6 ospf dead-interval 40
+ipv6 ospf hello-interval 10
+ipv6 ospf neighbor FE80:db8::9
 no shutdown
 !
 interface GigabitEthernet1/1/1
@@ -374,6 +382,11 @@ interface vlan 2
  service-policy input IT_POLICY
 service-policy output IT_POLICY
 ipv6 ospf 1 area 1
+ipv6 mtu 1400
+ipv6 ospf dead-interval 40
+ipv6 ospf hello-interval 10
+ipv6 ospf neighbor FE80:db8::9
+ipv6 ospf neighbor FE80:db8::1
 !
 interface vlan 3
  ipv6 enable
@@ -386,6 +399,11 @@ interface vlan 3
  service-policy input IT_POLICY
 service-policy output IT_POLICY
 ipv6 ospf 1 area 1
+ipv6 mtu 1400
+ipv6 ospf dead-interval 40
+ipv6 ospf hello-interval 10
+ipv6 ospf neighbor FE80:db8::9
+ipv6 ospf neighbor FE80:db8::1
 !
 interface vlan 10
  ipv6 enable
@@ -400,6 +418,11 @@ interface vlan 10
  service-policy input IT_POLICY
 service-policy output IT_POLICY
 ipv6 ospf 1 area 1
+ipv6 mtu 1400
+ipv6 ospf dead-interval 40
+ipv6 ospf hello-interval 10
+ipv6 ospf neighbor FE80:db8::9
+ipv6 ospf neighbor FE80:db8::1
 !
 interface vlan 11
  ipv6 enable
@@ -412,6 +435,11 @@ interface vlan 11
  service-policy input IT_POLICY
 service-policy output IT_POLICY
 ipv6 ospf 1 area 1
+ipv6 mtu 1400
+ipv6 ospf dead-interval 40
+ipv6 ospf hello-interval 10
+ipv6 ospf neighbor FE80:db8::9
+ipv6 ospf neighbor FE80:db8::1
 !
 interface vlan 256
  ipv6 enable
@@ -426,6 +454,11 @@ interface vlan 256
  service-policy input IT_POLICY
 service-policy output IT_POLICY
 ipv6 ospf 1 area 1
+ipv6 mtu 1400
+ipv6 ospf dead-interval 40
+ipv6 ospf hello-interval 10
+ipv6 ospf neighbor FE80:db8::9
+ipv6 ospf neighbor FE80:db8::1
 !
 !
 interface port-channel 1
