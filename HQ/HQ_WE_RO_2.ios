@@ -1,0 +1,201 @@
+hostname HQ_WE_RO_2
+ipv6 unicast-routing
+clock calendar-valid
+ip domain-name ZwaardsSweatshopLogistics.nl
+!
+!no feature telnet
+!
+!EIGRP
+ipv6 router eigrp 1
+eigrp router-id 2.2.2.2
+exit
+!
+!OSPFv3
+ipv6 router ospf 1
+router-id 3.3.3.3
+exit
+!
+!DNS
+ip name-server 2001:db8:0:9::7
+!
+!NetFlow
+flow exporter FLOW-EXP-1
+destination 2001:db8::
+! mby ip broken
+export-protocol netflow-v9
+!
+flow monitor FLOW-MON-1
+!record netflow ipv6 original-input
+record netflow ipv6 original-output
+exporter FLOW-EXP-1
+!
+!SNMP
+snmp-server group group4 v3 priv
+snmp-server user Ditmoet groep4 v3 auth sha cisco priv aes 256 cisco
+!
+! QoS
+ipv6 access-list IT_VLAN_ACL
+permit ipv6 2001:db8:0:10::/64 any
+permit ipv6 2001:db8:0:110::/64 any
+exit
+class-map IT_CLASS
+match access-group name IT_VLAN_ACL
+exit
+policy-map IT_POLICY
+class IT_CLASS
+set precedence 5
+exit
+!
+! Naar MLS 1
+interface g0/0/0
+ipv6 address 2001:db8::9/126
+ipv6 eigrp 1
+ipv6 flow monitor FLOW-MON-1 input
+ipv6 flow monitor FLOW-MON-1 output
+service-policy input IT_POLICY
+service-policy output IT_POLICY
+no shutdown
+! Naar MLS 2
+interface g0/0/1
+ipv6 address 2001:db8::D/126
+ipv6 eigrp 1
+ipv6 flow monitor FLOW-MON-1 input
+ipv6 flow monitor FLOW-MON-1 output
+service-policy input IT_POLICY
+service-policy output IT_POLICY
+no shutdown
+! Naar ISP
+interface s0/1/0
+ipv6 address 2001:db8::2E/126
+ipv6 traffic-filter Wall in
+ipv6 eigrp 1
+ipv6 ospf 1 area 0
+ipv6 ospf dead-interval 40
+ipv6 ospf hello-interval 10
+ipv6 ospf network point-to-point
+ipv6 ospf priority 1
+ipv6 ospf neighbor 2001:db8::2D
+no shutdown
+!
+!Testing Loopback
+interface loopback 0
+ipv6 enable
+ipv6 address 2001:db8::17/126
+ipv6 eigrp 1
+no shutdown
+exit
+!
+!
+!ACL Firewall
+ipv6 access-list Wall
+permit ipv6 2001:db8::/48 2001:db8::/48
+permit icmp any 2001:db8::/48 echo-reply
+permit tcp any 2001:db8::/48 established
+deny ipv6 any any
+!
+!######!
+!
+! VPN
+!
+!######!
+!
+! ISAKMP Policy
+crypto isakmp policy 1
+authentication pre-share
+hash sha512
+encryption aes 256
+group 24
+exit
+!
+!ISAKMP key
+crypto isakmp key 0 zwaard address ipv6 2001:db8::32/128
+!
+!TransformSet
+crypto ipsec transform-set VPN_Transform_Set esp-aes 256 esp-sha512-hmac
+mode tunnel
+exit
+crypto ipsec security-association lifetime days 1
+!
+!VPN accesslist
+ipv6 access-list VPN_ACL 
+permit any any
+exit
+!
+!Crypto map
+crypto map ipv6 VPN_Map 11 ipsec-isakmp
+match address VPN_ACL
+set peer 2001:db8::32
+set pfs group24
+set transform-set VPN_Transform_Set
+set security-association lifetime days 1
+exit
+!
+!IPSEC profile
+crypto ipsec profile VPN_Crypto_Profile
+set transform-set VPN_Transform_Set
+exit
+!
+!ISAKMP profile
+crypto isakmp profile VPN_ISAKMP_Profile
+self-identity address ipv6
+match identity address ipv6 2001:db8::32/128
+exit
+!
+!configure Tunnel 11
+interface Tunnel11
+ipv6 enable
+ipv6 address 2001:db8::2:1/112
+ipv6 address fe80::2:1/112 link-local
+crypto map VPN_Map
+tunnel source 2001:db8::2E
+tunnel destination 2001:db8::32
+tunnel mode ipsec ipv6
+tunnel protection ipsec profile VPN_Crypto_Profile
+tunnel key 11
+ipv6 mtu 1400
+ipv6 eigrp 1
+ipv6 flow monitor FLOW-MON-1 input
+ipv6 flow monitor FLOW-MON-1 output
+service-policy input IT_POLICY
+service-policy output IT_POLICY
+exit
+!
+! Static Routes
+ipv6 route 2001:db8:0:100::/56 Tunnel11 11 name VPN
+ipv6 route ::/0 Serial0/1/0 200
+!
+!SSH
+username user priv 15 password cisco
+enable secret class
+!
+!AAA
+aaa new-model
+aaa authorization console
+aaa authentication login MGT local
+aaa authentication enable default enable
+!
+!com
+line con 0
+!login authentication default
+authorization exec default
+exec-timeout 60
+logging synchronous
+line aux 0
+stopbits 1
+line vty 0 4
+transport input ssh
+login authentication MGT
+authorization exec default
+exec-timeout 60
+logging synchronous
+exit
+!
+!RSA 
+crypto key zeroize rsa
+yes
+crypto key generate rsa
+4096
+!ssh key rsa 2048 force
+!
+end
+!

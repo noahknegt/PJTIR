@@ -1,0 +1,410 @@
+hostname BR_AL_SW_1
+!
+!
+!
+username user priv 15 password cisco
+enable secret class
+!
+ip domain-lookup
+ip domain-name hhs.nl
+ip name-server 2001:db8:0:9::7
+!
+aaa new-model
+aaa authentication login MGT local
+aaa authentication enable default enable
+aaa authorization exec default local
+aaa authorization console
+!
+sdm prefer dual-ipv4-and-ipv6 default
+!
+ip access-list extended NoIPv4
+deny ip any any
+!
+spanning-tree mode rapid-pvst
+spanning-tree portfast bpduguard default
+!
+! All VLAN IDs are their number + 1 because Default is already 1
+vlan 2
+name HR
+Vlan 3
+name Sales
+vlan 10
+name Servers
+vlan 11
+name IT
+vlan 256
+name Guests
+vlan 998
+name NATIVE
+vlan 999
+name VOID
+!
+!
+!
+!
+interface f0/1
+switchport mode trunk
+switchport trunk native vlan 998
+switchport trunk allowed vlan remove 998
+channel-protocol pagp
+channel-group 1 mode auto
+ip access-group NoIPv4 in
+no shutdown
+!
+interface f0/2
+switchport mode trunk
+switchport trunk native vlan 998
+switchport trunk allowed vlan remove 998
+channel-protocol pagp
+channel-group 1 mode auto
+ip access-group NoIPv4 in
+no shutdown
+!
+interface f0/3
+switchport mode trunk
+switchport trunk native vlan 998
+switchport trunk allowed vlan remove 998
+channel-protocol pagp
+channel-group 2 mode auto
+ip access-group NoIPv4 in
+no shutdown
+!
+interface f0/4
+switchport mode trunk
+switchport trunk native vlan 998
+switchport trunk allowed vlan remove 998
+channel-protocol pagp
+channel-group 2 mode auto
+ip access-group NoIPv4 in
+no shutdown
+!
+interface f0/5
+spanning-tree portfast
+switchport mode access
+switchport access vlan 11
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+ip access-group NoIPv4 in
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
+no shutdown
+!
+interface f0/6
+spanning-tree portfast
+switchport mode access
+switchport access vlan 2
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+ip access-group NoIPv4 in
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
+no shutdown
+!
+interface f0/7
+spanning-tree portfast
+switchport mode access
+switchport access vlan 3
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+ip access-group NoIPv4 in
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
+no shutdown
+!
+!
+interface f0/8
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+ip access-group NoIPv4 in
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
+shutdown
+!
+interface f0/9
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+ip access-group NoIPv4 in
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
+shutdown
+!
+interface f0/10
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+ip access-group NoIPv4 in
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
+shutdown
+!
+interface f0/11
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+ip access-group NoIPv4 in
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
+shutdown
+!
+interface f0/12
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+ip access-group NoIPv4 in
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
+shutdown
+!
+interface f0/13
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+ip access-group NoIPv4 in
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
+shutdown
+!
+interface f0/14
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+ip access-group NoIPv4 in
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
+shutdown
+!
+interface f0/15
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+ip access-group NoIPv4 in
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
+shutdown
+!
+interface f0/16
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+ip access-group NoIPv4 in
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
+shutdown
+!
+interface f0/17
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+ip access-group NoIPv4 in
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
+shutdown
+!
+interface f0/18
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+ip access-group NoIPv4 in
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
+shutdown
+!
+interface f0/19
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+ip access-group NoIPv4 in
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
+shutdown
+!
+interface f0/20
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+ip access-group NoIPv4 in
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
+shutdown
+!
+interface f0/21
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+ip access-group NoIPv4 in
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
+shutdown
+!
+interface f0/22
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+ip access-group NoIPv4 in
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
+shutdown
+!
+interface f0/23
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+ip access-group NoIPv4 in
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
+shutdown
+!
+interface f0/24
+switchport mode access
+switchport access vlan 999
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+ip access-group NoIPv4 in
+storm-control broadcast level 50
+storm-control multicast level 50
+storm-control unicast level 50
+storm-control action shutdown
+shutdown
+!
+int vlan 11
+ipv6 enable
+ipv6 address 2001:db8:0:110::8/64
+!
+interface port-channel 1
+ switchport mode trunk
+ switchport trunk native vlan 998
+ switchport trunk allowed vlan remove 998 
+!
+interface port-channel 2
+ switchport mode trunk
+ switchport trunk native vlan 998
+ switchport trunk allowed vlan remove 998 
+!
+!
+snmp-server group group4 v3 priv
+snmp-server user user group4 2001:db8:0:100::/64 v3 auth sha cisco priv access aes256 
+!
+!
+line con 0
+  login authentication default
+  authorization exec default
+  exec-timeout 60
+  logging synchronous
+line aux 0
+ stopbits 1
+line vty 0 4
+  transport input ssh
+  login authentication MGT
+  authorization exec default
+  exec-timeout 60
+  logging synchronous
+line vty 5 15
+  transport input ssh
+  login authentication MGT
+  authorization exec default
+  exec-timeout 60
+  logging synchronous
+!
+!
+!
+!
+crypto key zeroize rsa
+yes
+crypto key generate rsa
+4096
