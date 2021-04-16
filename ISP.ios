@@ -5,7 +5,7 @@ ipv6 cef
 clock calendar-valid
 ip domain-name ISP.nl
 !OSPF
-ipv6 router ospf 1
+ipv6 router ospf 10
 router-id 1.1.1.1
 !redistribute static
 exit
@@ -15,7 +15,7 @@ interface s0/3/0
 ipv6 enable
 ipv6 address 2001:db8::29/126
 no shutdown
-ipv6 ospf 1 area 0
+ipv6 ospf 10 area 0
 ipv6 mtu 1500 
 ipv6 ospf dead-interval 40
 ipv6 ospf hello-interval 10
@@ -28,7 +28,7 @@ interface s0/3/1
 ipv6 enable
 ipv6 address 2001:db8::2D/126
 no shutdown
-ipv6 ospf 1 area 0
+ipv6 ospf 10 area 0
 ipv6 mtu 1500 
 ipv6 ospf dead-interval 40
 ipv6 ospf hello-interval 10
@@ -41,7 +41,7 @@ interface s0/2/0
 ipv6 enable
 ipv6 address 2001:db8::31/126
 no shutdown
-ipv6 ospf 1 area 0
+ipv6 ospf 10 area 0
 ipv6 mtu 1500 
 ipv6 ospf dead-interval 40
 ipv6 ospf hello-interval 10
@@ -54,7 +54,7 @@ interface Loopback 0
 ipv6 enable
 ipv6 address 17::1/64
 no shutdown
-ipv6 ospf 1 area 0
+ipv6 ospf 10 area 0
 ipv6 mtu 1500 
 ipv6 ospf dead-interval 40
 ipv6 ospf hello-interval 10

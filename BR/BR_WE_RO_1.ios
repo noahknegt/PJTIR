@@ -3,16 +3,16 @@ ipv6 unicast-routing
 clock calendar-valid
 ip domain-name ZwaardsSweatshopLogistics.nl
 !
-!no feature telnet
-!
-!EIGRP
-ipv6 router eigrp 1
-eigrp router-id 3.3.3.3
-exit
-!
-!OSPFv3
-ipv6 router ospf 1
+!OSPFv3_ISP
+ipv6 router ospf 10
 router-id 4.4.4.4
+exit
+!OSPFv3_Local
+ipv6 router ospf 1
+router-id 0.1.0.1
+area 1 stub
+area 200 virtual-link 0.0.0.1
+area 200 virtual-link 0.0.0.2
 exit
 !
 !DNS
@@ -33,7 +33,7 @@ exporter FLOW-EXP-1
 snmp-server group groep4 v3 priv
 snmp-server user Ditmoet groep4 v3 auth sha cisco priv aes 256 cisco
 !
-! QoS
+!QoS
 ipv6 access-list IT_VLAN_ACL
 permit ipv6 2001:db8:0:10::/64 any
 permit ipv6 2001:db8:0:110::/64 any
@@ -48,9 +48,14 @@ exit
 !
 !Naar MLS
 interface g0/0/0
-ipv6 enable
+ipv6 address fe80:0:0:100::1 link-local
 ipv6 address 2001:db8:0:100::41/126
-ipv6 eigrp 1
+ipv6 ospf 1 area 1
+ipv6 ospf dead-interval 40
+ipv6 ospf hello-interval 10
+ipv6 ospf network point-to-point
+ipv6 ospf priority 200
+ipv6 ospf neighbor fe80:0:0:100::1:1
 ipv6 flow monitor FLOW-MON-1 input
 ipv6 flow monitor FLOW-MON-1 output
 service-policy input IT_POLICY
@@ -59,11 +64,9 @@ no shutdown
 !
 !Naar ISP
 interface s0/1/0
-ipv6 enable
 ipv6 address 2001:db8::32/126
 ipv6 traffic-filter Wall in
-ipv6 eigrp 1
-ipv6 ospf 1 area 0
+ipv6 ospf 10 area 0
 ipv6 ospf dead-interval 40
 ipv6 ospf hello-interval 10
 ipv6 ospf network point-to-point
@@ -72,12 +75,12 @@ ipv6 ospf neighbor 2001:db8::31
 no shutdown
 !
 !Testing loopback
-interface loopback 0
-ipv6 enable
-ipv6 address 2001:db8:0:100::1/126
-ipv6 eigrp 1
-no shutdown
-exit
+!interface loopback 0
+!ipv6 enable
+!ipv6 address 2001:db8:0:100::1/126
+!ipv6 eigrp 1
+!no shutdown
+!exit
 !
 !
 !ACL Firewall
@@ -95,31 +98,61 @@ deny ipv6 any any
 !
 crypto keyring VPN
 pre-shared-key address ipv6 2001:db8::2A/126 key Zwaard
+pre-shared-key address ipv6 2001:db8::2E/126 key Zwaard
 exit
+!
 crypto isakmp policy 10
 encryption aes 256
 authentication pre-share
 group 5
 exit
+!
 crypto isakmp key Zwaard address ipv6 2001:db8::2A/126
+crypto isakmp key Zwaard address ipv6 2001:db8::2E/126
+!
 crypto ipsec transform-set VPNset esp-aes
 mode tunnel
 exit
+!
 crypto ipsec profile VPNprofile
 set transform-set VPNset
 exit
+!
 interface Tunnel0
 no ip address
-ipv6 address fe80::2 link-local
-ipv6 address 2001:db8:0:ff00::2/126
+ipv6 enable
+ipv6 address fe80:0:0:100::ff:1 link-local
+ipv6 address 2001:db8:0:ff00::3/126
+ipv6 ospf 1 area 200
+ipv6 ospf dead-interval 40
+ipv6 ospf hello-interval 10
+ipv6 ospf network point-to-point
+ipv6 ospf priority 230
+ipv6 ospf neighbor fe80::ff:1
 tunnel source Serial0/1/0
 Tunnel mode ipsec ipv6
 tunnel destination 2001:db8::2A
-tunnel protection ipsec profile VPNprofile
+tunnel protection ipsec profile VPNprofile shared
+exit
+!
+interface Tunnel1
+no ip address
+ipv6 address fe80:0:0:100::ff:2 link-local
+ipv6 address 2001:db8:0:ff00::4/126
+ipv6 ospf 1 area 200
+ipv6 ospf dead-interval 40
+ipv6 ospf hello-interval 10
+ipv6 ospf network point-to-point
+ipv6 ospf priority 230
+ipv6 ospf neighbor fe80::ff:2
+tunnel source Serial0/1/0
+Tunnel mode ipsec ipv6
+tunnel destination 2001:db8::2E
+tunnel protection ipsec profile VPNprofile shared
 exit
 !
 !Static Routes
-ipv6 route 2001:db8::/56 Tunnel 0 10
+!ipv6 route 2001:db8::/56 Tunnel 0 10
 !ipv6 route 2001:db8::/56 Tunnel11 190 name VPN1
 ipv6 route ::/0 Serial0/1/0 200
 !
