@@ -45,7 +45,6 @@ name VOID
 interface f0/1
 switchport mode trunk
 switchport trunk native vlan 998
-switchport trunk allowed vlan remove 998
 channel-protocol pagp
 channel-group 1 mode auto
 ip access-group NoIPv4 in
@@ -54,7 +53,6 @@ no shutdown
 interface f0/2
 switchport mode trunk
 switchport trunk native vlan 998
-switchport trunk allowed vlan remove 998
 channel-protocol pagp
 channel-group 1 mode auto
 ip access-group NoIPv4 in
@@ -63,7 +61,6 @@ no shutdown
 interface f0/3
 switchport mode trunk
 switchport trunk native vlan 998
-switchport trunk allowed vlan remove 998
 channel-protocol pagp
 channel-group 2 mode auto
 ip access-group NoIPv4 in
@@ -72,7 +69,6 @@ no shutdown
 interface f0/4
 switchport mode trunk
 switchport trunk native vlan 998
-switchport trunk allowed vlan remove 998
 channel-protocol pagp
 channel-group 2 mode auto
 ip access-group NoIPv4 in
