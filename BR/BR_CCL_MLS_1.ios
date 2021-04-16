@@ -289,7 +289,7 @@ no switchport
 ipv6 enable
 ipv6 address 2001:db8:0:100::42/126
 ipv6 address FE80:0:0:100::1:1 link-local
-ipv6 ospf 1 area 0
+ipv6 ospf 1 area 1
 ipv6 ospf dead-interval 40
 ipv6 ospf hello-interval 10
 ipv6 ospf neighbor FE80:0:0:100::0:1
