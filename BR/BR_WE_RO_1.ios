@@ -10,9 +10,6 @@ exit
 !OSPFv3_Local
 ipv6 router ospf 1
 router-id 0.1.0.1
-area 1 stub
-area 200 virtual-link 0.0.0.1
-area 200 virtual-link 0.0.0.2
 exit
 !
 !DNS
@@ -123,7 +120,7 @@ no ip address
 ipv6 enable
 ipv6 address fe80:0:0:100::ff:1 link-local
 ipv6 address 2001:db8:0:ff00::3/126
-ipv6 ospf 1 area 200
+ipv6 ospf 1 area 1
 ipv6 ospf dead-interval 40
 ipv6 ospf hello-interval 10
 ipv6 ospf network point-to-point
@@ -139,7 +136,7 @@ interface Tunnel1
 no ip address
 ipv6 address fe80:0:0:100::ff:2 link-local
 ipv6 address 2001:db8:0:ff00::4/126
-ipv6 ospf 1 area 200
+ipv6 ospf 1 area 1
 ipv6 ospf dead-interval 40
 ipv6 ospf hello-interval 10
 ipv6 ospf network point-to-point
