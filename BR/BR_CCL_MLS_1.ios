@@ -82,16 +82,11 @@ spanning-tree vlan 999 root primary
 !
 ! OSPFv3
 ipv6 router ospf 1
-router-id 6.6.6.6
+router-id 1.1.0.1
+redistribute connected
 default-information originate always
 passive-interface default
-no passive-interface g1/0/23
-no passive-interface g1/0/24
-no passive-interface vlan 2
-no passive-interface vlan 3
-no passive-interface vlan 10
-no passive-interface vlan 11
-no passive-interface vlan 256
+no passive-interface f0/24
 !
 !
 !
@@ -113,14 +108,12 @@ shutdown
 interface f0/3
 switchport mode trunk
 switchport trunk native vlan 998
-switchport trunk allowed vlan remove 998
 channel-protocol pagp
 channel-group 2 mode auto
 !
 interface f0/4
 switchport mode trunk
 switchport trunk native vlan 998
-switchport trunk allowed vlan remove 998
 channel-protocol pagp
 channel-group 2 mode auto
 !
@@ -292,16 +285,15 @@ interface f0/23
  shutdown
 !
 interface f0/24
- no switchport
- ipv6 enable
- ipv6 address 2001:db8:0:100::42/126
- ipv6 address FE80:db8:0:100::42 link-local
- ipv6 ospf 1 area 2
- ipv6 mtu 1400
+no switchport
+ipv6 enable
+ipv6 address 2001:db8:0:100::42/126
+ipv6 address FE80:0:0:100::1:1 link-local
+ipv6 ospf 1 area 0
 ipv6 ospf dead-interval 40
 ipv6 ospf hello-interval 10
-ipv6 ospf neighbor FE80:db8:0:100::41
- shutdown
+ipv6 ospf neighbor FE80:0:0:100::0:1
+no shutdown
 !
 !
 !
@@ -319,11 +311,6 @@ interface vlan 2
  ipv6 traffic-filter HR-IN in
  service-policy input IT_POLICY
 service-policy output IT_POLICY
-ipv6 ospf 1 area 2
-ipv6 mtu 1400
-ipv6 ospf dead-interval 40
-ipv6 ospf hello-interval 10
-ipv6 ospf neighbor FE80:db8:0:100::41
 !
 interface vlan 3
  ipv6 enable
@@ -331,11 +318,6 @@ interface vlan 3
  ipv6 traffic-filter Sales-IN in
  service-policy input IT_POLICY
 service-policy output IT_POLICY
-ipv6 ospf 1 area 2
-ipv6 mtu 1400
-ipv6 ospf dead-interval 40
-ipv6 ospf hello-interval 10
-ipv6 ospf neighbor FE80:db8:0:100::41
 !
 interface vlan 10
  ipv6 enable
@@ -343,11 +325,6 @@ interface vlan 10
  ipv6 traffic-filter Servers-IN in
  service-policy input IT_POLICY
 service-policy output IT_POLICY
-ipv6 ospf 1 area 2
-ipv6 mtu 1400
-ipv6 ospf dead-interval 40
-ipv6 ospf hello-interval 10
-ipv6 ospf neighbor FE80:db8:0:100::41
 !
 interface vlan 11
  ipv6 enable
@@ -355,11 +332,6 @@ interface vlan 11
  ipv6 traffic-filter IT-IN in
  service-policy input IT_POLICY
 service-policy output IT_POLICY
-ipv6 ospf 1 area 2
-ipv6 mtu 1400
-ipv6 ospf dead-interval 40
-ipv6 ospf hello-interval 10
-ipv6 ospf neighbor FE80:db8:0:100::41
 !
 interface vlan 256
  ipv6 enable
@@ -367,11 +339,6 @@ interface vlan 256
  ipv6 traffic-filter Guests-IN in
  service-policy input IT_POLICY
 service-policy output IT_POLICY
-ipv6 ospf 1 area 2
-ipv6 mtu 1400
-ipv6 ospf dead-interval 40
-ipv6 ospf hello-interval 10
-ipv6 ospf neighbor FE80:db8:0:100::41
 !
 interface port-channel 1
  no switchport
@@ -471,8 +438,6 @@ line con 0
   authorization exec default
   exec-timeout 60
   logging synchronous
-line aux 0
- stopbits 1
 line vty 0 4
   transport input ssh
   login authentication MGT
