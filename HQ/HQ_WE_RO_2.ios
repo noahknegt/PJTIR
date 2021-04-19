@@ -5,12 +5,12 @@ ip domain-name ZwaardsSweatshopLogistics.n
 !
 !OSPFv3_ISP
 ipv6 router ospf 10
-router-id 3.3.3.3
+router-id 230.230.230.230
 exit
 !
 !OSPFv3_Local
 ipv6 router ospf 1
-router-id 0.0.0.2
+router-id 255.255.255.254
 exit
 !
 !DNS
@@ -51,8 +51,8 @@ ipv6 address 2001:db8::9/126
 ipv6 ospf 1 area 0
 ipv6 ospf dead-interval 40
 ipv6 ospf hello-interval 10
-ipv6 ospf network point-to-point
-ipv6 ospf priority 100
+!ipv6 ospf network point-to-point
+ipv6 ospf priority 99
 ipv6 ospf neighbor fe80::1:2
 ipv6 flow monitor FLOW-MON-1 input
 ipv6 flow monitor FLOW-MON-1 output
@@ -66,8 +66,8 @@ ipv6 address 2001:db8::D/126
 ipv6 ospf 1 area 0
 ipv6 ospf dead-interval 40
 ipv6 ospf hello-interval 10
-ipv6 ospf network point-to-point
-ipv6 ospf priority 200
+!ipv6 ospf network point-to-point
+ipv6 ospf priority 199
 ipv6 ospf neighbor fe80::1:4
 ipv6 flow monitor FLOW-MON-1 input
 ipv6 flow monitor FLOW-MON-1 output
@@ -77,12 +77,13 @@ no shutdown
 ! Naar ISP
 interface s0/1/0
 ipv6 address 2001:db8::2E/126
-ipv6 traffic-filter Wall in
+!ipv6 traffic-filter Wall in
+ipv6 mtu 1500 
 ipv6 ospf 10 area 0
 ipv6 ospf dead-interval 40
 ipv6 ospf hello-interval 10
 ipv6 ospf network point-to-point
-ipv6 ospf priority 200
+ipv6 ospf priority 180
 ipv6 ospf neighbor 2001:db8::2D
 no shutdown
 !
@@ -154,7 +155,7 @@ enable secret class
 !
 !AAA
 aaa new-model
-aaa authorization console
+aaa authorization exec default local
 aaa authentication login MGT local
 aaa authentication enable default enable
 !

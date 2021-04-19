@@ -5,11 +5,11 @@ ip domain-name ZwaardsSweatshopLogistics.nl
 !
 !OSPFv3_ISP
 ipv6 router ospf 10
-router-id 4.4.4.4
+router-id 220.220.220.220
 exit
 !OSPFv3_Local
 ipv6 router ospf 1
-router-id 0.1.0.1
+router-id 255.254.255.255
 exit
 !
 !DNS
@@ -47,10 +47,11 @@ exit
 interface g0/0/0
 ipv6 address fe80:0:0:100::1 link-local
 ipv6 address 2001:db8:0:100::41/126
+ipv6 mtu 1400
 ipv6 ospf 1 area 1
 ipv6 ospf dead-interval 40
 ipv6 ospf hello-interval 10
-ipv6 ospf network point-to-point
+!ipv6 ospf network point-to-point
 ipv6 ospf priority 200
 ipv6 ospf neighbor fe80:0:0:100::1:1
 ipv6 flow monitor FLOW-MON-1 input
@@ -62,12 +63,13 @@ no shutdown
 !Naar ISP
 interface s0/1/0
 ipv6 address 2001:db8::32/126
-ipv6 traffic-filter Wall in
+!ipv6 traffic-filter Wall in
+ipv6 mtu 1500 
 ipv6 ospf 10 area 0
 ipv6 ospf dead-interval 40
 ipv6 ospf hello-interval 10
 ipv6 ospf network point-to-point
-ipv6 ospf priority 1
+ipv6 ospf priority 170
 ipv6 ospf neighbor 2001:db8::31
 no shutdown
 !
@@ -159,7 +161,7 @@ enable secret class
 !
 !AAA
 aaa new-model
-aaa authorization console
+aaa authorization exec default local
 aaa authentication login MGT local
 aaa authentication enable default enable
 !
