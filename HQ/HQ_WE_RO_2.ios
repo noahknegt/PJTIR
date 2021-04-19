@@ -1,18 +1,16 @@
 hostname HQ_WE_RO_2
 ipv6 unicast-routing
 clock calendar-valid
-ip domain-name ZwaardsSweatshopLogistics.nl
+ip domain-name ZwaardsSweatshopLogistics.n
 !
-!no feature telnet
-!
-!EIGRP
-ipv6 router eigrp 1
-eigrp router-id 2.2.2.2
+!OSPFv3_ISP
+ipv6 router ospf 10
+router-id 230.230.230.230
 exit
 !
-!OSPFv3
+!OSPFv3_Local
 ipv6 router ospf 1
-router-id 3.3.3.3
+router-id 255.255.255.254
 exit
 !
 !DNS
@@ -48,8 +46,14 @@ exit
 !
 ! Naar MLS 1
 interface g0/0/0
+ipv6 address fe80::2 link-local
 ipv6 address 2001:db8::9/126
-ipv6 eigrp 1
+ipv6 ospf 1 area 0
+ipv6 ospf dead-interval 40
+ipv6 ospf hello-interval 10
+!ipv6 ospf network point-to-point
+ipv6 ospf priority 99
+ipv6 ospf neighbor fe80::1:2
 ipv6 flow monitor FLOW-MON-1 input
 ipv6 flow monitor FLOW-MON-1 output
 service-policy input IT_POLICY
@@ -57,8 +61,14 @@ service-policy output IT_POLICY
 no shutdown
 ! Naar MLS 2
 interface g0/0/1
+ipv6 address fe80::4 link-local
 ipv6 address 2001:db8::D/126
-ipv6 eigrp 1
+ipv6 ospf 1 area 0
+ipv6 ospf dead-interval 40
+ipv6 ospf hello-interval 10
+!ipv6 ospf network point-to-point
+ipv6 ospf priority 199
+ipv6 ospf neighbor fe80::1:4
 ipv6 flow monitor FLOW-MON-1 input
 ipv6 flow monitor FLOW-MON-1 output
 service-policy input IT_POLICY
@@ -67,23 +77,23 @@ no shutdown
 ! Naar ISP
 interface s0/1/0
 ipv6 address 2001:db8::2E/126
-ipv6 traffic-filter Wall in
-ipv6 eigrp 1
-ipv6 ospf 1 area 0
+!ipv6 traffic-filter Wall in
+ipv6 mtu 1500 
+ipv6 ospf 10 area 0
 ipv6 ospf dead-interval 40
 ipv6 ospf hello-interval 10
 ipv6 ospf network point-to-point
-ipv6 ospf priority 1
+ipv6 ospf priority 180
 ipv6 ospf neighbor 2001:db8::2D
 no shutdown
 !
 !Testing Loopback
-interface loopback 0
-ipv6 enable
-ipv6 address 2001:db8::17/126
-ipv6 eigrp 1
-no shutdown
-exit
+!interface loopback 0
+!ipv6 enable
+!ipv6 address 2001:db8::17/126
+!ipv6 eigrp 1
+!no shutdown
+!exit
 !
 !
 !ACL Firewall
@@ -99,69 +109,44 @@ deny ipv6 any any
 !
 !######!
 !
-! ISAKMP Policy
-crypto isakmp policy 1
-authentication pre-share
-hash sha512
-encryption aes 256
-group 24
+crypto keyring VPN
+pre-shared-key address ipv6 2001:db8::32/126 key Zwaard
 exit
 !
-!ISAKMP key
-crypto isakmp key 0 zwaard address ipv6 2001:db8::32/128
+crypto isakmp policy 10
+encryption aes 256
+authentication pre-share
+group 5
+exit
 !
-!TransformSet
-crypto ipsec transform-set VPN_Transform_Set esp-aes 256 esp-sha512-hmac
+crypto isakmp key Zwaard address ipv6 2001:db8::32/126
+!
+crypto ipsec transform-set VPNset esp-aes
 mode tunnel
 exit
-crypto ipsec security-association lifetime days 1
 !
-!VPN accesslist
-ipv6 access-list VPN_ACL 
-permit any any
+crypto ipsec profile VPNprofile
+set transform-set VPNset
 exit
 !
-!Crypto map
-crypto map ipv6 VPN_Map 11 ipsec-isakmp
-match address VPN_ACL
-set peer 2001:db8::32
-set pfs group24
-set transform-set VPN_Transform_Set
-set security-association lifetime days 1
-exit
-!
-!IPSEC profile
-crypto ipsec profile VPN_Crypto_Profile
-set transform-set VPN_Transform_Set
-exit
-!
-!ISAKMP profile
-crypto isakmp profile VPN_ISAKMP_Profile
-self-identity address ipv6
-match identity address ipv6 2001:db8::32/128
-exit
-!
-!configure Tunnel 11
-interface Tunnel11
-ipv6 enable
-ipv6 address 2001:db8::2:1/112
-ipv6 address fe80::2:1/112 link-local
-crypto map VPN_Map
-tunnel source 2001:db8::2E
+interface Tunnel1
+no ip address
+ipv6 address fe80::ff:2 link-local
+ipv6 address 2001:db8:0:ff00::2/126
+ipv6 ospf 1 area 1
+ipv6 ospf dead-interval 40
+ipv6 ospf hello-interval 10
+ipv6 ospf network point-to-point
+ipv6 ospf priority 230
+ipv6 ospf neighbor fe80:0:0:100::ff:2
+Tunnel mode ipsec ipv6
+tunnel source Serial0/1/0
 tunnel destination 2001:db8::32
-tunnel mode ipsec ipv6
-tunnel protection ipsec profile VPN_Crypto_Profile
-tunnel key 11
-ipv6 mtu 1400
-ipv6 eigrp 1
-ipv6 flow monitor FLOW-MON-1 input
-ipv6 flow monitor FLOW-MON-1 output
-service-policy input IT_POLICY
-service-policy output IT_POLICY
+tunnel protection ipsec profile VPNprofile
 exit
 !
 ! Static Routes
-ipv6 route 2001:db8:0:100::/56 Tunnel11 11 name VPN
+!ipv6 route 2001:db8:0:100::/56 Tunnel11 11 name VPN
 ipv6 route ::/0 Serial0/1/0 200
 !
 !SSH
@@ -170,7 +155,7 @@ enable secret class
 !
 !AAA
 aaa new-model
-aaa authorization console
+aaa authorization exec default local
 aaa authentication login MGT local
 aaa authentication enable default enable
 !
