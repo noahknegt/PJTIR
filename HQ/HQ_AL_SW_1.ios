@@ -13,7 +13,6 @@ aaa new-model
 aaa authentication login MGT local
 aaa authentication enable default enable
 aaa authorization exec default local
-aaa authorization console
 !
 sdm prefer dual-ipv4-and-ipv6 default
 !
@@ -52,8 +51,8 @@ interface f0/1
 switchport mode trunk
 switchport trunk native vlan 998
 switchport trunk allowed vlan remove 998
-channel-protocol pagp
-channel-group 1 mode auto
+channel-protocol lacp
+channel-group 1 mode active
 ip access-group NoIPv4 in
 no shutdown
 !
@@ -61,8 +60,8 @@ interface f0/2
 switchport mode trunk
 switchport trunk native vlan 998
 switchport trunk allowed vlan remove 998
-channel-protocol pagp
-channel-group 1 mode auto
+channel-protocol lacp
+channel-group 1 mode active
 ip access-group NoIPv4 in
 no shutdown
 !
@@ -70,8 +69,8 @@ interface f0/3
 switchport mode trunk
 switchport trunk native vlan 998
 switchport trunk allowed vlan remove 998
-channel-protocol pagp
-channel-group 2 mode auto
+channel-protocol lacp
+channel-group 2 mode active
 ip access-group NoIPv4 in
 no shutdown
 !
@@ -79,8 +78,8 @@ interface f0/4
 switchport mode trunk
 switchport trunk native vlan 998
 switchport trunk allowed vlan remove 998
-channel-protocol pagp
-channel-group 2 mode auto
+channel-protocol lacp
+channel-group 2 mode active
 ip access-group NoIPv4 in
 no shutdown
 !
@@ -96,7 +95,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 no shutdown
 !
 interface f0/6
@@ -111,7 +110,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 no shutdown
 !
 interface f0/7
@@ -126,7 +125,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 no shutdown
 !
 interface f0/8
@@ -140,7 +139,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/9
@@ -154,7 +153,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/10
@@ -168,7 +167,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/11
@@ -182,7 +181,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/12
@@ -196,7 +195,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/13
@@ -210,7 +209,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/14
@@ -224,7 +223,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/15
@@ -238,7 +237,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/16
@@ -252,7 +251,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/17
@@ -266,7 +265,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/18
@@ -280,7 +279,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/19
@@ -294,7 +293,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/20
@@ -308,7 +307,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/21
@@ -322,7 +321,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/22
@@ -336,7 +335,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/23
@@ -350,7 +349,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/24
@@ -364,7 +363,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 int vlan 11
@@ -382,6 +381,8 @@ interface port-channel 2
  switchport trunk allowed vlan remove 998 
 !
 !
+snmp-server group groep4 v3 priv
+snmp-server user Ditmoet groep4 v3 auth sha cisco priv aes 256 cisco
 !
 !
 line con 0
