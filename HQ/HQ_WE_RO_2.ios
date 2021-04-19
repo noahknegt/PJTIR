@@ -18,8 +18,7 @@ ip name-server 2001:db8:0:9::7
 !
 !NetFlow
 flow exporter FLOW-EXP-1
-destination 2001:db8::
-! mby ip broken
+destination 2001:db8:0:9::7
 export-protocol netflow-v9
 !
 flow monitor FLOW-MON-1
@@ -48,36 +47,38 @@ exit
 interface g0/0/0
 ipv6 address fe80::2 link-local
 ipv6 address 2001:db8::9/126
+ipv6 mtu 1400
 ipv6 ospf 1 area 0
 ipv6 ospf dead-interval 40
 ipv6 ospf hello-interval 10
-!ipv6 ospf network point-to-point
 ipv6 ospf priority 99
 ipv6 ospf neighbor fe80::1:2
 ipv6 flow monitor FLOW-MON-1 input
 ipv6 flow monitor FLOW-MON-1 output
 service-policy input IT_POLICY
 service-policy output IT_POLICY
+no ip address
 no shutdown
 ! Naar MLS 2
 interface g0/0/1
 ipv6 address fe80::4 link-local
 ipv6 address 2001:db8::D/126
+ipv6 mtu 1400
 ipv6 ospf 1 area 0
 ipv6 ospf dead-interval 40
 ipv6 ospf hello-interval 10
-!ipv6 ospf network point-to-point
 ipv6 ospf priority 199
 ipv6 ospf neighbor fe80::1:4
 ipv6 flow monitor FLOW-MON-1 input
 ipv6 flow monitor FLOW-MON-1 output
 service-policy input IT_POLICY
 service-policy output IT_POLICY
+no ip address
 no shutdown
 ! Naar ISP
 interface s0/1/0
 ipv6 address 2001:db8::2E/126
-!ipv6 traffic-filter Wall in
+ipv6 traffic-filter Wall in
 ipv6 mtu 1500 
 ipv6 ospf 10 area 0
 ipv6 ospf dead-interval 40
@@ -85,22 +86,17 @@ ipv6 ospf hello-interval 10
 ipv6 ospf network point-to-point
 ipv6 ospf priority 180
 ipv6 ospf neighbor 2001:db8::2D
+no ip address
 no shutdown
-!
-!Testing Loopback
-!interface loopback 0
-!ipv6 enable
-!ipv6 address 2001:db8::17/126
-!ipv6 eigrp 1
-!no shutdown
-!exit
-!
 !
 !ACL Firewall
 ipv6 access-list Wall
-permit ipv6 2001:db8::/48 2001:db8::/48
-permit icmp any 2001:db8::/48 echo-reply
 permit tcp any 2001:db8::/48 established
+permit ospf any any
+!permit udp any 2001:db8:0:9::7 eq 53
+permit udp 2606:4700:4700::1111 2001:db8:0:9::7 eq 53
+permit udp 2606:4700:4700::1001 2001:db8:0:9::7 eq 53
+permit icmp any 2001:db8::/48 echo-reply
 deny ipv6 any any
 !
 !######!
