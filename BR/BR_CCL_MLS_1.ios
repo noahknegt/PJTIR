@@ -21,7 +21,6 @@ aaa new-model
 aaa authentication login MGT local
 aaa authentication enable default enable
 aaa authorization exec default local
-aaa authorization console
 !
 !
 !
