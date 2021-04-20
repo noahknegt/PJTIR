@@ -65,7 +65,10 @@ name NATIVE
 vlan 999
 name VOID
 !
+exit
 !
+snmp-server group groep4 v3 priv
+snmp-server user Ditmoet groep4 v3 auth sha cisco priv aes 256 cisco
 !
 !
 !
@@ -82,9 +85,10 @@ spanning-tree vlan 999 root primary
 !
 ! OSPFv3
 ipv6 router ospf 1
-router-id 1.1.0.1
+router-id 254.254.255.255
 redistribute connected
 default-information originate always
+auto-cost reference-bandwidth 1000
 passive-interface default
 no passive-interface f0/24
 !
@@ -108,14 +112,14 @@ shutdown
 interface f0/3
 switchport mode trunk
 switchport trunk native vlan 998
-channel-protocol pagp
-channel-group 2 mode auto
+channel-protocol lacp
+channel-group 2 mode active
 !
 interface f0/4
 switchport mode trunk
 switchport trunk native vlan 998
-channel-protocol pagp
-channel-group 2 mode auto
+channel-protocol lacp
+channel-group 2 mode active
 !
 interface f0/5
 switchport mode access
@@ -123,7 +127,7 @@ switchport mode access
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- storm-control action shutdown
+ 
  shutdown
 !
 interface f0/6
@@ -132,7 +136,7 @@ interface f0/6
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- storm-control action shutdown
+ 
  shutdown
 !
 interface f0/7
@@ -141,7 +145,7 @@ interface f0/7
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- storm-control action shutdown
+ 
  shutdown
 !
 interface f0/8
@@ -150,7 +154,7 @@ interface f0/8
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- storm-control action shutdown
+ 
  shutdown
 !
 interface f0/9
@@ -159,7 +163,7 @@ interface f0/9
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- storm-control action shutdown
+ 
  shutdown
 !
 interface f0/10
@@ -168,7 +172,7 @@ interface f0/10
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- storm-control action shutdown
+ 
  shutdown
 !
 interface f0/11
@@ -177,7 +181,7 @@ interface f0/11
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- storm-control action shutdown
+ 
  shutdown
 !
 interface f0/12
@@ -186,7 +190,7 @@ interface f0/12
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- storm-control action shutdown
+ 
  shutdown
 !
 interface f0/13
@@ -195,7 +199,7 @@ interface f0/13
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- storm-control action shutdown
+ 
  shutdown
 !
 interface f0/14
@@ -204,7 +208,7 @@ interface f0/14
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- storm-control action shutdown
+ 
  shutdown
 !
 interface f0/15
@@ -213,7 +217,7 @@ interface f0/15
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- storm-control action shutdown
+ 
  shutdown
 !
 interface f0/16
@@ -222,7 +226,7 @@ interface f0/16
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- storm-control action shutdown
+ 
  shutdown
 !
 interface f0/17
@@ -231,7 +235,7 @@ interface f0/17
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- storm-control action shutdown
+ 
  shutdown
 !
 interface f0/18
@@ -240,7 +244,7 @@ interface f0/18
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- storm-control action shutdown
+ 
  shutdown
 !
 interface f0/19
@@ -249,7 +253,7 @@ interface f0/19
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- storm-control action shutdown
+ 
  shutdown
 !
 interface f0/20
@@ -258,7 +262,7 @@ interface f0/20
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- storm-control action shutdown
+ 
  shutdown
 !
 interface f0/21
@@ -267,7 +271,7 @@ interface f0/21
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- storm-control action shutdown
+ 
  shutdown
 !
 interface f0/22
@@ -276,7 +280,7 @@ interface f0/22
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- storm-control action shutdown
+ 
  shutdown
 !
 interface f0/23
