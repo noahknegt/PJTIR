@@ -7,9 +7,11 @@ ip domain-name ZwaardsSweatshopLogistics.nl
 ipv6 router ospf 10
 router-id 220.220.220.220
 exit
+!
 !OSPFv3_Local
 ipv6 router ospf 1
 router-id 255.254.255.255
+auto-cost reference-bandwidth 1000
 exit
 !
 !DNS
@@ -30,13 +32,17 @@ snmp-server group groep4 v3 priv
 snmp-server user Ditmoet groep4 v3 auth sha cisco priv aes 256 cisco
 !
 !QoS
+platform qos marker-statistics
+! show policy-map interface g0/0/0
 ipv6 access-list IT_VLAN_ACL
 permit ipv6 2001:db8:0:10::/64 any
 permit ipv6 2001:db8:0:110::/64 any
 exit
+!
 class-map IT_CLASS
 match access-group name IT_VLAN_ACL
 exit
+!
 policy-map IT_POLICY
 class IT_CLASS
 set precedence 5
@@ -47,6 +53,7 @@ interface g0/0/0
 ipv6 address fe80:0:0:100::1 link-local
 ipv6 address 2001:db8:0:100::41/126
 ipv6 mtu 1400
+ipv6 ospf mtu-ignore
 ipv6 ospf 1 area 1
 ipv6 ospf dead-interval 40
 ipv6 ospf hello-interval 10
@@ -61,7 +68,7 @@ no shutdown
 !Naar ISP
 interface s0/1/0
 ipv6 address 2001:db8::32/126
-ipv6 traffic-filter Wall in
+!ipv6 traffic-filter Wall in
 ipv6 mtu 1500 
 ipv6 ospf 10 area 0
 ipv6 ospf dead-interval 40
@@ -73,11 +80,12 @@ no shutdown
 !
 !ACL Firewall
 ipv6 access-list Wall
+permit 2001:db8::/56 any
 permit tcp any 2001:db8::/48 established
-permit ospf any any
+permit 89 any any
 !permit udp any 2001:db8:0:9::7 eq 53
-permit udp 2606:4700:4700::1111 2001:db8:0:9::7 eq 53
-permit udp 2606:4700:4700::1001 2001:db8:0:9::7 eq 53
+!permit udp 2606:4700:4700::1111 2001:db8:0:9::7 eq 53
+!permit udp 2606:4700:4700::1001 2001:db8:0:9::7 eq 53
 permit icmp any 2001:db8::/48 echo-reply
 deny ipv6 any any
 !
