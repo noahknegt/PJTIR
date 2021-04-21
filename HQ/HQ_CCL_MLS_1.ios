@@ -449,7 +449,7 @@ service-policy output IT_POLICY
 interface port-channel 1
 no switchport
 ipv6 address 2001:db8::21/126
-ipv6 address FE805 link-local
+ipv6 address FE80::5 link-local
 ipv6 ospf 1 area 0
 ipv6 mtu 1400
 ipv6 ospf dead-interval 40
