@@ -3,6 +3,7 @@ ipv6 unicast-routing
 clock calendar-valid
 ip domain-name hhs.nl
 !
+<<<<<<< HEAD
 !OSPFv3_ISP
 ipv6 router ospf 10
 router-id 230.230.230.230
@@ -14,6 +15,20 @@ router-id 255.255.255.254
 default-information originate always
 auto-cost reference-bandwidth 1000
 exit
+=======
+!no feature telnet
+!
+!
+! OSPFv3
+ipv6 router ospf 1
+router-id 2.2.2.2
+default-information originate always
+passive-interface default
+no passive-interface g0/0/0
+no passive-interface g0/0/1
+!
+!
+>>>>>>> origin/OSPF-beun
 !
 !DNS
 ip name-server 2001:db8:0:9::7

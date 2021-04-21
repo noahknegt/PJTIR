@@ -6,7 +6,7 @@ username user priv 15 password cisco
 enable secret class
 !
 ip domain-lookup
-ip domain-name hhs.nl
+ip domain-name ZwaardsSweatshopLogistics.nl
 ip name-server 2001:db8:0:9::7
 !
 aaa new-model
@@ -213,8 +213,9 @@ storm-control action trap
 shutdown
 !
 interface f0/14
+spanning-tree portfast
 switchport mode access
-switchport access vlan 999
+switchport access vlan 11
 switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky
@@ -369,6 +370,7 @@ shutdown
 int vlan 11
 ipv6 enable
 ipv6 address 2001:db8:0:10::7/64
+ipv6 nd ra dns server 2001:db8:0:9::7
 !
 interface port-channel 1
  switchport mode trunk
