@@ -117,30 +117,17 @@ ipv6 ospf mtu-ignore
  no shutdown
 !
 interface GigabitEthernet1/0/2
-! no switchport
-! ipv6 enable
-! channel-protocol lacp
-! channel-group 1 mode active
-! ipv6 ospf 1 area 0
-! ipv6 ospf dead-interval 40
-!ipv6 ospf hello-interval 10
-!ipv6 ospf priority 150
-!ipv6 ospf network point-to-point
-!ipv6 ospf mtu-ignore
- !no shutdown
- !!!
-  no switchport
- ipv6 address 2001:db8::22/126
- ipv6 address FE80::6 link-local
- ipv6 ospf 1 area 0
- ipv6 mtu 1400
+no switchport
+ipv6 enable
+channel-protocol lacp
+channel-group 1 mode active
+ipv6 ospf 1 area 0
 ipv6 ospf dead-interval 40
 ipv6 ospf hello-interval 10
 ipv6 ospf priority 150
-ipv6 ospf neighbor FE80::5
-!no ipv6 ospf network point-to-point
+ipv6 ospf network point-to-point
 ipv6 ospf mtu-ignore
-no shutdown 
+no shutdown
 !
 interface GigabitEthernet1/0/3
  switchport mode trunk
@@ -457,18 +444,18 @@ interface vlan 256
 service-policy output IT_POLICY
 !
 !
-!interface port-channel 1
-! no switchport
-! ipv6 address 2001:db8::22/126
-! ipv6 address FE80::6 link-local
-! ipv6 ospf 1 area 0
-! ipv6 mtu 1400
-!ipv6 ospf dead-interval 40
-!ipv6 ospf hello-interval 10
-!ipv6 ospf priority 150
-!ipv6 ospf neighbor FE80::5
-!no ipv6 ospf network point-to-point
-!ipv6 ospf mtu-ignore
+interface port-channel 1
+no switchport
+ipv6 address 2001:db8::22/126
+ipv6 address FE80::6 link-local
+ipv6 ospf 1 area 0
+ipv6 mtu 1400
+ipv6 ospf dead-interval 40
+ipv6 ospf hello-interval 10
+ipv6 ospf priority 150
+ipv6 ospf neighbor FE80::5
+no ipv6 ospf network point-to-point
+ipv6 ospf mtu-ignore
 !
 interface port-channel 2
  switchport mode trunk
