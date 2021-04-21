@@ -127,7 +127,7 @@ switchport mode access
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- 
+ storm-control action trap
  shutdown
 !
 interface f0/6
@@ -136,7 +136,7 @@ interface f0/6
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- 
+ storm-control action trap
  shutdown
 !
 interface f0/7
@@ -145,7 +145,7 @@ interface f0/7
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- 
+ storm-control action trap
  shutdown
 !
 interface f0/8
@@ -154,7 +154,7 @@ interface f0/8
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- 
+ storm-control action trap
  shutdown
 !
 interface f0/9
@@ -163,7 +163,7 @@ interface f0/9
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- 
+ storm-control action trap
  shutdown
 !
 interface f0/10
@@ -172,7 +172,7 @@ interface f0/10
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- 
+ storm-control action trap
  shutdown
 !
 interface f0/11
@@ -181,7 +181,7 @@ interface f0/11
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- 
+ storm-control action trap
  shutdown
 !
 interface f0/12
@@ -190,7 +190,7 @@ interface f0/12
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- 
+ storm-control action trap
  shutdown
 !
 interface f0/13
@@ -199,7 +199,7 @@ interface f0/13
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- 
+ storm-control action trap
  shutdown
 !
 interface f0/14
@@ -208,7 +208,7 @@ interface f0/14
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- 
+ storm-control action trap
  shutdown
 !
 interface f0/15
@@ -217,7 +217,7 @@ interface f0/15
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- 
+ storm-control action trap
  shutdown
 !
 interface f0/16
@@ -226,7 +226,7 @@ interface f0/16
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- 
+ storm-control action trap
  shutdown
 !
 interface f0/17
@@ -235,7 +235,7 @@ interface f0/17
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- 
+ storm-control action trap
  shutdown
 !
 interface f0/18
@@ -244,7 +244,7 @@ interface f0/18
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- 
+ storm-control action trap
  shutdown
 !
 interface f0/19
@@ -253,7 +253,7 @@ interface f0/19
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- 
+ storm-control action trap
  shutdown
 !
 interface f0/20
@@ -262,7 +262,7 @@ interface f0/20
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- 
+ storm-control action trap
  shutdown
 !
 interface f0/21
@@ -271,7 +271,7 @@ interface f0/21
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- 
+ storm-control action trap
  shutdown
 !
 interface f0/22
@@ -280,7 +280,7 @@ interface f0/22
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- 
+ storm-control action trap
  shutdown
 !
 interface f0/23

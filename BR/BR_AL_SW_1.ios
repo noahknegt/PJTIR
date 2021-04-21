@@ -89,7 +89,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 no shutdown
 !
 interface f0/6
@@ -104,7 +104,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 no shutdown
 !
 interface f0/7
@@ -119,7 +119,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 no shutdown
 !
 !
@@ -134,7 +134,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/9
@@ -148,7 +148,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/10
@@ -162,7 +162,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/11
@@ -176,7 +176,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/12
@@ -190,7 +190,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/13
@@ -204,7 +204,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/14
@@ -218,7 +218,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/15
@@ -232,7 +232,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/16
@@ -246,7 +246,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/17
@@ -260,7 +260,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/18
@@ -274,7 +274,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/19
@@ -288,7 +288,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/20
@@ -302,7 +302,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/21
@@ -316,7 +316,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/22
@@ -330,7 +330,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/23
@@ -344,7 +344,7 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 interface f0/24
@@ -358,12 +358,13 @@ ip access-group NoIPv4 in
 storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
-storm-control action shutdown
+storm-control action trap
 shutdown
 !
 int vlan 11
 ipv6 enable
 ipv6 address 2001:db8:0:110::8/64
+ipv6 nd ra dns server 2001:db8:0:9::7
 !
 interface port-channel 1
  switchport mode trunk
