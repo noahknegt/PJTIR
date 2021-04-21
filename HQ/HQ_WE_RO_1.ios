@@ -1,7 +1,7 @@
 hostname HQ_WE_RO_1
 ipv6 unicast-routing
 clock calendar-valid
-ip domain-name ZwaardsSweatshopLogistics.nl
+ip domain-name hhs.nl
 !
 !OSPFv3_ISP
 ipv6 router ospf 10
@@ -11,6 +11,7 @@ exit
 !OSPFv3_Local
 ipv6 router ospf 1
 router-id 255.255.255.255
+default-information originate always
 auto-cost reference-bandwidth 1000
 exit
 !
@@ -87,7 +88,7 @@ no shutdown
 interface s0/1/0
 ipv6 enable
 ipv6 address 2001:db8::2A/126
-!ipv6 traffic-filter Wall in
+ipv6 traffic-filter Wall in
 ipv6 mtu 1500 
 ipv6 ospf 10 area 0
 ipv6 ospf dead-interval 40
@@ -100,7 +101,7 @@ no shutdown
 !
 !ACL Firewall
 ipv6 access-list Wall
-permit 2001:db8:0:100::/56 any
+permit 2001:db8::30/126 any
 permit tcp any 2001:db8::/48 established
 permit 89 any any
 !permit udp any 2001:db8:0:9::7 eq 53
@@ -154,7 +155,6 @@ service-policy output IT_POLICY
 exit
 !
 ! Static Routes
-!ipv6 route 2001:db8:0:100::/56 Tunnel 0 10 
 ipv6 route ::/0 Serial0/1/0 200
 !
 !SSH

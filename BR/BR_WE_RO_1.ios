@@ -1,7 +1,7 @@
 hostname BR_WE_RO_1
 ipv6 unicast-routing
 clock calendar-valid
-ip domain-name ZwaardsSweatshopLogistics.nl
+ip domain-name hhs.nl
 !
 !OSPFv3_ISP
 ipv6 router ospf 10
@@ -11,6 +11,7 @@ exit
 !OSPFv3_Local
 ipv6 router ospf 1
 router-id 255.254.255.255
+default-information originate always
 auto-cost reference-bandwidth 1000
 exit
 !
@@ -51,7 +52,7 @@ exit
 !Naar MLS
 interface g0/0/0
 ipv6 address fe80:0:0:100::1 link-local
-ipv6 address 2001:db8:0:100::41/126
+ipv6 address 2001:db8:0:100::1/126
 ipv6 mtu 1400
 ipv6 ospf mtu-ignore
 ipv6 ospf 1 area 1
@@ -80,7 +81,8 @@ no shutdown
 !
 !ACL Firewall
 ipv6 access-list Wall
-permit 2001:db8::/56 any
+permit 2001:db8::2A/126 any
+permit 2001:db8::2E/126 any
 permit tcp any 2001:db8::/48 established
 permit 89 any any
 !permit udp any 2001:db8:0:9::7 eq 53
@@ -151,8 +153,6 @@ tunnel protection ipsec profile VPNprofile shared
 exit
 !
 !Static Routes
-!ipv6 route 2001:db8::/56 Tunnel 0 10
-!ipv6 route 2001:db8::/56 Tunnel11 190 name VPN1
 ipv6 route ::/0 Serial0/1/0 200
 !
 !SSH

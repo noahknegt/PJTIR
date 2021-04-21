@@ -52,18 +52,7 @@ ipv6 ospf neighbor 2001:db8::32
 ! Loopback0
 interface Loopback 0
 ipv6 enable
-ipv6 address 17::/65
-no shutdown
-ipv6 ospf 10 area 0
-ipv6 mtu 1500 
-ipv6 ospf dead-interval 40
-ipv6 ospf hello-interval 10
-ipv6 ospf priority 1
-!
-! Loopback1
-interface Loopback 1
-ipv6 enable
-ipv6 address 17::FFFF:FFFF:FFFF:FFFF/65
+ipv6 address 17::/16
 no shutdown
 ipv6 ospf 10 area 0
 ipv6 mtu 1500 
