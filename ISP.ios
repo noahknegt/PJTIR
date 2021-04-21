@@ -59,8 +59,12 @@ ipv6 mtu 1500
 ipv6 ospf dead-interval 40
 ipv6 ospf hello-interval 10
 ipv6 ospf priority 1
-!
 exit
+!
+interface Loopback 1
+ipv6 address 18::/16
+exit
+!
 !Static Routes
 ipv6 route 2001:db8::/56 2001:db8::2A 180
 ipv6 route 2001:db8::/56 2001:db8::2E 190
