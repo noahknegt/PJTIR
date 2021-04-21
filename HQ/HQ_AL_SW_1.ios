@@ -213,8 +213,9 @@ storm-control unicast level 50
 shutdown
 !
 interface f0/14
+spanning-tree portfast
 switchport mode access
-switchport access vlan 999
+switchport access vlan 11
 switchport port-security
 switchport port-security maximum 1
 switchport port-security mac-address sticky

@@ -383,7 +383,7 @@ interface GigabitEthernet1/1/4
  storm-control broadcast level 50
  storm-control multicast level 50
  storm-control unicast level 50
- 
+ storm-control action trap
  shutdown
 !
 !
@@ -455,7 +455,7 @@ interface vlan 256
  standby 256 ipv6 2001:db8:0:FF::1/64
  standby 256 priority 110
  standby 256 preempt
- standby 256 track 1 decrement 15
+ standby 256 track 1 decrement 15 
  standby 256 track 2 decrement 15
  service-policy input IT_POLICY
 service-policy output IT_POLICY
@@ -464,7 +464,7 @@ service-policy output IT_POLICY
 !interface port-channel 1
 ! no switchport
  !ipv6 address 2001:db8::21/126
- !ipv6 address FE80::5 link-local
+ !ipv6 address FE805 link-local
  !ipv6 ospf 1 area 0
  !ipv6 ospf dead-interval 40
 !ipv6 ospf hello-interval 10
@@ -478,10 +478,10 @@ interface port-channel 2
  switchport trunk native vlan 998
  switchport trunk allowed vlan remove 998 
 !
+ipv6 route ::/0 2001:db8::1
 !
 ipv6 access-list HR-IN
 permit udp any host FF02::66 eq 2029
-permit ipv6 2001:db8:0:1::/64 2001:db8:0:1::/64
 permit ipv6 2001:db8:0:1::/64 2001:db8:0:101::/64
 permit ipv6 2001:db8:0:1::/64 2001:db8:0:9::/64
 permit ipv6 2001:db8:0:9::/64 2001:db8:0:1::/64
@@ -501,7 +501,6 @@ deny ipv6 any 2001:db8:0:1::/64
 !
 ipv6 access-list Sales-IN
 permit udp any host FF02::66 eq 2029
-permit ipv6 2001:db8:0:2::/64 2001:db8:0:2::/64
 permit ipv6 2001:db8:0:2::/64 2001:db8:0:102::/64
 permit ipv6 2001:db8:0:2::/64 2001:db8:0:9::/64
 permit ipv6 2001:db8:0:9::/64 2001:db8:0:2::/64
@@ -531,7 +530,6 @@ deny ipv6 any 2001:db8:0:9::/64
 !
 ipv6 access-list IT-IN
 permit udp any host FF02::66 eq 2029
-permit ipv6 2001:db8:0:10::/64 2001:db8:0:10::/64
 permit ipv6 2001:db8:0:10::/64 2001:db8::/48
 permit icmp 2001:db8::/48 2001:db8:0:10::/64 echo-reply
 permit tcp 2001:db8::/48 2001:db8:0:10::/64 established
@@ -544,7 +542,6 @@ deny ipv6 any 2001:db8:0:10::/64
 !
 ipv6 access-list Guests-IN
 permit udp any host FF02::66 eq 2029
-deny ipv6 2001:db8:0:FF::/64 2001:db8:0:FF::/64
 permit udp 2001:db8:0:FF::/64 2001:db8:0:9::/64 eq 53
 deny ipv6 2001:db8:0:FF::/64 2001:db8::/48
 permit ipv6 2001:db8:0:FF::/64 any

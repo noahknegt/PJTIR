@@ -480,6 +480,7 @@ interface port-channel 2
  switchport mode trunk
  switchport trunk native vlan 998 
 !
+ipv6 route ::/0 2001:db8::d
 !
 ipv6 access-list HR-IN
 permit udp any host FF02::66 eq 2029
