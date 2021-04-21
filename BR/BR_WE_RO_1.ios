@@ -49,13 +49,13 @@ class IT_CLASS
 set precedence 5
 exit
 !
-!Naar MLS
+!Naar MLS 1
 interface g0/0/0
 ipv6 address fe80:0:0:100::1 link-local
 ipv6 address 2001:db8:0:100::1/126
 ipv6 mtu 1400
-ipv6 ospf mtu-ignore
 ipv6 ospf 1 area 1
+ipv6 ospf mtu-ignore
 ipv6 ospf dead-interval 40
 ipv6 ospf hello-interval 10
 ipv6 ospf priority 200
@@ -64,12 +64,14 @@ ipv6 flow monitor FLOW-MON-1 input
 ipv6 flow monitor FLOW-MON-1 output
 service-policy input IT_POLICY
 service-policy output IT_POLICY
+no ip address
 no shutdown
 !
 !Naar ISP
 interface s0/1/0
+ipv6 enable
 ipv6 address 2001:db8::32/126
-!ipv6 traffic-filter Wall in
+ipv6 traffic-filter Wall in
 ipv6 mtu 1500 
 ipv6 ospf 10 area 0
 ipv6 ospf dead-interval 40
@@ -77,6 +79,7 @@ ipv6 ospf hello-interval 10
 ipv6 ospf network point-to-point
 ipv6 ospf priority 170
 ipv6 ospf neighbor 2001:db8::31
+no ip address
 no shutdown
 !
 !ACL Firewall
@@ -85,9 +88,6 @@ permit 2001:db8::2A/126 any
 permit 2001:db8::2E/126 any
 permit tcp any 2001:db8::/48 established
 permit 89 any any
-!permit udp any 2001:db8:0:9::7 eq 53
-!permit udp 2606:4700:4700::1111 2001:db8:0:9::7 eq 53
-!permit udp 2606:4700:4700::1001 2001:db8:0:9::7 eq 53
 permit icmp any 2001:db8::/48 echo-reply
 deny ipv6 any any
 !
@@ -121,7 +121,6 @@ exit
 !
 interface Tunnel0
 no ip address
-ipv6 enable
 ipv6 address fe80:0:0:100::ff:1 link-local
 ipv6 address 2001:db8:0:ff00::3/126
 ipv6 ospf 1 area 1
@@ -130,8 +129,8 @@ ipv6 ospf hello-interval 10
 ipv6 ospf network point-to-point
 ipv6 ospf priority 230
 ipv6 ospf neighbor fe80::ff:1
-tunnel source Serial0/1/0
 Tunnel mode ipsec ipv6
+tunnel source Serial0/1/0
 tunnel destination 2001:db8::2A
 tunnel protection ipsec profile VPNprofile shared
 exit
@@ -167,6 +166,7 @@ aaa authentication enable default enable
 !
 !com
 line con 0
+!
 !login authentication default
 authorization exec default
 exec-timeout 60
@@ -186,6 +186,6 @@ crypto key zeroize rsa
 yes
 crypto key generate rsa
 4096
-!ssh key rsa 2048 force
+!
 end
 !

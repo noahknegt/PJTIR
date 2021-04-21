@@ -23,8 +23,6 @@ aaa authentication login MGT local
 aaa authentication enable default enable
 aaa authorization exec default local
 !
-!
-!
 ! QoS
 ipv6 access-list IT_VLAN_ACL
 permit ipv6 2001:db8:0:10::/64 any
@@ -37,7 +35,6 @@ policy-map IT_POLICY
 class IT_CLASS
 set precedence 5
 exit
-!
 !
 spanning-tree mode rapid-pvst
 spanning-tree portfast bpduguard default
@@ -67,10 +64,8 @@ name VOID
 !
 exit
 !
-!
 snmp-server group groep4 v3 priv
 snmp-server user Ditmoet groep4 v3 auth sha cisco priv aes 256 cisco
-!
 !
 spanning-tree vlan 2 root secondary
 spanning-tree vlan 3 root primary
@@ -80,15 +75,8 @@ spanning-tree vlan 256 root secondary
 spanning-tree vlan 998 root primary
 spanning-tree vlan 999 root secondary
 !
-!
-!
-!
-!
 diagnostic bootup level minimal
 spanning-tree extend system-id
-!
-!
-!
 !
 !
 !
@@ -325,6 +313,10 @@ interface GigabitEthernet1/0/22
  spanning-tree portfast
  switchport mode access
  switchport access vlan 10
+  storm-control broadcast level 50
+ storm-control multicast level 50
+ storm-control unicast level 50
+ storm-control action trap
  no shutdown
 !
 interface GigabitEthernet1/0/23
@@ -465,9 +457,6 @@ interface vlan 256
 service-policy output IT_POLICY
 !
 !
-!
-!
-!
 !interface port-channel 1
 ! no switchport
 ! ipv6 address 2001:db8::22/126
@@ -483,13 +472,14 @@ service-policy output IT_POLICY
 !
 interface port-channel 2
  switchport mode trunk
- switchport trunk native vlan 998 
+ switchport trunk native vlan 998
+exit
+vlan dot1q tag native
 !
 ipv6 route ::/0 2001:db8::d
 !
 ipv6 access-list HR-IN
 permit udp any host FF02::66 eq 2029
-permit ipv6 2001:db8:0:1::/64 2001:db8:0:1::/64
 permit ipv6 2001:db8:0:1::/64 2001:db8:0:101::/64
 permit ipv6 2001:db8:0:1::/64 2001:db8:0:9::/64
 permit ipv6 2001:db8:0:9::/64 2001:db8:0:1::/64
@@ -509,7 +499,6 @@ deny ipv6 any 2001:db8:0:1::/64
 !
 ipv6 access-list Sales-IN
 permit udp any host FF02::66 eq 2029
-permit ipv6 2001:db8:0:2::/64 2001:db8:0:2::/64
 permit ipv6 2001:db8:0:2::/64 2001:db8:0:102::/64
 permit ipv6 2001:db8:0:2::/64 2001:db8:0:9::/64
 permit ipv6 2001:db8:0:9::/64 2001:db8:0:2::/64
@@ -539,7 +528,6 @@ deny ipv6 any 2001:db8:0:9::/64
 !
 ipv6 access-list IT-IN
 permit udp any host FF02::66 eq 2029
-permit ipv6 2001:db8:0:10::/64 2001:db8:0:10::/64
 permit ipv6 2001:db8:0:10::/64 2001:db8::/48
 permit icmp 2001:db8::/48 2001:db8:0:10::/64 echo-reply
 permit tcp 2001:db8::/48 2001:db8:0:10::/64 established
@@ -552,7 +540,6 @@ deny ipv6 any 2001:db8:0:10::/64
 !
 ipv6 access-list Guests-IN
 permit udp any host FF02::66 eq 2029
-deny ipv6 2001:db8:0:FF::/64 2001:db8:0:FF::/64
 permit udp 2001:db8:0:FF::/64 2001:db8:0:9::/64 eq 53
 deny ipv6 2001:db8:0:FF::/64 2001:db8::/48
 permit ipv6 2001:db8:0:FF::/64 any
@@ -608,4 +595,5 @@ crypto key zeroize rsa
 yes
 crypto key generate rsa
 4096
+!
 end

@@ -25,16 +25,22 @@ spanning-tree portfast bpduguard default
 ! All VLAN IDs are their number + 1 because Default is already 1
 vlan 2
 name HR
+!
 Vlan 3
 name Sales
+!
 vlan 10
 name Servers
+!
 vlan 11
 name IT
+!
 vlan 256
 name Guests
+!
 vlan 998
 name NATIVE
+!
 vlan 999
 name VOID
 !
@@ -121,7 +127,6 @@ storm-control multicast level 50
 storm-control unicast level 50
 storm-control action trap
 no shutdown
-!
 !
 interface f0/8
 switchport mode access
