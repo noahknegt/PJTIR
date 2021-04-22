@@ -348,6 +348,7 @@ interface port-channel 1
  no switchport
  ipv6 address 2001:db8::22/126
 !
+ipv6 route ::/0 2001:db8:0:100::1 200
 !
 ipv6 access-list HR-IN
 permit udp any host FF02::66 eq 2029

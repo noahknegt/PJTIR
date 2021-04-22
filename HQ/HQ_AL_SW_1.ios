@@ -225,7 +225,7 @@ storm-control broadcast level 50
 storm-control multicast level 50
 storm-control unicast level 50
 storm-control action trap
-shutdown
+no shutdown
 !
 interface f0/15
 switchport mode access
